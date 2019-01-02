@@ -38,11 +38,7 @@
 </script>
 <script src="js/ajax/company-ajax.js">
 </script>
-<script src="js/ajax/project-ajax.js">
-</script>
 <script src="js/ajax/user-ajax.js">
-</script>
-<script src="js/ajax/tenant-ajax.js">
 </script>
 
 <!-- BEGIN Java Script for this page -->
