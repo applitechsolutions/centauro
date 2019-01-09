@@ -1,6 +1,6 @@
 <?php
 
-$conn = new mysqli('localhost', 'bd1f94ee92c842', '28XHC5QT', 'dbpropiedades');
+$conn = new mysqli('localhost', 'root', '', 'centauro');
 
 if ($conn->connect_error) {
     echo $error -> $conn->connect_error;
