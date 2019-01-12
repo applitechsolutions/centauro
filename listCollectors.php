@@ -13,7 +13,7 @@ include_once 'functions/bd_conexion.php';
             <div class="row">
                 <div class="col-xl-12">
                     <div class="breadcrumb-holder">
-                        <h1 class="main-title float-left">Empresas</h1>
+                        <h1 class="main-title float-left">Cobradores</h1>
                         <ol class="breadcrumb float-right">
                         </ol>
                         <div class="clearfix"></div>
@@ -25,8 +25,8 @@ include_once 'functions/bd_conexion.php';
                 <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <h3><i class="fa fa-building"></i> Listado general de Empresas</h3>
-                            -> Control de empresas disponibles
+                            <h3><i class="fa fa-automobile"></i> Listado general de Cobradores</h3>
+                            -> Control de cobradores disponibles
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
