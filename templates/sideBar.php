@@ -12,10 +12,10 @@
                     </a>
                 </li>
                 <li class="submenu">
-                    <a href="#"><i class="fa fa-fw fa-bank"></i><span> Empresas </span> <span class="menu-arrow"></span></a>
+                    <a href="#"><i class="fa fa-fw fa-road"></i><span> Rutas </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="listCompanys.php"><i class="fa fa-fw fa-list"></i> Ver todas</a></li>
-                        <li><a href="newCompany.php"><i class="fa fa-fw fa-plus-square"></i> Nueva Empresa</a></li>
+                        <li><a href="listRoutes.php"><i class="fa fa-fw fa-list"></i> Ver todas</a></li>
+                        <li><a href="newRoute.php"><i class="fa fa-fw fa-plus-square"></i> Nueva Ruta</a></li>
                     </ul>
                 </li>
                 <li class="submenu">

@@ -35,7 +35,7 @@ include_once 'functions/bd_conexion.php';
                     </div>
                     <div class="card fat">
                         <div class="card-body">
-                            <h4 class="card-title">Centauro<h5>Inicio de Sesión: </h5>
+                            <h4 class="card-title">Centauro Créditos<h5>Inicio de Sesión: </h5>
                             </h4>
                             <form id="form-login" name="form-login" action="BLL/logueo.php" method="POST">
 

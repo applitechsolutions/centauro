@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Centauro</title>
-    <meta name="description" content="Control de Arrendamientos en el occidente de Guatemala">
+    <title>Centauro Créditos</title>
+    <meta name="description" content="Control de créditos">
     <meta name="author" content="APPLITECH SOFTWARE SOLUTIONS">
 
     <!-- Favicon -->
@@ -25,7 +25,7 @@
 
     <!-- BEGIN CSS for this page -->
     <link rel="stylesheet" type="text/css" href="plugins\datatables\dataTables.bootstrap4.min.css" />
-    <link href="plugins/datetimepicker/css/daterangepicker.css" rel="stylesheet" /> 
+    <link href="plugins/datetimepicker/css/daterangepicker.css" rel="stylesheet" />
     <!-- END CSS for this page -->
 
 </head>
