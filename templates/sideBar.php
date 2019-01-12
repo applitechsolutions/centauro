@@ -23,6 +23,9 @@
                     <ul class="list-unstyled">
                         <li><a href="listCollectors.php"><i class="fa fa-fw fa-list"></i> Ver todos</a></li>
                         <li><a href="newCollector.php"><i class="fa fa-fw fa-plus-square"></i> Nuevo Cobrador</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
                     <a href="#"><i class="fa fa-fw fa-users"></i><span> Usuarios </span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
                         <li><a href="listUsers.php"><i class="fa fa-fw fa-list"></i> Ver todos</a></li>
