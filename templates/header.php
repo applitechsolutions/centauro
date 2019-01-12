@@ -26,6 +26,7 @@
     <!-- BEGIN CSS for this page -->
     <link rel="stylesheet" type="text/css" href="plugins\datatables\dataTables.bootstrap4.min.css" />
     <link href="plugins/datetimepicker/css/daterangepicker.css" rel="stylesheet" />
+    <link href="plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
     <!-- END CSS for this page -->
 
 </head>

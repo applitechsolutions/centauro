@@ -56,12 +56,14 @@
 </script>
 <script src="plugins/datetimepicker/js/moment.min.js"></script>
 <script src="plugins/datetimepicker/js/daterangepicker.js"></script>
+<script src="plugins/select2/js/select2.min.js"></script>
 
 <!-- AJAX DE LOS MODULOS -->
 <script src="js/ajax/collector-ajax.js"></script>
 
 <script>
     $(document).ready(function() {
+        $('.select2').select2();
         // data-tables
         $('#example1').DataTable({
             'paging': true,
