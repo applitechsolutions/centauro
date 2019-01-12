@@ -15,11 +15,7 @@ if (isset($_POST['ingresar'])) {
         if ($stmt->affected_rows) {
             $existe = $stmt->fetch();
             if ($existe) {
-<<<<<<< HEAD
-                if (password_verify($password, $pass_log)) {
-=======
                 if (password_verify($password, $pass_log) && !$state_log) {
->>>>>>> 161ac068e47e074bdc10af47da6a64378b9b7d44
                     session_start();
                     $_SESSION['idusuario'] = $id_log;
                     $_SESSION['usuario'] = $userName_log;
