@@ -8,14 +8,14 @@ if (isset($_POST['ingresar'])) {
 
     try {
         include_once '../functions/bd_conexion.php';
-        $stmt = $conn->prepare("SELECT idUsuario, nombre, apellido, usuario, contraseña, acceso, estado FROM usuario WHERE usuario = ?;");
+        $stmt = $conn->prepare("SELECT idUser, firstName, lastName, userName, passWord, permissions, state FROM user WHERE userName = ?;");
         $stmt->bind_param("s", $usuario);
         $stmt->execute();
         $stmt->bind_result($id_log, $nombre_log, $apellido_log, $usuario_log, $pass_log, $permiso_log, $estado_log);
         if ($stmt->affected_rows) {
             $existe = $stmt->fetch();
             if ($existe) {
-                if ($password == $pass_log && !$estado_log) {
+                if (password_verify($password, $pass_log)) {
                     session_start();
                     $_SESSION['idusuario'] = $id_log;
                     $_SESSION['usuario'] = $usuario_log;

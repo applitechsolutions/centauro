@@ -19,6 +19,13 @@
                     </ul>
                 </li>
                 <li class="submenu">
+                    <a href="#"><i class="fa fa-fw fa-automobile"></i><span> Cobradores </span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="listCollectors.php"><i class="fa fa-fw fa-list"></i> Ver todos</a></li>
+                        <li><a href="newCollector.php"><i class="fa fa-fw fa-plus-square"></i> Nuevo Cobrador</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
                         <a class="active" href="charts.html"><i class="fa fa-fw fa-area-chart"></i><span> Charts </span> </a>
                     </li>
 					

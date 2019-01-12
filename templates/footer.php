@@ -54,6 +54,11 @@
 </script>
 <script src="plugins/counterup/jquery.counterup.min.js">
 </script>
+<script src="plugins/datetimepicker/js/moment.min.js"></script>
+<script src="plugins/datetimepicker/js/daterangepicker.js"></script>
+
+<!-- AJAX DE LOS MODULOS -->
+<script src="js/ajax/collector-ajax.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -93,6 +98,12 @@
         $('.counter').counterUp({
             delay: 10,
             time: 600
+        });
+    });
+    $(function() {
+        $('input[name="singledatepicker"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true
         });
     });
 </script>

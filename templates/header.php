@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Control de Arrendamientos</title>
+    <title>Centauro</title>
     <meta name="description" content="Control de Arrendamientos en el occidente de Guatemala">
     <meta name="author" content="APPLITECH SOFTWARE SOLUTIONS">
 
@@ -25,6 +25,7 @@
 
     <!-- BEGIN CSS for this page -->
     <link rel="stylesheet" type="text/css" href="plugins\datatables\dataTables.bootstrap4.min.css" />
+    <link href="plugins/datetimepicker/css/daterangepicker.css" rel="stylesheet" /> 
     <!-- END CSS for this page -->
 
 </head>
