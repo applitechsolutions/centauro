@@ -41,11 +41,9 @@ include_once 'functions/bd_conexion.php';
 
                                 <div class="form-group">
                                     <label for="email">Usuario: </label>
-
                                     <input id="username" type="text" class="form-control" name="username" value=""
                                         required autofocus>
                                 </div>
-
                                 <div class="form-group">
                                     <label for="password">Contraseña</label>
                                     <input id="password" type="password" class="form-control" name="password" required
@@ -79,7 +77,7 @@ include_once 'functions/bd_conexion.php';
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/my-login.js"></script>
     <script src="js/sweetalert2.min.js"></script>
-    <script src="js/ajax/login.js"></script>
+    <script src="js/ajax/login-ajax.js"></script>
 </body>
 
 </html>
