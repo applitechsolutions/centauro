@@ -52,34 +52,35 @@ include_once 'functions/bd_conexion.php';
         echo $error;
     }
 
-    while ($company = $resultado->fetch_assoc()) {
+    while ($collector = $resultado->fetch_assoc()) {
+        $fecha = date_create($collector['birthDate']);
 ?>
                                         <tr>
                                             <td>
-                                                <?php echo $company['firstName']; ?>
+                                                <?php echo $collector['firstName']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $company['lastName']; ?>
+                                                <?php echo $collector['lastName']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $company['DPI']; ?>
+                                                <?php echo $collector['DPI']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $company['address']; ?>
+                                                <?php echo $collector['address']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $company['mobile']; ?>
+                                                <?php echo $collector['mobile']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $company['birthDate']; ?>
+                                                <?php echo date_format($fecha, 'd/m/Y'); ?>
                                             </td>
                                             <td>
-                                                <a href="#" data-id="<?php echo $company['idCollector']; ?>" data-tipo="collector"
+                                                <a href="#" data-id="<?php echo $collector['idCollector']; ?>" data-tipo="collector"
                                                     class="btn btn-outline-danger pull-right borrar_cobrador" style="
 													margin-left: 5px;"><i
                                                         class="fa fa-trash"></i>
                                                     Eliminar</a>
-                                                <a class="btn btn-outline-primary pull-right" href="editCollector.php?id=<?php echo $company['idCollector']; ?>"><i
+                                                <a class="btn btn-outline-primary pull-right" href="editCollector.php?id=<?php echo $collector['idCollector']; ?>"><i
                                                         class="fa fa-pencil"></i> Editar</a>
                                             </td>
                                         </tr>
