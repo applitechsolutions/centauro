@@ -17,7 +17,7 @@ include_once 'functions/bd_conexion.php';
             <div class="row">
                 <div class="col-xl-12">
                     <div class="breadcrumb-holder">
-                        <h1 class="main-title float-left">Empresas</h1>
+                        <h1 class="main-title float-left">Rutas</h1>
                         <ol class="breadcrumb float-right">
                         </ol>
                         <div class="clearfix"></div>
@@ -30,45 +30,53 @@ include_once 'functions/bd_conexion.php';
                 <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <h3><i class="fa fa-building"></i> Listado general de Empresas</h3>
-                            -> Control de empresas disponibles
+                            <h3><i class="fa fa-road"></i> Listado general de Rutas</h3>
+                            -> Rutas que están actualmente activas
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table id="example1" class="table table-bordered table-hover display">
                                     <thead>
                                         <tr>
+                                            <th>Código</th>
                                             <th>Nombre</th>
-                                            <th>NIT</th>
+                                            <th>Detalles</th>
+                                            <th>Cobrador</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
 try {
-    $sql = "SELECT * FROM empresa WHERE estado_eliminado = 0 ORDER BY nombre asc;";
+    $sql = "SELECT R.*, (select concat(firstName,' ',lastName) from collector where idCollector = R._idCollector) as cobrador FROM route R WHERE R.state = 0 ORDER BY R.codeRoute asc;";
     $resultado = $conn->query($sql);
 } catch (Exception $e) {
     $error = $e->getMessage();
     echo $error;
 }
 
-while ($company = $resultado->fetch_assoc()) {
+while ($route = $resultado->fetch_assoc()) {
     ?>
                                         <tr>
                                             <td>
-                                                <?php echo $company['nombre']; ?>
+                                                <?php echo $route['codeRoute']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $company['nit']; ?>
+                                                <?php echo $route['routeName']; ?>
                                             </td>
                                             <td>
-                                                <a href="#" data-id="<?php echo $company['idEmpresa']; ?>" data-tipo="company"
-                                                    class="btn btn-outline-danger pull-right borrar_empresa" style="
+                                                <?php echo $route['details']; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $route['cobrador']; ?>
+                                            </td>
+                                            <td>
+                                                <a href="#" data-id="<?php echo $route['idRoute']; ?>" data-tipo="route"
+                                                    class="btn btn-outline-danger pull-right borrar_ruta" style="
 													margin-left: 5px;"><i
                                                         class="fa fa-trash"></i>
                                                     Eliminar</a>
-                                                <a class="btn btn-outline-primary pull-right" href="editCompany.php?id=<?php echo $company['idEmpresa']; ?>"><i
+                                                <a class="btn btn-outline-primary pull-right" href="editRoute.php?id=<?php echo $route['idRoute']; ?>"><i
                                                         class="fa fa-pencil"></i> Editar</a>
                                             </td>
                                         </tr>
