@@ -36,10 +36,6 @@
 <!-- App js -->
 <script src="js/pikeadmin.js">
 </script>
-<script src="js/ajax/company-ajax.js">
-</script>
-<script src="js/ajax/user-ajax.js">
-</script>
 
 <!-- BEGIN Java Script for this page -->
 <script src="plugins\chart.js\chart.min.js">
@@ -61,9 +57,14 @@
 <!-- AJAX DE LOS MODULOS -->
 <script src="js/ajax/collector-ajax.js"></script>
 <script src="js/ajax/customer-ajax.js"></script>
+<script src="js/ajax/user-ajax.js">
+</script>
+<script src="js/ajax/route-ajax.js">
+</script>
 
 <script>
     $(document).ready(function() {
+        // elementos de la lista
         $('.select2').select2();
         // data-tables
         $('#example1').DataTable({

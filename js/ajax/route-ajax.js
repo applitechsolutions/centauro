@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('#form-empresa').on('submit', function (e) {
+    $('#form-ruta').on('submit', function (e) {
         e.preventDefault();
 
         var datos = $(this).serializeArray();
@@ -25,7 +25,7 @@ $(document).ready(function () {
                         }, 1500);
                     } else if (resultado.proceso == 'editado') {
                         setTimeout(function () {
-                            window.location.href = 'listCompanys.php';
+                            window.location.href = 'listRoutes.php';
                         }, 1500);
                     }
                 } else if (resultado.respuesta == 'vacio') {
@@ -46,7 +46,7 @@ $(document).ready(function () {
 
     });
 
-    $('.borrar_empresa').on('click', function (e) {
+    $('.borrar_ruta').on('click', function (e) {
         e.preventDefault();
 
         var id = $(this).attr('data-id');
@@ -66,7 +66,7 @@ $(document).ready(function () {
                 type: 'POST',
                 data: {
                     'id': id,
-                    'empresa': 'eliminar'
+                    'ruta': 'eliminar'
                 },
                 url: 'BLL/' + tipo + '.php',
                 success(data) {
@@ -75,15 +75,15 @@ $(document).ready(function () {
                     if (resultado.respuesta == 'exito') {
                         swal(
                             'Eliminado!',
-                            'La empresa ha sido borrada con exito.',
+                            'La ruta ha sido borrada con exito.',
                             'success'
                         )
-                        jQuery('[data-id="' + resultado.idEmpresa + '"]').parents('tr').remove();
+                        jQuery('[data-id="' + resultado.idRoute + '"]').parents('tr').remove();
                     } else {
                         swal({
                             type: 'error',
                             title: 'Error!',
-                            text: 'No se pudo eliminar la empresa.'
+                            text: 'No se pudo eliminar la ruta.'
                         })
                     }
                 }

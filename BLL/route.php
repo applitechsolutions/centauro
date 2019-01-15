@@ -1,26 +1,28 @@
 <?php
 include_once '../functions/bd_conexion.php';
 
-if ($_POST['empresa'] == 'nueva') {
+if ($_POST['ruta'] == 'nueva') {
 
-    $nombre = $_POST['nombre'];
-    $nit = $_POST['nit'];
+    $codeRoute = $_POST['codeRoute'];
+    $routeName = $_POST['routeName'];
+    $details = $_POST['details'];
+    $idCollector = $_POST['idCollector'];
 
     try {
-        if ($nombre == '' && $nit == '') {
+        if ($idCollector == '' or $routeName == '') {
             $respuesta = array(
                 'respuesta' => 'vacio',
             );
         } else {
-            $stmt = $conn->prepare("INSERT INTO empresa (nombre, nit) VALUES (?, ?)");
-            $stmt->bind_param("ss", $nombre, $nit);
+            $stmt = $conn->prepare("INSERT INTO route (codeRoute, routeName, details, _idCollector) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("sssi", $codeRoute, $routeName, $details, $idCollector);
             $stmt->execute();
             $id_registro = $stmt->insert_id;
             if ($id_registro > 0) {
                 $respuesta = array(
                     'respuesta' => 'exito',
                     'idRoute' => $id_registro,
-                    'mensaje' => 'Empresa creada correctamente!',
+                    'mensaje' => 'Ruta creada correctamente!',
                     'proceso' => 'nuevo',
                 );
 
@@ -39,26 +41,28 @@ if ($_POST['empresa'] == 'nueva') {
     die(json_encode($respuesta));
 }
 
-if ($_POST['empresa'] == 'editar') {
+if ($_POST['ruta'] == 'editar') {
 
-    $idEmpresa = $_POST['idEmpresa'];
-    $nombre = $_POST['nombre'];
-    $nit = $_POST['nit'];
+    $idRoute = $_POST['idRoute'];
+    $codeRoute = $_POST['codeRoute'];
+    $routeName = $_POST['routeName'];
+    $details = $_POST['details'];
+    $idCollector = $_POST['idCollector'];
 
     try {
-        if ($nombre == '' && $nit == '') {
+        if ($idCollector == '' or $routeName == '') {
             $respuesta = array(
                 'respuesta' => 'vacio',
             );
         } else {
-            $stmt = $conn->prepare("UPDATE empresa SET nombre = ?, nit = ? WHERE idEmpresa = ?");
-            $stmt->bind_param("ssi", $nombre, $nit, $idEmpresa);
+            $stmt = $conn->prepare("UPDATE route SET codeRoute = ?, routeName = ?, details = ?, _idCollector = ? WHERE idRoute = ?");
+            $stmt->bind_param("sssii", $codeRoute, $routeName, $details, $idCollector, $idRoute);
             $stmt->execute();
             if ($stmt->affected_rows) {
                 $respuesta = array(
                     'respuesta' => 'exito',
                     'idRoute' => $stmt->insert_id,
-                    'mensaje' => 'Empresa Editada correctamente!',
+                    'mensaje' => 'Ruta Editada correctamente!',
                     'proceso' => 'editado',
                 );
             } else {
@@ -76,23 +80,23 @@ if ($_POST['empresa'] == 'editar') {
     die(json_encode($respuesta));
 }
 
-if ($_POST['empresa'] == 'eliminar') {
+if ($_POST['ruta'] == 'eliminar') {
 
-    $idEmpresa = $_POST['id'];
+    $idRoute = $_POST['id'];
 
     try {
-        if ($idEmpresa == '') {
+        if ($idRoute == '') {
             $respuesta = array(
                 'respuesta' => 'vacio',
             );
         } else {
-            $stmt = $conn->prepare("UPDATE empresa SET estado_eliminado = 1 WHERE idEmpresa = ?");
-            $stmt->bind_param("i", $idEmpresa);
+            $stmt = $conn->prepare("UPDATE route SET state = 1 WHERE idRoute = ?");
+            $stmt->bind_param("i", $idRoute);
             $stmt->execute();
             if ($stmt->affected_rows) {
                 $respuesta = array(
                     'respuesta' => 'exito',
-                    'idEmpresa' => $idEmpresa,
+                    'idRoute' => $idRoute,
                 );
             } else {
                 $respuesta = array(
