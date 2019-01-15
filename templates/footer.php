@@ -60,6 +60,7 @@
 
 <!-- AJAX DE LOS MODULOS -->
 <script src="js/ajax/collector-ajax.js"></script>
+<script src="js/ajax/customer-ajax.js"></script>
 
 <script>
     $(document).ready(function() {
