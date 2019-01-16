@@ -57,10 +57,9 @@
 <!-- AJAX DE LOS MODULOS -->
 <script src="js/ajax/collector-ajax.js"></script>
 <script src="js/ajax/customer-ajax.js"></script>
-<script src="js/ajax/user-ajax.js">
-</script>
-<script src="js/ajax/route-ajax.js">
-</script>
+<script src="js/ajax/user-ajax.js"></script>
+<script src="js/ajax/route-ajax.js"></script>
+<script src="js/ajax/credit-ajax.js"></script>
 
 <script>
     $(document).ready(function() {

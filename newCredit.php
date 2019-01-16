@@ -38,14 +38,20 @@ include_once 'functions/bd_conexion.php';
                             <div class="card-body">
                                 <form autocomplete="off" role="form" id="form-credito" name="form-credito" method="POST"
                                     action="BLL/credit.php">
+                                    <div class="row">
+                                    <div class="form-group col-xl-6">
                                     <div class="form-group">
                                         <label for="code">No. de tarjeta<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="code" name="code" placeholder="Ingrese el número de la tarjeta"
                                             autofocus>
                                     </div>
+                                    </div>
+                                    <div class="form-group col-xl-6">
                                     <div class="form-group">
                                         <label for="dateStart">Fecha<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" name="singledatepicker" />
+                                    </div>
+                                    </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="idCollector">
@@ -81,7 +87,7 @@ try {
     $resultado = $conn->query($sql);
     while ($customer = $resultado->fetch_assoc()) {?>
                                             <option value="<?php echo $customer['idCustomer']; ?>">
-                                                <?php echo $collector['firstName'] . " " . $collector['lastName'] . ' ' . $customer['name']; ?>
+                                                <?php echo $customer['firstName'] . " " . $customer['lastName'] . ' (' . $customer['name'] . ')'; ?>
                                             </option>
                                             <?php
 }
@@ -91,12 +97,14 @@ try {
 ?>
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="total">Total Q.<span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" id="code" name="code" min="1.00" step="0.01" value="100.00" placeholder="Ingrese el total del crédito"
-                                            autofocus>
+                                    <div class="row">
+                                    <div class="form-group col-xl-6">
+                                        <div class="form-group">
+                                            <label for="total">Total Q.<span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="total" name="total" min="300.00" step="0.01" placeholder="Ingrese el total del crédito">
+                                        </div>
                                     </div>
-                                    <br>
+                                    </div>
                                     <input type="hidden" name="credito" value="nuevo">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
                                     <span class="text-danger"> *Debe llenar los campos obligatorios </span>
