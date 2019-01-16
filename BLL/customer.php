@@ -45,32 +45,38 @@
         die(json_encode($respuesta));
     }
 
-    if ($_POST['empresa'] == 'editar') {
+    if ($_POST['cliente'] == 'editar') {
 
-        $idEmpresa = $_POST['idEmpresa'];
-        $nombre = $_POST['nombre'];
-        $nit = $_POST['nit'];
+        $idCliente = $_POST['idCustomer'];
+        $dpi = $_POST['dpiCustomer'];
+        $nombre = $_POST['nameCustomer'];
+        $apellido = $_POST['lastCustomer'];
+        $direccion = $_POST['addressCustomer'];
+        $tel1 = $_POST['mob1Customer'];
+        $tel2 = $_POST['mob2Customer'];
+        $ruta = $_POST['_idRoute'];
+        $comercio = $_POST['_idCommerce'];
 
         try {
-            if ($nombre == '' && $nit == '') {
+            if ($nombre == '' || $apellido == '' || $ruta == '' || $comercio == '') {
                 $respuesta = array(
                     'respuesta' => 'vacio',
                 );
             } else {
-                $stmt = $conn->prepare("UPDATE empresa SET nombre = ?, nit = ? WHERE idEmpresa = ?");
-                $stmt->bind_param("ssi", $nombre, $nit, $idEmpresa);
+                $stmt = $conn->prepare("UPDATE customer SET _idCommerce = ?, _idRoute = ?, DPI = ?, firstName = ?, lastName = ?, address = ?, mobile = ?, mobile2 = ? WHERE idCustomer = ?");
+                $stmt->bind_param("iissssssi", $comercio, $ruta, $dpi, $nombre, $apellido, $direccion, $tel1, $tel2, $idCliente);
                 $stmt->execute();
                 if ($stmt->affected_rows) {
                     $respuesta = array(
                         'respuesta' => 'exito',
-                        'idRoute' => $stmt->insert_id,
-                        'mensaje' => 'Empresa Editada correctamente!',
+                        'idCliente' => $stmt->insert_id,
+                        'mensaje' => 'Cliente editado correctamente!',
                         'proceso' => 'editado',
                     );
                 } else {
                     $respuesta = array(
                         'respuesta' => 'error',
-                        'idRoute' => $id_registro,
+                        'idCliente' => $id_registro,
                     );
                 }
                 $stmt->close();
@@ -82,23 +88,23 @@
         die(json_encode($respuesta));
     }
 
-    if ($_POST['empresa'] == 'eliminar') {
+    if ($_POST['cliente'] == 'eliminar') {
 
-        $idEmpresa = $_POST['id'];
+        $idCliente = $_POST['id'];
 
         try {
-            if ($idEmpresa == '') {
+            if ($idCliente == '') {
                 $respuesta = array(
                     'respuesta' => 'vacio',
                 );
             } else {
-                $stmt = $conn->prepare("UPDATE empresa SET estado_eliminado = 1 WHERE idEmpresa = ?");
-                $stmt->bind_param("i", $idEmpresa);
+                $stmt = $conn->prepare("UPDATE customer SET state = 1 WHERE idCustomer = ?");
+                $stmt->bind_param("i", $idCliente);
                 $stmt->execute();
                 if ($stmt->affected_rows) {
                     $respuesta = array(
                         'respuesta' => 'exito',
-                        'idEmpresa' => $idEmpresa,
+                        'idCliente' => $idCliente,
                     );
                 } else {
                     $respuesta = array(

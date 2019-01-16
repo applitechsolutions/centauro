@@ -26,7 +26,7 @@ include_once 'functions/bd_conexion.php';
                     <div class="card mb-3">
                         <div class="card-header">
                             <h3><i class="fa fa-vcard"></i> Listado general de clientes</h3>
-                            -> Control de cobradores disponibles
+                            -> Control de clientes disponibles
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -46,20 +46,22 @@ include_once 'functions/bd_conexion.php';
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-try {
-    $sql = ("SELECT C.*, (select concat(codeRoute,' ', routeName) from route where idRoute = C._idRoute) as routeName,
-        (select concat(firstName,' ',lastName) from collector where idCollector = (select _idCollector from route where idRoute = C._idRoute)) as name
-        FROM customer C WHERE state = 0;");
+                        <!-- PHP LiSTADO -->
+                            <?php
+                                try {
+                                    $sql = ("SELECT C.*, (select concat(codeRoute,' ', routeName) FROM route WHERE idRoute = C._idRoute) as routeName, (select name FROM commerce WHERE idCommerce = C._idCommerce) as comercio,
+                                        (SELECT concat(firstName,' ',lastName) from collector where idCollector = (select _idCollector from route where idRoute = C._idRoute)) as nombre
+                                        FROM customer C WHERE state = 0;");
 
-    $resultado = $conn->query($sql);
-} catch (Exception $e) {
-    $error = $e->getMessage();
-    echo $error;
-}
+                                    $resultado = $conn->query($sql);
+                                } catch (Exception $e) {
+                                    $error = $e->getMessage();
+                                    echo $error;
+                                }
 
-while ($customer = $resultado->fetch_assoc()) {
-    ?>
+                                while ($customer = $resultado->fetch_assoc()) {
+                            ?>
+                        <!-- PHP LiSTADO -->
                                         <tr>
                                             <td>
                                                 <?php echo $customer['DPI']; ?>
@@ -80,25 +82,29 @@ while ($customer = $resultado->fetch_assoc()) {
                                                 <?php echo $customer['mobile2']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $customer['nombre'] . " " . $customer['apellido']; ?>
+                                                <?php echo $customer['nombre']; ?>
                                             </td>
                                             <td>
                                                 <?php echo $customer['routeName']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $customer['name']; ?>
+                                                <?php echo $customer['comercio']; ?>
                                             </td>
                                             <td>
-                                                <a href="#" data-id="<?php echo $customer['idCustomer']; ?>" data-tipo="collector"
-                                                    class="btn btn-outline-danger pull-right borrar_cobrador" style="
+                                                <a href="#" data-id="<?php echo $customer['idCustomer']; ?>" data-tipo="customer"
+                                                    class="btn btn-outline-danger pull-right borrar_cliente" style="
 													margin-left: 5px;"><i
                                                         class="fa fa-trash"></i>
                                                     Eliminar</a>
-                                                <a class="btn btn-outline-primary pull-right" href="editCollector.php?id=<?php echo $customer['idCustomer']; ?>"><i
+                                                <a class="btn btn-outline-primary pull-right" href="editCustomer.php?id=<?php echo $customer['idCustomer']; ?>"><i
                                                         class="fa fa-pencil"></i> Editar</a>
                                             </td>
                                         </tr>
-                                        <?php }?>
+                        <!-- FIN PHP LISTADO -->
+                            <?php 
+                                }
+                            ?>
+                        <!-- FIN PHP LISTADO -->
                                     </tbody>
                                 </table>
                             </div>

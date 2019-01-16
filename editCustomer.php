@@ -4,6 +4,12 @@ include_once 'templates/header.php';
 include_once 'templates/navBar.php';
 include_once 'templates/sideBar.php';
 include_once 'functions/bd_conexion.php';
+
+$id = $_GET['id'];
+if (!filter_var($id, FILTER_VALIDATE_INT)) {
+    die("Error!");
+}
+
 ?>
 
 <div class="content-page">
@@ -49,59 +55,79 @@ include_once 'functions/bd_conexion.php';
                 </div>
             </div>
         <!-- Modal Negocio -->
+<?php
+    $sql = "SELECT * FROM `customer` WHERE `idCustomer` = $id ";
+    $resultado = $conn->query($sql);
+    $customer = $resultado->fetch_assoc();
+?>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <div class="card mb-3">
                             <div class="card-header">
-                                <h3><i class="fa fa-vcard"></i> Crear Cliente</h3>
-                                Complete el formulario para crear un nuevo cliente.
+                                <h3><i class="fa fa-vcard"></i> Editar Cliente</h3>
+                                Complete el formulario para modificar un cliente.
                             </div>
                             <div class="card-body">
                                 <form autocomplete="off" role="form" id="form-cliente" name="form-cliente" method="POST" action="BLL/customer.php">
                                     <div class="form-group">
                                         <label for="dpiCustomer">DPI</label>
-                                        <input type="text" class="form-control" id="dpiCustomer" name="dpiCustomer" placeholder="Escriba el dpi del cliente" autofocus>
+                                        <input type="text" class="form-control" id="dpiCustomer" name="dpiCustomer" placeholder="Escriba el dpi del cliente" value="<?php echo $customer['DPI']; ?>" autofocus>
                                     </div>
                                     <div class="form-group">
                                         <label for="nameCustomer">Nombre<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="nameCustomer" name="nameCustomer" placeholder="Escriba el nombre del cliente">
+                                        <input type="text" class="form-control" id="nameCustomer" name="nameCustomer" placeholder="Escriba el nombre del cliente" value="<?php echo $customer['firstName']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="lastCustomer">Apellido<span class="text-danger">*</span></label>
-                                        <input class="form-control" id="lastCustomer" name="lastCustomer" placeholder="Escriba el apellido del cliente">
+                                        <input class="form-control" id="lastCustomer" name="lastCustomer" placeholder="Escriba el apellido del cliente" value="<?php echo $customer['lastName']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="addressCustomer">Dirección</label>
-                                        <input class="form-control" id="addressCustomer" name="addressCustomer" placeholder="Escriba la dirección del cliente">
+                                        <input class="form-control" id="addressCustomer" name="addressCustomer" placeholder="Escriba la dirección del cliente" value="<?php echo $customer['address']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="mob1Customer">Teléfono 1</label>
-                                        <input class="form-control" id="mob1Customer" name="mob1Customer" placeholder="Escriba el teléfono del cliente">
+                                        <input class="form-control" id="mob1Customer" name="mob1Customer" placeholder="Escriba el teléfono del cliente" value="<?php echo $customer['mobile']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="mob2Customer">Teléfono 2</label>
-                                        <input class="form-control" id="mob2Customer" name="mob2Customer" placeholder="Escriba el teléfono del cliente">
+                                        <input class="form-control" id="mob2Customer" name="mob2Customer" placeholder="Escriba el teléfono del cliente" value="<?php echo $customer['mobile2']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="_idRoute">Ruta<span class="text-danger">*</span></label>
                                         <select class="form-control select2" id="_idRoute" name="_idRoute">
                                             <option value="" selected>Seleccione una ruta</option>
-<?php
-    try {
-        $sql = "SELECT idRoute, codeRoute, routeName FROM route WHERE state = 0 ORDER BY routeName ASC";
-        $resultado = $conn->query($sql);
-        while ($route = $resultado->fetch_assoc()) {
-?>
-                                            <option value="<?php echo $route['idRoute']; ?>">
-                                                <?php echo $route['codeRoute']. " ".$route['routeName']; ?>
+                        <!-- PHP LISTAR RUTA ACTUAL -->
+                            <?php
+                                try {
+                                    $ruta_actual =  $customer['_idRoute'];
+                                    $sql = "SELECT * FROM route";
+                                    $resultado = $conn->query($sql);
+                                    while ($ruta_customer = $resultado->fetch_assoc()) {
+                                        if ($ruta_customer['idRoute'] == $ruta_actual) {
+                            ?>
+                        <!-- PHP LISTAR RUTA ACTUAL -->
+                                            <option value="<?php echo $ruta_customer['idRoute']; ?>" selected>
+                                            <?php echo $ruta_customer['routeName']; ?>
                                             </option>
-<?php
-        }
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
-    }
-?>
+                                <!-- PHP ELSE -->
+                                    <?php 
+                                        } else {
+                                    ?>
+                                <!-- PHP ELSE -->
+                                            <option value="<?php echo $ruta_customer['idRoute']; ?>">
+                                            <?php echo $ruta_customer['routeName']; ?>
+                                            </option>
+                        <!-- FINAL PHP -->
+                            <?php
+                                        }
+                                    }
+                                }catch (Exception $e) {
+                                    echo "Error: " . $e->getMessage();
+                                }
+                            ?>
+                        <!-- FINAL PHP -->
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -109,25 +135,41 @@ include_once 'functions/bd_conexion.php';
                                         <button type="button" class="btn btn-link bg-teal-active btn-xs" data-target="#ModalCommerce" data-toggle="modal"><i class="fa fa-plus"></i></button>
                                         <select class="form-control select2" id="_idCommerce" name="_idCommerce">
                                             <option value="" selected>Seleccione un negocio</option>
-<?php
-    try {
-        $sql = "SELECT idCommerce, name FROM commerce ORDER BY name ASC";
-        $resultado = $conn->query($sql);
-        while ($commerce = $resultado->fetch_assoc()) {
-?>
-                                            <option value="<?php echo $commerce['idCommerce']; ?>">
-                                                <?php echo $commerce['name']; ?>
+                        <!-- PHP LISTAR NEGOCIO ACTUAL -->
+                            <?php
+                                try {
+                                    $negocio_actual =  $customer['_idCommerce'];
+                                    $sql = "SELECT * FROM commerce";
+                                    $resultado = $conn->query($sql);
+                                    while ($negocio_customer = $resultado->fetch_assoc()) {
+                                        if ($negocio_customer['idCommerce'] == $negocio_actual) {
+                            ?>
+                        <!-- PHP LISTAR NEGOCIO ACTUAL -->
+                                            <option value="<?php echo $negocio_customer['idCommerce']; ?>" selected>
+                                            <?php echo $negocio_customer['name']; ?>
                                             </option>
-<?php
-        }
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
-    }
-?>
+                                <!-- PHP ELSE -->
+                                    <?php 
+                                        } else {
+                                    ?>
+                                <!-- PHP ELSE -->
+                                            <option value="<?php echo $negocio_customer['idCommerce']; ?>">
+                                            <?php echo $negocio_customer['name']; ?>
+                                            </option>
+                        <!-- FINAL PHP -->
+                            <?php
+                                        }
+                                    }
+                                }catch (Exception $e) {
+                                    echo "Error: " . $e->getMessage();
+                                }
+                            ?>
+                        <!-- FINAL PHP -->
                                         </select>
                                     </div>
                                     <br>
-                                    <input type="hidden" name="cliente" value="nuevo">
+                                    <input type="hidden" name="idCustomer" value="<?php echo $id; ?>">
+                                    <input type="hidden" name="cliente" value="editar">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
                                     <span class="text-danger"> *Debe llenar los campos obligatorios </span>
                                 </form>

@@ -58,7 +58,7 @@ if ($_POST['cobrador'] == 'editar') {
     $fecha_formateada = date('Y-m-d', strtotime($bday));
 
     try {
-        if ($nombre == '' && $apellido == '' && $dpi == '') {
+        if ($nombre == '' || $apellido == '' || $dpi == '') {
             $respuesta = array(
                 'respuesta' => 'vacio',
             );
