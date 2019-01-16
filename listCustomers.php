@@ -46,18 +46,20 @@ include_once 'functions/bd_conexion.php';
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php
-    try {
-        
-        
-        $resultado = $conn->query($sql);
-    } catch (Exception $e) {
-        $error = $e->getMessage();
-        echo $error;
-    }
+                                        <?php
+try {
+    $sql = ("SELECT C.*, (select concat(codeRoute,' ', routeName) from route where idRoute = C._idRoute) as routeName,
+        (select concat(firstName,' ',lastName) from collector where idCollector = (select _idCollector from route where idRoute = C._idRoute)) as name
+        FROM customer C WHERE state = 0;");
 
-    while ($customer = $resultado->fetch_assoc()) {
-?>
+    $resultado = $conn->query($sql);
+} catch (Exception $e) {
+    $error = $e->getMessage();
+    echo $error;
+}
+
+while ($customer = $resultado->fetch_assoc()) {
+    ?>
                                         <tr>
                                             <td>
                                                 <?php echo $customer['DPI']; ?>
