@@ -17,25 +17,48 @@ if ($_POST['credito'] == 'nuevo') {
                 'respuesta' => 'vacio',
             );
         } else {
+            mysqli_autocommit($conn, false);
+            $query_success = true;
+
             $stmt = $conn->prepare("INSERT INTO credit (_idCustomer, _idCollector, code, dateStart, total) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("iissd", $idCustomer, $idCollector, $code, $dateStart, $total);
-            $stmt->execute();
+            if (!mysqli_stmt_execute($stmt)) {
+                $query_success = false;
+            }
             $id_registro = $stmt->insert_id;
-            if ($id_registro > 0) {
-                $respuesta = array(
-                    'respuesta' => 'exito',
-                    'idCredit' => $id_registro,
-                    'mensaje' => 'Crédito creado correctamente!',
-                    'proceso' => 'nuevo',
-                );
+            mysqli_stmt_close($stmt);
 
+            if ($id_registro > 0) {
+                $bal = 0;
+                //Insert BALANCE
+                $stmt = $conn->prepare("INSERT INTO balance(_idCredit, date, balpay, amount, balance) VALUES (?, ?, ?, ?, ?)");
+                $stmt->bind_param("isidd", $id_registro, $dateStart, $bal, $total, $total);
+                if (!mysqli_stmt_execute($stmt)) {
+                    $query_success = false;
+                }
+                mysqli_stmt_close($stmt);
+
+                if ($query_success) {
+                    mysqli_commit($conn);
+                    $respuesta = array(
+                        'respuesta' => 'exito',
+                        'idCredit' => $id_registro,
+                        'mensaje' => 'Crédito creado correctamente!',
+                        'proceso' => 'nuevo',
+                    );
+                } else {
+                    mysqli_rollback($conn);
+                    $respuesta = array(
+                        'respuesta' => 'error',
+                        'idCredit' => $id_registro,
+                    );
+                }
             } else {
                 $respuesta = array(
                     'respuesta' => 'error',
                     'idCredit' => $id_registro,
                 );
             }
-            $stmt->close();
             $conn->close();
         }
     } catch (Exception $e) {
