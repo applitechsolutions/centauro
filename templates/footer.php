@@ -62,56 +62,56 @@
 <script src="js/ajax/credit-ajax.js"></script>
 
 <script>
-    $(document).ready(function() {
-        // elementos de la lista
-        $('.select2').select2();
-        // data-tables
-        $('#example1').DataTable({
-            'paging': true,
-            'lengthChange': true,
-            "aLengthMenu": [
-                [10, 25, 50, -1],
-                [10, 25, 50, "Todos"]
-            ],
-            'searching': true,
-            'ordering': true,
-            'info': true,
-            'autoWidth': true,
-            'language': {
-                paginate: {
-                    next: 'Siguiente',
-                    previous: 'Anterior',
-                    first: 'Primero',
-                    last: 'Último'
-                },
-                info: 'Mostrando _START_-_END_ de _TOTAL_ registros',
-                empyTable: 'No hay registros',
-                infoEmpty: '0 registros',
-                lengthChange: 'Mostrar ',
-                infoFiltered: "(Filtrado de _MAX_ total de registros)",
-                lengthMenu: "Mostrar _MENU_ registros",
-                loadingRecords: "Cargando...",
-                processing: "Procesando...",
-                search: "Buscar:",
-                zeroRecords: "Sin resultados encontrados"
-            }
-        });
+$(document).ready(function() {
+    // elementos de la lista
+    $('.select2').select2();
+    // data-tables
+    $('#example1').DataTable({
+        'paging': true,
+        'lengthChange': true,
+        "aLengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
+        'searching': true,
+        'ordering': true,
+        'info': true,
+        'autoWidth': true,
+        'language': {
+            paginate: {
+                next: 'Siguiente',
+                previous: 'Anterior',
+                first: 'Primero',
+                last: 'Último'
+            },
+            info: 'Mostrando _START_-_END_ de _TOTAL_ registros',
+            empyTable: 'No hay registros',
+            infoEmpty: '0 registros',
+            lengthChange: 'Mostrar ',
+            infoFiltered: "(Filtrado de _MAX_ total de registros)",
+            lengthMenu: "Mostrar _MENU_ registros",
+            loadingRecords: "Cargando...",
+            processing: "Procesando...",
+            search: "Buscar:",
+            zeroRecords: "Sin resultados encontrados"
+        }
+    });
 
-        // counter-up
-        $('.counter').counterUp({
-            delay: 10,
-            time: 600
-        });
+    // counter-up
+    $('.counter').counterUp({
+        delay: 10,
+        time: 600
     });
-    $(function() {
-        $('input[name="singledatepicker"]').daterangepicker({
-            singleDatePicker: true,
-            showDropdowns: true,
-            locale: {
-                format: 'DD/MM/YYYY'
-            }
-        });
+});
+$(function() {
+    $('input[name="singledatepicker"], input[name="singledatepicker2"]').daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        locale: {
+            format: 'DD/MM/YYYY'
+        }
     });
+});
 </script>
 <!-- END Java Script for this page -->
 
