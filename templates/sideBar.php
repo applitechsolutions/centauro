@@ -20,7 +20,7 @@
                     <ul class="list-unstyled">
                         <li><a href="listCredits.php"><i class="fa fa-fw fa-list"></i> Ver todos</a></li>
                         <li><a href="newCredit.php"><i class="fa fa-fw fa-handshake-o"></i> Nuevo Crédito</a></li>
-                        <li><a href="newCredit-history.php"><i class="fa fa-fw fa-history"></i> Ingresar Existente</a></li>
+                        <li><a href="newhistory.php"><i class="fa fa-fw fa-history"></i> Ingresar Existente</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
