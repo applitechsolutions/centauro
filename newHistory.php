@@ -120,7 +120,7 @@ try {
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="date">Fecha<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="singledatepicker2" />
+                                        <input type="text" id="fechapago" class="form-control" name="singledatepicker2" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -131,7 +131,7 @@ try {
                                     </div>
                                 </div>
                             </div>
-                            <a role="button" href="#" class="btn btn-success btn-sm agregar_referencia"><span class="btn-label"><i
+                            <a role="button" href="#" class="btn btn-success btn-sm agregar_pago"><span class="btn-label"><i
                                         class="fa fa-check"></i></span>Agregar</a>
 
                             <table id="agregados" class="table table-responsive-xl table-bordered">
