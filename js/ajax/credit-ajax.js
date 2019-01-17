@@ -2,6 +2,8 @@ $(document).ready(function () {
 
     var id_pago = 0;
 
+    //mǎ lóng gǎo zá le;
+
     $('#form-credito').on('submit', function (e) {
         e.preventDefault();
 
