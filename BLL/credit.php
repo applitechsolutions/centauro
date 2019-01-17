@@ -112,7 +112,7 @@ if ($_POST['credito'] == 'nuevo-historial') {
                     //Insert PAGOS
                     $balance = $balance - $pago->amount;
                     $stmt = $conn->prepare("INSERT INTO balance (_idCredit, date, balpay, amount, balance) VALUES (?, ?, ?, ?, ?)");
-                    $stmt->bind_param("isidd", $id_registro, $pago->amount, $pay, $pago->amount, $balance);
+                    $stmt->bind_param("isidd", $id_registro, $pago->date, $pay, $pago->amount, $balance);
                     if (!mysqli_stmt_execute($stmt)) {
                         $query_success = false;
                     }
