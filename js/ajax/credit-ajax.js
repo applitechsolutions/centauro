@@ -90,8 +90,7 @@ $(document).ready(function () {
                 nuevaFila += "</tr>";
                 $("#agregados").append(nuevaFila);
                 id_pago = id_pago + 1;
-                $('#monto').val("");
-                
+                $('#monto').val(""); 
             } else {
                 swal({
                     type: 'warning',
@@ -104,6 +103,7 @@ $(document).ready(function () {
 
     $('#form-historial').on('submit', function (e) {
         e.preventDefault();
+        tabla();
 
         swal({
             title: 'Guardando crédito...'
@@ -116,54 +116,55 @@ $(document).ready(function () {
 
         var json = "";
         var i;
+
         for (i = 0; i < fechapago.length; i++) {
             json += ',{"fechapago":"' + fechapago[i].value + '"'
             json += ',"monto":"' + monto[i].value + '"'
 
-        obj = JSON.parse('{ "pagos" : [' + json.substr(1) + ']}');
-        datos.push({ name: 'json', value: JSON.stringify(obj) });
+            obj = JSON.parse('{ "pagos" : [' + json.substr(1) + ']}');
+            datos.push({ name: 'json', value: JSON.stringify(obj) });
 
-        $.ajax({
-            type: $(this).attr('method'),
-            data: datos,
-            url: $(this).attr('action'),
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                var resultado = data;
-                swal.close();
-                if (resultado.respuesta == 'exito') {
-                    swal(
-                        'Exito!',
-                        '¡' + resultado.mensaje,
-                        'success'
-                    )
-                    if (resultado.proceso == 'nuevo') {
-                        setTimeout(function () {
-                            location.reload();
-                        }, 1500);
-                    } else if (resultado.proceso == 'editado') {
-                        setTimeout(function () {
-                            //window.location.href = 'listTenants.php';
-                        }, 1500);
+            $.ajax({
+                type: $(this).attr('method'),
+                data: datos,
+                url: $(this).attr('action'),
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    var resultado = data;
+                    swal.close();
+                    if (resultado.respuesta == 'exito') {
+                        swal(
+                            'Exito!',
+                            '¡' + resultado.mensaje,
+                            'success'
+                        )
+                        if (resultado.proceso == 'nuevo') {
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500);
+                        } else if (resultado.proceso == 'editado') {
+                            setTimeout(function () {
+                                //window.location.href = 'listTenants.php';
+                            }, 1500);
+                        }
+                    } else if (resultado.respuesta == 'vacio') {
+                        swal({
+                            type: 'warning',
+                            title: 'Oops...',
+                            text: 'Debe llenar todos los campos',
+                        })
+                    } else if (resultado.respuesta == 'error') {
+                        swal({
+                            type: 'error',
+                            title: 'Error',
+                            text: 'No se pudo guardar en la base de datos',
+                        })
                     }
-                } else if (resultado.respuesta == 'vacio') {
-                    swal({
-                        type: 'warning',
-                        title: 'Oops...',
-                        text: 'Debe llenar todos los campos',
-                    })
-                } else if (resultado.respuesta == 'error') {
-                    swal({
-                        type: 'error',
-                        title: 'Error',
-                        text: 'No se pudo guardar en la base de datos',
-                    })
                 }
-            }
-        })
+            })
+        }
     });
-
 });
 
 function eliminar(id) {

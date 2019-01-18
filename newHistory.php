@@ -133,8 +133,6 @@ try {
                             </div>
                             <a role="button" href="#" class="btn btn-success btn-sm agregar_pago"><span class="btn-label"><i
                                         class="fa fa-check"></i></span>Agregar</a>
-                            <a role="button" href="#" class="btn btn-info btn-sm pull-right" onclick="tabla();"><span class="btn-label"><i
-                                        class="fa fa-undo"></i></span>Ordenar</a>
                             <table id="example2" class="table table-responsive-xl table-bordered">
                                 <thead>
                                     <tr>
