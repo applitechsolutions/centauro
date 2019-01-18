@@ -35,7 +35,7 @@ include_once 'functions/bd_conexion.php';
                         </div>
 
                         <div class="card-body">
-                            <form autocomplete="off" role="form" id="form-credito" name="form-credito" method="POST"
+                            <form autocomplete="off" role="form" id="form-historial" name="form-historial" method="POST"
                                 action="BLL/credit.php">
                                 <div class="row">
                                     <div class="form-group col-xl-6">

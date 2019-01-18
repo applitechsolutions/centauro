@@ -2,8 +2,6 @@ $(document).ready(function () {
 
     var id_pago = 0;
 
-    //mǎ lóng gǎo zá le;
-
     $('#form-credito').on('submit', function (e) {
         e.preventDefault();
 
@@ -104,27 +102,25 @@ $(document).ready(function () {
         } 
     });
 
-    $('#form-inquilino').on('submit', function (e) {
+    $('#form-historial').on('submit', function (e) {
         e.preventDefault();
 
         swal({
-            title: 'Guardando inquilino...'
+            title: 'Guardando crédito...'
         });
         swal.showLoading();
         var datos = $(this).serializeArray();
 
-        var nombreR = document.getElementsByClassName("nombreR_class");
-        var direccionR = document.getElementsByClassName("direccionR_class");
-        var telR = document.getElementsByClassName("telR_class");
+        var fechapago = document.getElementsByClassName("fechapago");
+        var monto = document.getElementsByClassName("monto");
 
         var json = "";
         var i;
-        for (i = 0; i < nombreR.length; i++) {
-            json += ',{"nombre":"' + nombreR[i].value + '"'
-            json += ',"direccion":"' + direccionR[i].value + '"'
-            json += ',"tel":"' + telR[i].value + '"}'
-        }
-        obj = JSON.parse('{ "referencias" : [' + json.substr(1) + ']}');
+        for (i = 0; i < fechapago.length; i++) {
+            json += ',{"fechapago":"' + fechapago[i].value + '"'
+            json += ',"monto":"' + monto[i].value + '"'
+
+        obj = JSON.parse('{ "pagos" : [' + json.substr(1) + ']}');
         datos.push({ name: 'json', value: JSON.stringify(obj) });
 
         $.ajax({
@@ -148,7 +144,7 @@ $(document).ready(function () {
                         }, 1500);
                     } else if (resultado.proceso == 'editado') {
                         setTimeout(function () {
-                            window.location.href = 'listTenants.php';
+                            //window.location.href = 'listTenants.php';
                         }, 1500);
                     }
                 } else if (resultado.respuesta == 'vacio') {
