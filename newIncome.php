@@ -44,7 +44,9 @@ include_once 'functions/bd_conexion.php';
                                         <input type="text" id="date" class="form-control" name="singledatepicker2" />
                                     </div>
                                 </div>
-                                <div class="col-md-4 mb-3">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
                                     <div class="form-group">
                                         <label for="code">
                                             No. de tarjeta <span class="text-danger">*</span>
@@ -52,7 +54,7 @@ include_once 'functions/bd_conexion.php';
                                         <select class="form-control select2" id="code" name="code">
                                             <?php
 try {
-    $sql = "SELECT idCredit, code, (select firstName, lastName from customer where idCustomer = _idCustomer) as customer FROM  credit WHERE state = 0 AND cancel = 0 ORDER BY code ASC";
+    $sql = "SELECT idCredit, code, (select concat(firstName, ' ', lastName) from customer where idCustomer = _idCustomer) as customer FROM credit WHERE state = 0 AND cancel = 0 ORDER BY code ASC";
     $resultado = $conn->query($sql);
     while ($credit = $resultado->fetch_assoc()) {?>
                                             <option value="<?php echo $credit['idCredit']; ?>">
