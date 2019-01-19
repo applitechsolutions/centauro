@@ -41,20 +41,38 @@ include_once 'functions/bd_conexion.php';
                                 <div class="col-md-4 mb-3">
                                     <div class="form-group">
                                         <label for="date">Fecha<span class="text-danger">*</span></label>
-                                        <input type="text" id="fechapago" class="form-control" name="singledatepicker2" />
+                                        <input type="text" id="date" class="form-control" name="singledatepicker2" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8 mb-3">
+                                    <div class="form-group">
+                                        <label for="code">
+                                            No. de tarjeta <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-control select2" id="code" name="code">
+                                            <?php
+try {
+    $sql = "SELECT idCredit, code, (select concat(firstName, ' ', lastName) from customer where idCustomer = _idCustomer) as customer FROM credit WHERE state = 0 AND cancel = 0 ORDER BY code ASC";
+    $resultado = $conn->query($sql);
+    while ($credit = $resultado->fetch_assoc()) {?>
+                                            <option value="<?php echo $credit['idCredit']; ?>">
+                                                <?php echo $credit['code'] . " " . $credit['customer']; ?>
+                                            </option>
+                                            <?php
+}
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <div class="form-group">
-                                        <label for="code">No. de tarjeta<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="code" name="code" placeholder="No. de tarjeta"
-                                            autofocus>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="form-group">
-                                        <label for="monto">Monto Q.<span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" id="monto" name="monto" min="1.00"
+                                        <label for="amoint">Monto Q.<span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" id="amount" name="amount" min="1.00"
                                             step="0.01" placeholder="Monto del pago">
                                     </div>
                                 </div>
@@ -90,7 +108,7 @@ include_once 'functions/bd_conexion.php';
                                     <div class="card-box noradius noborder bg-success">
                                         <i class="fa fa-money float-right text-white"></i>
                                         <h6 class="text-white text-uppercase m-b-20">Ingresos</h6>
-                                        <h1 class="m-b-20 text-white counter">810.50</h1>
+                                        <h1 class="m-b-20 text-white counter">0.00</h1>
                                         <span class="text-white">En Quetzales</span>
                                     </div>
                                 </div>
@@ -98,7 +116,7 @@ include_once 'functions/bd_conexion.php';
                                     <div class="card-box noradius noborder bg-dark">
                                         <i class="fa fa-line-chart float-right text-white"></i>
                                         <h6 class="text-white text-uppercase m-b-20">Pagos</h6>
-                                        <h1 class="m-b-20 text-white counter">157</h1>
+                                        <h1 class="m-b-20 text-white counter">0</h1>
                                         <span class="text-white">Ingresados</span>
                                     </div>
                                 </div>
