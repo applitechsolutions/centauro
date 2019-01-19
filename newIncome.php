@@ -77,7 +77,7 @@ try {
                                     </div>
                                 </div>
                             </div>
-                            <a role="button" href="#" class="btn btn-success btn-sm agregar_pago"><span class="btn-label"><i
+                            <a role="button" href="#" class="btn btn-success btn-sm agregar_diario"><span class="btn-label"><i
                                         class="fa fa-check"></i></span>Agregar</a>
                             <table id="example2" class="table table-responsive-xl table-bordered">
                                 <thead>
