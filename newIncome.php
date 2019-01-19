@@ -88,7 +88,7 @@ try {
                                         <th scope="col">Quitar</th>
                                     </tr>
                                 </thead>
-                                <tbody id="agregados">
+                                <tbody id="pagos">
 
                                 </tbody>
                             </table>
