@@ -90,7 +90,7 @@ include_once 'functions/bd_conexion.php';
                                     <div class="card-box noradius noborder bg-success">
                                         <i class="fa fa-money float-right text-white"></i>
                                         <h6 class="text-white text-uppercase m-b-20">Ingresos</h6>
-                                        <h1 class="m-b-20 text-white counter">800.50</h1>
+                                        <h1 class="m-b-20 text-white counter">810.50</h1>
                                         <span class="text-white">En Quetzales</span>
                                     </div>
                                 </div>
