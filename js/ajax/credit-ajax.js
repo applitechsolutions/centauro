@@ -82,7 +82,8 @@ $(document).ready(function () {
     });
 
     $('#monto').on('keypress', function (e) {
-       if (e.which == 13) {
+        var k = e.keyCode || e.which;
+            if (k == 13) {
             var fechapago = $('#fechapago').val();
             var monto = $('#monto').val();
             console.log(id_pago);
@@ -103,6 +104,7 @@ $(document).ready(function () {
                     text: 'Los campos de la referencia están vacíos.',
                 })
             }
+            return false;
         } 
     });
 
@@ -116,18 +118,21 @@ $(document).ready(function () {
         swal.showLoading();
         var datos = $(this).serializeArray();
 
-        var fechapago = document.getElementsByClassName("fechapago");
-        var monto = document.getElementsByClassName("monto");
+        var fechapago = document.getElementsByClassName("fechaP_class");
+        var monto = document.getElementsByClassName("montoP_class");
 
         var json = "";
         var i;
 
-        for (i = 0; i < fechapago.length; i++) {
-            json += ',{"fechapago":"' + fechapago[i].value + '"'
-            json += ',"monto":"' + monto[i].value + '"'
 
-            obj = JSON.parse('{ "pagos" : [' + json.substr(1) + ']}');
+        for (i = 0; i < fechapago.length; i++) {
+            json += ',{"date":"' + fechapago[i].value + '"'
+            json += ',"amount":"' + monto[i].value + '"}'
+        }
+            obj = JSON.parse('{ "pago" : [' + json.substr(1) + ']}');
             datos.push({ name: 'json', value: JSON.stringify(obj) });
+
+            console.log(datos);
 
             $.ajax({
                 type: $(this).attr('method'),
@@ -168,7 +173,6 @@ $(document).ready(function () {
                     }
                 }
             })
-        }
     });
 });
 

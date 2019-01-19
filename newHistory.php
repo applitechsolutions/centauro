@@ -147,8 +147,8 @@ try {
                             </table>
                             <br>
                             <input type="hidden" name="credito" value="nuevo-historial">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
-                                <span class="text-danger"> *Debe llenar los campos obligatorios </span>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                            <span class="text-danger"> *Debe llenar los campos obligatorios </span>
                             </form>
                         </div>
                     </div><!-- end card-->

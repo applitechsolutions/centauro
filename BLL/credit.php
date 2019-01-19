@@ -31,8 +31,10 @@ if ($_POST['credito'] == 'nuevo') {
             if ($id_registro > 0) {
                 $bal = 0;
                 //Insert BALANCE
+                $ganancia = $total * 0.15;
+                $saldo = $total + $ganancia;
                 $stmt = $conn->prepare("INSERT INTO balance(_idCredit, date, balpay, amount, balance) VALUES (?, ?, ?, ?, ?)");
-                $stmt->bind_param("isidd", $id_registro, $dateStart, $bal, $total, $total);
+                $stmt->bind_param("isidd", $id_registro, $dateStart, $bal, $saldo, $saldo);
                 if (!mysqli_stmt_execute($stmt)) {
                     $query_success = false;
                 }
@@ -98,21 +100,26 @@ if ($_POST['credito'] == 'nuevo-historial') {
             if ($id_registro > 0) {
                 $bal = 0;
                 //Insert BALANCE
+                $ganancia = $total * 0.15;
+                $saldo = $total + $ganancia;
                 $stmt = $conn->prepare("INSERT INTO balance(_idCredit, date, balpay, amount, balance) VALUES (?, ?, ?, ?, ?)");
-                $stmt->bind_param("isidd", $id_registro, $dateStart, $bal, $total, $total);
+                $stmt->bind_param("isidd", $id_registro, $dateStart, $bal, $saldo, $saldo);
                 if (!mysqli_stmt_execute($stmt)) {
                     $query_success = false;
                 }
                 mysqli_stmt_close($stmt);
 
                 $pay = 1;
-                $balance = $total;
+                $balance = $saldo;
 
                 foreach ($MyArray->pago as $pago) {
                     //Insert PAGOS
+                    $datePay = strtr($pago->date, '/', '-');
+                    $dateP = date('Y-m-d', strtotime($datePay));
+
                     $balance = $balance - $pago->amount;
                     $stmt = $conn->prepare("INSERT INTO balance (_idCredit, date, balpay, amount, balance) VALUES (?, ?, ?, ?, ?)");
-                    $stmt->bind_param("isidd", $id_registro, $pago->date, $pay, $pago->amount, $balance);
+                    $stmt->bind_param("isidd", $id_registro, $dateP, $pay, $pago->amount, $balance);
                     if (!mysqli_stmt_execute($stmt)) {
                         $query_success = false;
                     }
