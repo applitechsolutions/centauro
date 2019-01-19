@@ -76,7 +76,8 @@ $(document).ready(function () {
         e.preventDefault();
 
         var fechapago = $('#date').val();
-        var tarjeta = $('#code').val();
+        var codigo = $('#code').val();
+        var tarjeta = $('#code option:selected').text();
         var monto = $('#amount').val();
         console.log(id_pago);
 
@@ -85,10 +86,10 @@ $(document).ready(function () {
             time: 1000
         });
 
-        if ($('#fechapago').val() != '' && $('#monto').val() != '') {
+        if ($('#date').val() != '' && $('#tarjeta') && $('#amount').val() != '') {
             var nuevaFila = "<tr id='detalle'>";
             nuevaFila += "<td><input class='fechaP_class' type='hidden' value='" + fechapago + "'>" + fechapago + "</td>";
-            nuevaFila += "<td><input class='tarjetaP_class' type='hidden' value='" + tarjeta + "'>" + tarjeta + "</td>";
+            nuevaFila += "<td><input class='tarjetaP_class' type='hidden' value='" + codigo + "'>" + tarjeta + "</td>";
             nuevaFila += "<td><input class='montoP_class' type='hidden' value='" + monto + "'>" + monto + "</td>";
             nuevaFila += "<td><a role='button' href='#' onclick='eliminar(" + id_pago + ");' data-id-detalle='" + id_pago + "'class='btn btn-danger'><i class='fa fa-times'></i></a></td>";
             nuevaFila += "</tr>";
@@ -110,7 +111,8 @@ $(document).ready(function () {
         var k = e.keyCode || e.which;
         if (k == 13) {
             var fechapago = $('#date').val();
-            var tarjeta = $('#code').val();
+            var codigo = $('#code').val();
+            var tarjeta = $('#code option:selected').text();
             var monto = $('#amount').val();
             console.log(id_pago);
     
@@ -119,10 +121,10 @@ $(document).ready(function () {
                 time: 1000
             });
     
-            if ($('#fechapago').val() != '' && $('#monto').val() != '') {
+            if ($('#date').val() != '' && $('#tarjeta') && $('#amount').val() != '') {
                 var nuevaFila = "<tr id='detalle'>";
                 nuevaFila += "<td><input class='fechaP_class' type='hidden' value='" + fechapago + "'>" + fechapago + "</td>";
-                nuevaFila += "<td><input class='tarjetaP_class' type='hidden' value='" + tarjeta + "'>" + tarjeta + "</td>";
+                nuevaFila += "<td><input class='tarjetaP_class' type='hidden' value='" + codigo + "'>" + tarjeta + "</td>";
                 nuevaFila += "<td><input class='montoP_class' type='hidden' value='" + monto + "'>" + monto + "</td>";
                 nuevaFila += "<td><a role='button' href='#' onclick='eliminar(" + id_pago + ");' data-id-detalle='" + id_pago + "'class='btn btn-danger'><i class='fa fa-times'></i></a></td>";
                 nuevaFila += "</tr>";
