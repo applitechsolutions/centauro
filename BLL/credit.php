@@ -126,6 +126,15 @@ if ($_POST['credito'] == 'nuevo-historial') {
                     mysqli_stmt_close($stmt);
                 }
 
+                if ($balance == 0) {
+                    $stmt = $conn->prepare("UPDATE credit SET cancel = 1 WHERE idCredit = ?");
+                    $stmt->bind_param("i", $id_registro);
+                    if (!mysqli_stmt_execute($stmt)) {
+                        $query_success = false;
+                    }
+                    mysqli_stmt_close($stmt);
+                }
+
                 if ($query_success) {
                     mysqli_commit($conn);
                     $respuesta = array(

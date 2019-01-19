@@ -1,6 +1,6 @@
 <footer class="footer">
     <span class="text-right">
-        Copyright <a target="_blank" href="#">Control de Arrendamientos</a>
+        Copyright <a target="_blank" href="#">Centauro Créditos</a>
     </span>
     <span class="float-right">
         Powered by <a target="_blank" href="#"><b>APPLITECH SOFTWARE SOLUTIONS</b></a>
