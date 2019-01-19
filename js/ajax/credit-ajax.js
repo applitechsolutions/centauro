@@ -96,7 +96,9 @@ $(document).ready(function () {
                 nuevaFila += "</tr>";
                 $("#agregados").append(nuevaFila);
                 id_pago = id_pago + 1;
-                $('#monto').val(""); 
+                $('#fechapago').val("");
+                $('#fechapago').focus();
+                $('#monto').val("");
             } else {
                 swal({
                     type: 'warning',
