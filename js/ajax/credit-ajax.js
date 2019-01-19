@@ -55,6 +55,11 @@ $(document).ready(function () {
         var monto = $('#monto').val();
         console.log(id_pago);
 
+        $('.counter').counterUp({
+            delay: 10,
+            time: 1000
+        });
+
         if ($('#fechapago').val() != '' && $('#monto').val() != '') {
             var nuevaFila = "<tr id='detalle'>";
             nuevaFila += "<td><input class='fechaP_class' type='hidden' value='" + fechapago + "'>" + fechapago + "</td>";

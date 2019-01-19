@@ -6,7 +6,8 @@
 
             <!-- LOGO -->
             <div class="headerbar-left">
-                <a href="index.php" class="logo"><img src="images/logo.png" alt="Profile image" class="avatar-rounded"> <span>Centauro Créditos</span></a>
+                <a href="index.php" class="logo"><img src="images/logo.png" alt="Profile image" class="avatar-rounded">
+                    <span>Centauro Créditos</span></a>
             </div>
 
             <nav class="navbar-custom">
@@ -36,11 +37,6 @@
                             <!-- item-->
                             <a href="login.php?cerrar_sesion=true" class="dropdown-item notify-item">
                                 <i class="fa fa-power-off"></i> <span>Cerrar Sesión</span>
-                            </a>
-
-                            <!-- item-->
-                            <a target="_blank" href="https://www.pikeadmin.com" class="dropdown-item notify-item">
-                                <i class="fa fa-external-link"></i> <span>Pike Admin</span>
                             </a>
                         </div>
                     </li>
