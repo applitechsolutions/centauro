@@ -51,7 +51,7 @@ include_once 'functions/bd_conexion.php';
                                         <label for="code">
                                             No. de tarjeta <span class="text-danger">*</span>
                                         </label>
-                                        <select class="form-control select2" id="code" name="code">
+                                        <select class="form-control select2" id="code" name="code" autofocus>
                                             <?php
 try {
     $sql = "SELECT idCredit, code, (select concat(firstName, ' ', lastName) from customer where idCustomer = _idCustomer) as customer FROM credit WHERE state = 0 AND cancel = 0 ORDER BY code ASC";
