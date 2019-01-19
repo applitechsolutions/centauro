@@ -60,6 +60,7 @@
 <script src="js/ajax/user-ajax.js"></script>
 <script src="js/ajax/route-ajax.js"></script>
 <script src="js/ajax/credit-ajax.js"></script>
+<script src="js/ajax/income-ajax.js"></script>
 
 <script>
 $(document).ready(function() {
