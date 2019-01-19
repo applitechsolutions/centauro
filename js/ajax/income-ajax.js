@@ -129,7 +129,6 @@ $(document).ready(function () {
                 nuevaFila += "</tr>";
                 $("#pagos").append(nuevaFila);
                 id_pago = id_pago + 1;
-                $('#code').val("");
                 $('#code').focus();
                 $('#amount').val("");
             } else {
