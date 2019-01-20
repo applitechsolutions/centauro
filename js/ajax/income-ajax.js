@@ -72,6 +72,11 @@ $(document).ready(function () {
         })
     });
 
+    $('select').on('select2:close', function() {
+
+        $('#amount').focus();
+    });
+
     $('.agregar_diario').on('click', function (e) {
         e.preventDefault();
 

@@ -108,7 +108,7 @@ try {
                                     <div class="card-box noradius noborder bg-success">
                                         <i class="fa fa-money float-right text-white"></i>
                                         <h6 class="text-white text-uppercase m-b-20">Ingresos</h6>
-                                        <h1 class="m-b-20 text-white counter">0.00</h1>
+                                        <h1 class="m-b-20 text-white counter ingresos">0.00</h1>
                                         <span class="text-white">En Quetzales</span>
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@ try {
                                     <div class="card-box noradius noborder bg-dark">
                                         <i class="fa fa-line-chart float-right text-white"></i>
                                         <h6 class="text-white text-uppercase m-b-20">Pagos</h6>
-                                        <h1 class="m-b-20 text-white counter">0</h1>
+                                        <h1 class="m-b-20 text-white counter pagos">0</h1>
                                         <span class="text-white">Ingresados</span>
                                     </div>
                                 </div>
