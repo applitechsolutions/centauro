@@ -72,8 +72,7 @@ $(document).ready(function () {
         })
     });
 
-    $('select').on('select2:close', function() {
-
+    $('#code').on('select2:close', function() {
         $('#amount').focus();
     });
 
@@ -84,24 +83,31 @@ $(document).ready(function () {
         var codigo = $('#code').val();
         var tarjeta = $('#code option:selected').text();
         var monto = $('#amount').val();
-        console.log(id_pago);
-
-        $('.counter').counterUp({
-            delay: 10,
-            time: 1000
-        });
+        var ingresos = parseFloat($('.ingresos').text());
+        var pagos = parseInt($('.pagos').text());
+        console.log(ingresos);
+        ingresos = ingresos + parseFloat(monto);
+        pagos = pagos + 1;
+        
 
         if ($('#date').val() != '' && $('#tarjeta') && $('#amount').val() != '') {
             var nuevaFila = "<tr id='detalle'>";
             nuevaFila += "<td><input class='fechaP_class' type='hidden' value='" + fechapago + "'>" + fechapago + "</td>";
             nuevaFila += "<td><input class='tarjetaP_class' type='hidden' value='" + codigo + "'>" + tarjeta + "</td>";
             nuevaFila += "<td><input class='montoP_class' type='hidden' value='" + monto + "'>" + monto + "</td>";
-            nuevaFila += "<td><a role='button' href='#' onclick='eliminar(" + id_pago + ");' data-id-detalle='" + id_pago + "'class='btn btn-danger'><i class='fa fa-times'></i></a></td>";
+            nuevaFila += "<td><a role='button' href='#' onclick='eliminar(" + id_pago + ", "+ monto +");' data-id-detalle='" + id_pago + "'class='btn btn-danger'><i class='fa fa-times'></i></a></td>";
             nuevaFila += "</tr>";
             $("#pagos").append(nuevaFila);
             id_pago = id_pago + 1;
             $('#code').focus();
             $('#amount').val("");
+            console.log(ingresos);
+            $('.ingresos').text(ingresos.toFixed(2));
+            $('.pagos').text(pagos);
+            $('.counter').counterUp({
+                delay: 15,
+                time: 500
+            });
         } else {
             swal({
                 type: 'warning',
@@ -119,24 +125,31 @@ $(document).ready(function () {
             var codigo = $('#code').val();
             var tarjeta = $('#code option:selected').text();
             var monto = $('#amount').val();
-            console.log(id_pago);
-    
-            $('.counter').counterUp({
-                delay: 10,
-                time: 1000
-            });
+            var ingresos = parseFloat($('.ingresos').text());
+            var pagos = parseInt($('.pagos').text());
+            console.log(ingresos);
+            ingresos = ingresos + parseFloat(monto);
+            pagos = pagos + 1;
+            
     
             if ($('#date').val() != '' && $('#tarjeta') && $('#amount').val() != '') {
                 var nuevaFila = "<tr id='detalle'>";
                 nuevaFila += "<td><input class='fechaP_class' type='hidden' value='" + fechapago + "'>" + fechapago + "</td>";
                 nuevaFila += "<td><input class='tarjetaP_class' type='hidden' value='" + codigo + "'>" + tarjeta + "</td>";
                 nuevaFila += "<td><input class='montoP_class' type='hidden' value='" + monto + "'>" + monto + "</td>";
-                nuevaFila += "<td><a role='button' href='#' onclick='eliminar(" + id_pago + ");' data-id-detalle='" + id_pago + "'class='btn btn-danger'><i class='fa fa-times'></i></a></td>";
+                nuevaFila += "<td><a role='button' href='#' onclick='eliminar(" + id_pago + ", "+ monto +");' data-id-detalle='" + id_pago + "'class='btn btn-danger'><i class='fa fa-times'></i></a></td>";
                 nuevaFila += "</tr>";
                 $("#pagos").append(nuevaFila);
                 id_pago = id_pago + 1;
                 $('#code').focus();
                 $('#amount').val("");
+                console.log(ingresos);
+                $('.ingresos').text(ingresos.toFixed(2));
+                $('.pagos').text(pagos);
+                $('.counter').counterUp({
+                    delay: 15,
+                    time: 500
+                });
             } else {
                 swal({
                     type: 'warning',
@@ -150,7 +163,17 @@ $(document).ready(function () {
 
 });
 
-function eliminar(id) {
+function eliminar(id, monto) {
+    var ingresos = parseFloat($('.ingresos').text());
+    var pagos = parseInt($('.pagos').text());
+    ingresos = ingresos - parseFloat(monto);
+    pagos = pagos - 1;
+    $('.ingresos').text(ingresos.toFixed(2));
+    $('.pagos').text(pagos);
+    $('.counter').counterUp({
+        delay: 15,
+        time: 500
+    });
     jQuery('[data-id="' + id + '"]').attr('hidden', false);
     jQuery('[data-id-detalle="' + id + '"]').parents('#detalle').remove();
 }
