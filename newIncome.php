@@ -35,8 +35,9 @@ include_once 'functions/bd_conexion.php';
                             <h3><i class="fa fa-money"></i> Ingreso de pagos</h3>
                             Complete el formulario para ingresar los pagos ralizados el dia de hoy.
                         </div>
-
                         <div class="card-body">
+                        <form autocomplete="off" role="form" id="form-diario" name="form-diario" method="POST"
+                                action="BLL/credit.php">
                             <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <div class="form-group">
