@@ -124,7 +124,7 @@ try {
                             <div class="alert alert-info" role="alert">
                                 ¡Precione el botón confirmar para guardar los pagos ingresados correctamente!
                             </div>
-                            <input type="hidden" name="credito" value="nuevo-historial">
+                            <input type="hidden" name="credito" value="nuevo-ingreso">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Confirmar</button>
                             <span class="text-danger"> *Debe llenar los campos obligatorios </span>
                             </form>
