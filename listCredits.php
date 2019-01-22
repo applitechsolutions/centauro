@@ -46,22 +46,22 @@ include_once 'functions/bd_conexion.php';
                                         </tr>
                                     </thead>
                                     <tbody>
-                        <!-- PHP LiSTADO -->
-                            <?php
-                                try {
-                                    $sql = ("SELECT C.*, (select concat(codeRoute,' ', routeName) FROM route WHERE idRoute = C._idRoute) as routeName, (select name FROM commerce WHERE idCommerce = C._idCommerce) as comercio,
+                                        <!-- PHP LiSTADO -->
+                                        <?php
+try {
+    $sql = ("SELECT C.*, (select concat(codeRoute,' ', routeName) FROM route WHERE idRoute = C._idRoute) as routeName, (select name FROM commerce WHERE idCommerce = C._idCommerce) as comercio,
                                         (SELECT concat(firstName,' ',lastName) from collector where idCollector = (select _idCollector from route where idRoute = C._idRoute)) as nombre
                                         FROM customer C WHERE state = 0;");
 
-                                    $resultado = $conn->query($sql);
-                                } catch (Exception $e) {
-                                    $error = $e->getMessage();
-                                    echo $error;
-                                }
+    $resultado = $conn->query($sql);
+} catch (Exception $e) {
+    $error = $e->getMessage();
+    echo $error;
+}
 
-                                while ($customer = $resultado->fetch_assoc()) {
-                            ?>
-                        <!-- PHP LiSTADO -->
+while ($customer = $resultado->fetch_assoc()) {
+    ?>
+                                        <!-- PHP LiSTADO -->
                                         <tr>
                                             <td>
                                                 <?php echo $customer['DPI']; ?>
@@ -100,11 +100,11 @@ include_once 'functions/bd_conexion.php';
                                                         class="fa fa-pencil"></i> Editar</a>
                                             </td>
                                         </tr>
-                        <!-- FIN PHP LISTADO -->
-                            <?php 
-                                }
-                            ?>
-                        <!-- FIN PHP LISTADO -->
+                                        <!-- FIN PHP LISTADO -->
+                                        <?php
+}
+?>
+                                        <!-- FIN PHP LISTADO -->
                                     </tbody>
                                 </table>
                             </div>
@@ -119,6 +119,72 @@ include_once 'functions/bd_conexion.php';
     <!-- END content -->
 </div>
 <!-- END content-page -->
+
+<script>
+//START CODE FOR Child rows (show extra / detailed information) DATA TABLE
+function format(d) {
+    // `d` is the original data object for the row
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
+        '<tr>' +
+        '<td>Full name:</td>' +
+        '<td>' + d.name + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Extension number:</td>' +
+        '<td>' + d.extn + '</td>' +
+        '</tr>' +
+        '<tr>' +
+        '<td>Extra info:</td>' +
+        '<td>And any further details here (images etc)...</td>' +
+        '</tr>' +
+        '</table>';
+}
+
+$(document).ready(function() {
+    var table = $('#example3').DataTable({
+        "ajax": "assets/data/dataTablesObjects.txt",
+        "columns": [{
+                "className": 'details-control',
+                "orderable": false,
+                "data": null,
+                "defaultContent": ''
+            },
+            {
+                "data": "name"
+            },
+            {
+                "data": "position"
+            },
+            {
+                "data": "office"
+            },
+            {
+                "data": "salary"
+            }
+        ],
+        "order": [
+            [1, 'asc']
+        ]
+    });
+
+    // Add event listener for opening and closing details
+    $('#example2 tbody').on('click', 'td.details-control', function() {
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+
+        if (row.child.isShown()) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        } else {
+            // Open this row
+            row.child(format(row.data())).show();
+            tr.addClass('shown');
+        }
+    });
+});
+// END CODE FOR Child rows (show extra / detailed information) DATA TABLE
+</script>
 
 <?php
 include_once 'templates/footer.php';
