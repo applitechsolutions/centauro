@@ -184,6 +184,32 @@ function listCustomer() {
             alert('error');
         }
     });
+
+    $.ajax({
+        type: 'POST',
+        data: {
+            'id': idCollector
+        },
+        url: 'BLL/totalCredits.php',
+        success: function (data) {
+            console.log(data);
+            $.each(data, function (key, registro) {
+                if (registro.totalCreditos == null) {
+                    $('.creditos').text("0.00");               
+                } else {
+                    var totalCred = parseFloat(registro.totalCreditos);
+                    $('.creditos').text(totalCred.toFixed(2));
+                    $('.counter').counterUp({
+                        delay: 15,
+                        time: 500
+                    });       
+                }
+            });
+        },
+        error: function (data) {
+            alert('error');
+        }
+    });
 }
 
 function eliminar(id, monto) {
@@ -200,7 +226,6 @@ function eliminar(id, monto) {
     jQuery('[data-id="' + id + '"]').attr('hidden', false);
     jQuery('[data-id-detalle="' + id + '"]').parents('#detalle').remove();
 }
-
 
 function tabla() {
     $('#example2').DataTable({
@@ -234,3 +259,5 @@ function tabla() {
         }
     });
 }
+
+

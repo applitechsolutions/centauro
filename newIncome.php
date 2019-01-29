@@ -119,32 +119,51 @@ try {
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-
+                                    <div class="card-box noradius noborder bg-success">
+                                        <i class="fa fa-money float-right text-white"></i>
+                                        <h6 class="text-white text-uppercase m-b-20">Ingresos</h6>
+                                        <h2 class="m-b-20 text-white counter ingresos">0.00</h2>
+                                        <span class="text-white">En Quetzales</span>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
+                                    <div class="card-box noradius noborder bg-secondary">
+                                        <i class="fa fa-line-chart float-right text-white"></i>
+                                        <h6 class="text-white text-uppercase m-b-20">Pagos</h6>
+                                        <h2 class="m-b-20 text-white counter pagos">0</h2>
+                                        <span class="text-white">Ingresados</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="card-box noradius noborder bg-dark">
+                                        <i class="fas fa-money-bill-wave float-right text-white"></i>
+                                        <h6 class="text-white text-uppercase m-b-20">Efectivo</h6>
+                                        <h2 class="m-b-20 text-white counter efectivo">0.00</h2>
+                                        <span class="text-white">Total entregado</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-box noradius noborder bg-primary">
                                         <i class="fas fa-credit-card float-right text-white"></i>
                                         <h6 class="text-white text-uppercase m-b-20">Créditos</h6>
-                                        <h1 class="m-b-20 text-white counter pagos">3500.00</h1>
+                                        <h2 class="m-b-20 text-white counter creditos">0.00</h2>
                                         <span class="text-white">Ingresados hoy</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="card-box noradius noborder bg-success">
-                                        <i class="fa fa-money float-right text-white"></i>
-                                        <h6 class="text-white text-uppercase m-b-20">Ingresos</h6>
-                                        <h1 class="m-b-20 text-white counter ingresos">0.00</h1>
-                                        <span class="text-white">En Quetzales</span>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="base">Base<span class="text-danger">*</span></label>
+                                        <input type="text" id="base" class="form-control" name="base" />
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="card-box noradius noborder bg-dark">
-                                        <i class="fa fa-line-chart float-right text-white"></i>
-                                        <h6 class="text-white text-uppercase m-b-20">Pagos</h6>
-                                        <h1 class="m-b-20 text-white counter pagos">0</h1>
-                                        <span class="text-white">Ingresados</span>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="exes">Gastos<span class="text-danger">*</span></label>
+                                        <input type="text" id="exes" class="form-control" name="exes" />
                                     </div>
                                 </div>
                             </div>
