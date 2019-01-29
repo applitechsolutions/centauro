@@ -97,7 +97,7 @@ include_once 'functions/bd_conexion.php';
                                                         class="fa fa-trash"></i>
                                                     Eliminar</a>
                                                 <a class="btn btn-outline-primary pull-right" href="editCustomer.php?id=<?php echo $customer['idCustomer']; ?>"><i
-                                                        class="fa fa-pencil"></i> Editar</a>
+                                                        class="fas fa-edit"></i> Editar</a>
                                             </td>
                                         </tr>
                         <!-- FIN PHP LISTADO -->

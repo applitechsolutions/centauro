@@ -81,7 +81,7 @@ include_once 'functions/bd_conexion.php';
                                                         class="fa fa-trash"></i>
                                                     Eliminar</a>
                                                 <a class="btn btn-outline-primary pull-right" href="editCollector.php?id=<?php echo $collector['idCollector']; ?>"><i
-                                                        class="fa fa-pencil"></i> Editar</a>
+                                                        class="fas fa-edit"></i> Editar</a>
                                             </td>
                                         </tr>
                                         <?php }?>

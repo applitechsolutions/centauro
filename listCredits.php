@@ -105,7 +105,7 @@ while ($credit = $resultado->fetch_assoc()) {
                                                         class="fa fa-trash"></i>
                                                     Eliminar</a>
                                                 <a class="btn btn-outline-primary pull-right" href="editCredit.php?id=<?php echo $credit['idCredit']; ?>"><i
-                                                        class="fa fa-pencil"></i> Editar</a>
+                                                        class="fas fa-edit"></i> Editar</a>
                                             </td>
                                         </tr>
                                         <!-- FIN PHP LISTADO -->

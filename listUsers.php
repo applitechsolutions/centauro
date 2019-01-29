@@ -83,7 +83,7 @@ while ($user = $resultado->fetch_assoc()) {
                                                         class="fa fa-trash"></i>
                                                     Eliminar</a>
                                                 <a class="btn btn-outline-primary pull-right" href="editUser.php?id=<?php echo $user['idUser']; ?>"><i
-                                                        class="fa fa-pencil"></i> Editar</a>
+                                                        class="fas fa-edit"></i> Editar</a>
                                             </td>
                                         </tr>
                                         <?php }
