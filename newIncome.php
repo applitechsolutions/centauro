@@ -157,13 +157,13 @@ try {
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="base">Base<span class="text-danger">*</span></label>
-                                        <input type="text" id="base" class="form-control" name="base" />
+                                        <input type="number" class="form-control" id="base" name="base" min="1.00" step="0.01" placeholder="Ingrese la base" onchange="balance();">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exes">Gastos<span class="text-danger">*</span></label>
-                                        <input type="text" id="exes" class="form-control" name="exes" />
+                                        <input type="number" class="form-control" id="exes" name="exes" min="1.00" step="0.01" placeholder="Ingrese los gastos" onchange="balance();">
                                     </div>
                                 </div>
                             </div>

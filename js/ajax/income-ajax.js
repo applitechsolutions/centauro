@@ -104,10 +104,7 @@ $(document).ready(function () {
             console.log(ingresos);
             $('.ingresos').text(ingresos.toFixed(2));
             $('.pagos').text(pagos);
-            $('.counter').counterUp({
-                delay: 15,
-                time: 500
-            });
+            balance();
         } else {
             swal({
                 type: 'warning',
@@ -146,10 +143,7 @@ $(document).ready(function () {
                 console.log(ingresos);
                 $('.ingresos').text(ingresos.toFixed(2));
                 $('.pagos').text(pagos);
-                $('.counter').counterUp({
-                    delay: 15,
-                    time: 500
-                });
+                balance();
             } else {
                 swal({
                     type: 'warning',
@@ -199,10 +193,7 @@ function listCustomer() {
                 } else {
                     var totalCred = parseFloat(registro.totalCreditos);
                     $('.creditos').text(totalCred.toFixed(2));
-                    $('.counter').counterUp({
-                        delay: 15,
-                        time: 500
-                    });       
+                    balance();     
                 }
             });
         },
@@ -219,10 +210,7 @@ function eliminar(id, monto) {
     pagos = pagos - 1;
     $('.ingresos').text(ingresos.toFixed(2));
     $('.pagos').text(pagos);
-    $('.counter').counterUp({
-        delay: 15,
-        time: 500
-    });
+    balance();
     jQuery('[data-id="' + id + '"]').attr('hidden', false);
     jQuery('[data-id-detalle="' + id + '"]').parents('#detalle').remove();
 }
@@ -258,6 +246,33 @@ function tabla() {
             zeroRecords: "Sin resultados encontrados"
         }
     });
+}
+
+function balance() {
+    var ingresos = parseFloat($('.ingresos').text());
+    var creditos = parseFloat($('.creditos').text());
+    var base = parseFloat($("#base").val());
+    var gastos = parseFloat($("#exes").val());
+
+
+    if (isNaN(base)) {
+        base = 0;
+    }
+
+    if (isNaN(gastos)) {
+        gastos = 0;
+    }
+
+    console.log(base);
+    var balance = parseFloat(ingresos) + parseFloat(base) - parseFloat(creditos) - parseFloat(gastos);
+    
+
+    $(".efectivo").text(balance.toFixed(2));
+    $('.counter').counterUp({
+        delay: 15,
+        time: 500
+    });
+     
 }
 
 
