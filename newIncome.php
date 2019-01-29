@@ -36,63 +36,76 @@ include_once 'functions/bd_conexion.php';
                             Complete el formulario para ingresar los pagos ralizados el dia de hoy.
                         </div>
                         <div class="card-body">
-                        <form autocomplete="off" role="form" id="form-diario" name="form-diario" method="POST"
+                            <form autocomplete="off" role="form" id="form-diario" name="form-diario" method="POST"
                                 action="BLL/credit.php">
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <div class="form-group">
-                                        <label for="date">Fecha<span class="text-danger">*</span></label>
-                                        <input type="text" id="date" class="form-control" name="singledatepicker2" />
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="date">Fecha<span class="text-danger">*</span></label>
+                                            <input type="text" id="date" class="form-control"
+                                                name="singledatepicker2" />
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8 mb-3">
-                                    <div class="form-group">
-                                        <label for="code">
-                                            No. de tarjeta <span class="text-danger">*</span>
-                                        </label>
-                                        <select class="form-control select2" id="code" name="code" autofocus>
-                                            <?php
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="code">
+                                                Cobrador <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-control select2" id="collector" name="collector"
+                                                onchange="listCustomer();">
+                                                <option value="">Seleccione un cobrador</option>
+                                                <?php
 try {
-    $sql = "SELECT idCredit, code, (select concat(firstName, ' ', lastName) from customer where idCustomer = _idCustomer) as customer FROM credit WHERE state = 0 AND cancel = 0 ORDER BY code ASC";
+    $sql = "SELECT idCollector, concat(firstName, ' ', lastName) as collector FROM collector WHERE state = 0";
     $resultado = $conn->query($sql);
-    while ($credit = $resultado->fetch_assoc()) {?>
-                                            <option value="<?php echo $credit['idCredit']; ?>">
-                                                <?php echo $credit['code'] . " " . $credit['customer']; ?>
-                                            </option>
-                                            <?php
+    while ($collector = $resultado->fetch_assoc()) {?>
+                                                <option value="<?php echo $collector['idCollector']; ?>">
+                                                    <?php echo $collector['collector']; ?>
+                                                </option>
+                                                <?php
 }
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }
 ?>
-                                        </select>
-                                    </div>
+                                            </select>
+                                        </div>
+                                    </div>.
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <div class="form-group">
-                                        <label for="amoint">Monto Q.<span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" id="amount" name="amount" min="1.00"
-                                            step="0.01" placeholder="Monto del pago">
-                                    </div>
-                                </div>
-                            </div>
-                            <a role="button" href="#" class="btn btn-success btn-sm agregar_diario"><span class="btn-label"><i
-                                        class="fa fa-check"></i></span>Agregar</a>
-                            <table id="example2" class="table table-responsive-xl table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Fecha</th>
-                                        <th scope="col">No. de tarjeta</th>
-                                        <th scope="col">Monto Q.</th>
-                                        <th scope="col">Quitar</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="pagos">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <label for="code">
+                                                No. de tarjeta <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-control select2" id="code" name="code" autofocus>
 
-                                </tbody>
-                            </table>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="amoint">Monto Q.<span class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="amount" name="amount"
+                                                min="1.00" step="0.01" placeholder="Monto del pago">
+                                        </div>
+                                    </div>
+                                </div>
+                                <a role="button" href="#" class="btn btn-success btn-sm agregar_diario"><span
+                                        class="btn-label"><i class="fa fa-check"></i></span>Agregar</a>
+                                <table id="example2" class="table table-responsive-xl table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Fecha</th>
+                                            <th scope="col">No. de tarjeta</th>
+                                            <th scope="col">Monto Q.</th>
+                                            <th scope="col">Quitar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="pagos">
+
+                                    </tbody>
+                                </table>
                         </div>
                     </div><!-- end card-->
                 </div>
@@ -104,6 +117,19 @@ try {
                         </div>
 
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="card-box noradius noborder bg-dark">
+                                        <i class="fas fa-credit-card float-right text-white"></i>
+                                        <h6 class="text-white text-uppercase m-b-20">Créditos</h6>
+                                        <h1 class="m-b-20 text-white counter pagos">3500.00</h1>
+                                        <span class="text-white">Ingresados hoy</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="card-box noradius noborder bg-success">

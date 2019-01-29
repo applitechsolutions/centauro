@@ -163,6 +163,29 @@ $(document).ready(function () {
 
 });
 
+function listCustomer() {
+    var idCollector = $('#collector').val();
+
+    $("#code").html("");
+    $("#code").append('<option value="">Seleccione una tarjeta</option>');
+    $.ajax({
+        type: "GET",
+        url: 'BLL/listCustomer.php',
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            $.each(data, function (key, registro) {
+                if (registro._idCollector == idCollector) {                    
+                $("#code").append('<option value=' + registro.idCredit + '>' + registro.code + ' '+ registro.customer+ ' (' + registro.commerce + ')' + '</option>');
+                }
+            });
+        },
+        error: function (data) {
+            alert('error');
+        }
+    });
+}
+
 function eliminar(id, monto) {
     var ingresos = parseFloat($('.ingresos').text());
     var pagos = parseInt($('.pagos').text());
