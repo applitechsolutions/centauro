@@ -40,7 +40,7 @@ include_once 'functions/bd_conexion.php';
                                             <th>Comercio</th>
                                             <th>Teléfono</th>
                                             <th>Fecha</th>
-                                            <th>Total Q.</th>
+                                            <th>Total</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -94,9 +94,11 @@ while ($credit = $resultado->fetch_assoc()) {
                                                 </H6>
                                             </td>
                                             <td>
-                                                <b class="text-success">
-                                                    <?php echo $credit['total']; ?>
-                                                </b>
+                                                <h6>
+                                                    <b class="text-success">
+                                                        <?php echo 'Q.' . $credit['total']; ?>
+                                                    </b>
+                                                </h6>
                                             </td>
                                             <td>
                                                 <a href="#" data-id="<?php echo $credit['idCredit']; ?>"
