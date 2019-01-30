@@ -103,6 +103,7 @@ $(document).ready(function () {
             $('#amount').val("");
             console.log(ingresos);
             $('.ingresos').text(ingresos.toFixed(2));
+            $('#ingresos').val(ingresos.toFixed(2));
             $('.pagos').text(pagos);
             balance();
         } else {
@@ -142,6 +143,7 @@ $(document).ready(function () {
                 $('#amount').val("");
                 console.log(ingresos);
                 $('.ingresos').text(ingresos.toFixed(2));
+                $('#ingresos').val(ingresos.toFixed(2));
                 $('.pagos').text(pagos);
                 balance();
             } else {
@@ -189,10 +191,12 @@ function listCustomer() {
             console.log(data);
             $.each(data, function (key, registro) {
                 if (registro.totalCreditos == null) {
-                    $('.creditos').text("0.00");               
+                    $('.creditos').text("0.00");
+                    $('#creditos').val(0);               
                 } else {
                     var totalCred = parseFloat(registro.totalCreditos);
                     $('.creditos').text(totalCred.toFixed(2));
+                    $('#creditos').val(totalCred.toFixed(2));
                     balance();     
                 }
             });
