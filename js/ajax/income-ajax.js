@@ -68,6 +68,15 @@ $(document).ready(function () {
                         text: 'No se pudo guardar en la base de datos',
                     })
                 }
+            }, 
+            error: function (data) {
+                swal({
+                    position: 'top-end',
+                    type: 'error',
+                    title: 'Algo salió mal, intenta de nuevo',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             }
         })
     });
