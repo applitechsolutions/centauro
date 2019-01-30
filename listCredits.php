@@ -25,7 +25,7 @@ include_once 'functions/bd_conexion.php';
                 <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <h3><i class="fa fa-vcard"></i> Listado general de créditos activos</h3>
+                            <h3><i class="fa fa-credit-card"></i> Listado general de créditos activos</h3>
                             -> Aquí puede consultar la infomación de los créditos.
                         </div>
                         <div class="card-body">
@@ -99,12 +99,13 @@ while ($credit = $resultado->fetch_assoc()) {
                                                 </b>
                                             </td>
                                             <td>
-                                                <a href="#" data-id="<?php echo $credit['idCredit']; ?>" data-tipo="credit"
-                                                    class="btn btn-outline-danger pull-right" style="
-													margin-left: 5px;"><i
-                                                        class="fa fa-trash"></i>
+                                                <a href="#" data-id="<?php echo $credit['idCredit']; ?>"
+                                                    data-tipo="credit" class="btn btn-outline-danger pull-right"
+                                                    style="
+													margin-left: 5px;"><i class="fa fa-trash"></i>
                                                     Eliminar</a>
-                                                <a class="btn btn-outline-primary pull-right" href="editCredit.php?id=<?php echo $credit['idCredit']; ?>"><i
+                                                <a class="btn btn-outline-primary pull-right"
+                                                    href="editCredit.php?id=<?php echo $credit['idCredit']; ?>"><i
                                                         class="fas fa-edit"></i> Editar</a>
                                             </td>
                                         </tr>

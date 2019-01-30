@@ -30,7 +30,7 @@ include_once 'functions/bd_conexion.php';
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <h3><i class="fa fa-credit-card-alt"></i> Crear Crédito</h3>
+                            <h3><i class="fa fa-credit-card"></i> Crear Crédito</h3>
                             Complete el formulario para crear un nuevo crédito.
                         </div>
 
@@ -41,8 +41,8 @@ include_once 'functions/bd_conexion.php';
                                     <div class="form-group col-xl-6">
                                         <div class="form-group">
                                             <label for="code">No. de tarjeta<span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" id="code" name="code" placeholder="Ingrese el número de la tarjeta"
-                                                autofocus>
+                                            <input type="text" class="form-control" id="code" name="code"
+                                                placeholder="Ingrese el número de la tarjeta" autofocus>
                                         </div>
                                     </div>
                                     <div class="form-group col-xl-6">
@@ -100,8 +100,8 @@ try {
                                     <div class="form-group col-xl-6">
                                         <div class="form-group">
                                             <label for="total">Total Q.<span class="text-danger">*</span></label>
-                                            <input type="number" class="form-control" id="total" name="total" min="300.00"
-                                                step="0.01" placeholder="Ingrese el total del crédito">
+                                            <input type="number" class="form-control" id="total" name="total"
+                                                min="300.00" step="0.01" placeholder="Ingrese el total del crédito">
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +120,8 @@ try {
                                 <div class="col-md-6 mb-3">
                                     <div class="form-group">
                                         <label for="date">Fecha<span class="text-danger">*</span></label>
-                                        <input type="text" id="fechapago" class="form-control" name="singledatepicker2" />
+                                        <input type="text" id="fechapago" class="form-control"
+                                            name="singledatepicker2" />
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -131,8 +132,8 @@ try {
                                     </div>
                                 </div>
                             </div>
-                            <a role="button" href="#" class="btn btn-success btn-sm agregar_pago"><span class="btn-label"><i
-                                        class="fa fa-check"></i></span>Agregar</a>
+                            <a role="button" href="#" class="btn btn-success btn-sm agregar_pago"><span
+                                    class="btn-label"><i class="fa fa-check"></i></span>Agregar</a>
                             <table id="example2" class="table table-responsive-xl table-bordered">
                                 <thead>
                                     <tr>
