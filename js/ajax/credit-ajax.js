@@ -48,6 +48,58 @@ $(document).ready(function () {
 
     });
 
+    $('#form-pay').on('submit', function (e) {
+        e.preventDefault();
+
+        var saldoR = $("#totalB").val();
+        var pago = $("#amountPay").val();
+
+  
+            var datos = $(this).serializeArray();
+            console.log(datos);
+            swal({
+                title: 'Ingresando pago...'
+            });
+            swal.showLoading();
+            $.ajax({
+                type: $(this).attr('method'),
+                data: datos,
+                url: $(this).attr('action'),
+                datatype: 'json',
+                success: function (data) {
+                    console.log(data);
+                    var resultado = JSON.parse(data);
+                    if (resultado.respuesta == 'exito') {
+                        if (resultado.new_totalB == '0') {
+                            //cancelSale(resultado.idSale);
+                        }
+                        document.getElementById("form-pay").reset();
+                        $('#balance').modal('toggle');
+                        swal.close();
+                        swal({
+                            position: 'top-end',
+                            type: 'success',
+                            title: '¡' + resultado.mensaje,
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                    } else if (resultado.respuesta == 'vacio') {
+                        swal({
+                            type: 'warning',
+                            title: 'Oops...',
+                            text: 'No se han podido procesar los datos',
+                        })
+                    } else if (resultado.respuesta == 'error') {
+                        swal({
+                            type: 'error',
+                            title: 'Error',
+                            text: 'No se pudo guardar en la base de datos',
+                        })
+                    }
+                }
+            })
+    });
+
     $('.agregar_pago').on('click', function (e) {
         e.preventDefault();
 
@@ -364,7 +416,6 @@ function eliminar(id) {
     jQuery('[data-id="' + id + '"]').attr('hidden', false);
     jQuery('[data-id-detalle="' + id + '"]').parents('#detalle').remove();
 }
-
 
 function tabla() {
     $('#example2').DataTable({
