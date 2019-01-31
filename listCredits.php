@@ -54,7 +54,7 @@ include_once 'functions/bd_conexion.php';
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="monto">Monto<span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" id="amount" name="amount"
+                                                <input type="number" class="form-control" id="amountPay" name="amountPay"
                                                     min="0.00" step="0.01" placeholder="Ingrese un monto">
                                             </div>
                                             <input type="hidden" name="tipo" value="pago">
