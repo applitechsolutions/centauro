@@ -70,9 +70,6 @@ $(document).ready(function () {
                     console.log(data);
                     var resultado = JSON.parse(data);
                     if (resultado.respuesta == 'exito') {
-                        if (resultado.new_totalB == '0') {
-                            //cancelSale(resultado.idSale);
-                        }
                         document.getElementById("form-pay").reset();
                         $('#balance').modal('toggle');
                         swal.close();
@@ -83,6 +80,11 @@ $(document).ready(function () {
                             showConfirmButton: false,
                             timer: 1000
                         })
+                        if (resultado.cancelada == 1) {
+                            setTimeout(function () {
+                                window.location.href = 'listCredits.php';
+                            }, 1500);
+                        }
                     } else if (resultado.respuesta == 'vacio') {
                         swal({
                             type: 'warning',
