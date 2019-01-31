@@ -258,7 +258,7 @@ $(document).ready(function () {
 
 });
 
-function anularPago(idSale, idBalance) {
+function anularPago(idCredit, idBalance) {
 
     swal({
         title: '¿Estás Seguro?',
@@ -274,7 +274,7 @@ function anularPago(idSale, idBalance) {
             type: 'POST',
             data: {
                 'idBalance': idBalance,
-                'idSale': idSale,
+                'idCredit': idCredit,
                 'tipo': 'anular'
             },
             url: 'BLL/balance.php',
@@ -287,70 +287,58 @@ function anularPago(idSale, idBalance) {
                     $.ajax({
                         type: 'POST',
                         data: {
-                            'id': idSale
+                            'idCredito': idCredit
                         },
                         url: 'BLL/listBalance.php',
                         success(data) {
                             console.log(data);
-                            var totalP = 0;
+                            var totalBal = 0;
+                            var bandera = 0;
                             $.each(data, function (key, registro) {
-                                if (registro.state == 2) {
+                                if (registro.state == 1) {
                                     var nuevaFila = "<tr>";
                                     nuevaFila += "<td>" + convertDate(registro.date); + "</td>";
-                                    nuevaFila += "<td>" + registro.noReceipt + "</td>";
-                                    if (registro.cheque == 1) {
-                                        nuevaFila += "<td><small class='label label-warning'><i class='fa fa-bank'></i> Cheque</small></td>";
+                                    if (registro.balpay == 1) {
+                                        nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
                                     }
                                     else {
-                                        nuevaFila += "<td><small class='label label-primary'><i class='fa fa-credit-card'></i> Pago</small></td>";
+                                        nuevaFila += "<td><div class='alert alert-danger' role='alert'>Saldo</div></td>";
                                     }
-                                    nuevaFila += "<td>" + registro.noDocument + "</td>";
-                                    nuevaFila += "<td>Q." + registro.amount + "</td>";
+                                    nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";                        
                                     nuevaFila += "</tr>";
                                     $("#anuladosB").append(nuevaFila);
                                 } else {
                                     var nuevaFila = "<tr>";
-                                    var tipo = registro.balpay;
-                                    if (registro.cheque == 1 && registro.state == 1) {
-                                        totalP = parseFloat(totalP) + parseFloat(registro.amount);
+                                    if (bandera == 0) {
+                                        totalBal = parseFloat(registro.balance);
+                                        bandera = 1;
                                     }
-
-                                    nuevaFila += "<td>" + convertDate(registro.date); + "</td>";
-                                    if (tipo == 0) {
-                                        nuevaFila += "<td><small>-</small></td>";
-                                    } else if (tipo == 1) {
-                                        nuevaFila += "<td>" + registro.noReceipt + "</td>";
+                                    let date = new Date(registro.date);
+            
+                                    let options = {
+                                      year: 'numeric',
+                                      month: 'long',
+                                      day: 'numeric'
+                                    };
+            
+                                    nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
+                                    if (registro.balpay == 1) {
+                                        nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
                                     }
-                                    if (tipo == 0) {
-                                        nuevaFila += "<td><small class='label label-danger'><i class='fa fa-database'></i> Saldo</small></td>";
-                                    } else if (tipo == 1) {
-                                        if (registro.cheque == 1) {
-                                            nuevaFila += "<td><small class='label label-warning'><i class='fa fa-bank'></i> Cheque</small></td>";
-                                        }
-                                        else {
-                                            nuevaFila += "<td><small class='label label-primary'><i class='fa fa-credit-card'></i> Pago</small></td>";
-                                        }
+                                    else {
+                                        nuevaFila += "<td><div class='alert alert-danger' role='alert'>Saldo</div></td>";
                                     }
-                                    if (tipo == 0) {
-                                        nuevaFila += "<td><small>-</small></td>";
-                                    } else if (tipo == 1) {
-                                        nuevaFila += "<td>" + registro.noDocument + "</td>";
-                                    }
-                                    nuevaFila += "<td>Q." + registro.amount + "</td>";
-                                    nuevaFila += "<td>Q." + registro.balance + "</td>";
-                                    if (registro.cheque == 1 && registro.state == 1) {
-                                        nuevaFila += "<td><a href='#' class='btn bg-maroon btn-flat margin' onclick='anularPago(" + idSale + "," + registro.idBalance + "," + registro.amount + "," + registro.cheque + ")'><i class='fa fa-times-circle'></i></a><a href='#' class='btn bg-green btn-flat margin' onclick='confirmarPago(" + idSale + "," + registro.idBalance + "," + registro.amount + "," + registro.cheque + ")'><i class='fa fa-check-square'></i></a></td>";
-                                    } else if (tipo == 1) {
-                                        nuevaFila += "<td><a href='#' class='btn bg-maroon btn-flat margin' onclick='anularPago(" + idSale + "," + registro.idBalance + "," + registro.amount + "," + registro.cheque + ")'><i class='fa fa-times-circle'></i></a></td>";
-                                    }
-
+                                    nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";
+                                    nuevaFila += "<td><h6>Q." + registro.balance + "</h6></td>";
+                                    nuevaFila += "<td><a role='button' href='#' class='btn btn-danger' onclick='anularPago(" + idCredit + "," + registro.idBalance + ")'><i class='fa fa-times'></i></a></td>";
+            
                                     nuevaFila += "</tr>";
                                     $("#detallesB").append(nuevaFila);
                                 }
                             });
-                            $("#totalPal").text('Q. ' + totalP.toFixed(2));
-                            $("#totalP").val(totalP.toFixed(2));
-                            balance(idSale);
+                            $(".totalBal").text(totalBal.toFixed(2));
+                            $("#totalB").val(totalBal.toFixed(2));
+                            $("#idCredito").val(idCredit);
                         },
                         error: function (data) {
                             swal({
