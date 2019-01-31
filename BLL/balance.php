@@ -2,7 +2,7 @@
 include_once '../functions/bd_conexion.php';
 
 if ($_POST['tipo'] == 'pago') {
-    $idCredit = $_POST['idCredit'];
+    $idCredit = $_POST['idCredito'];
     $date = strtr($_POST['singledatepicker'], '/', '-');
     $amount = $_POST['amount'];
     $totalB = $_POST['totalB'];

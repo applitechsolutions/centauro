@@ -258,6 +258,120 @@ $(document).ready(function () {
 
 });
 
+function anularPago(idSale, idBalance) {
+
+    swal({
+        title: '¿Estás Seguro?',
+        text: "Anular el pago hará que cambie el balance de saldos",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, Eliminar!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        $.ajax({
+            type: 'POST',
+            data: {
+                'idBalance': idBalance,
+                'idSale': idSale,
+                'tipo': 'anular'
+            },
+            url: 'BLL/balance.php',
+            success(data) {
+                console.log(data);
+                var resultado = JSON.parse(data);
+                if (resultado.respuesta == 'exito') {
+                    $("#detallesB").find('tbody').html("");
+                    $("#anuladosB").find('tbody').html("");
+                    $.ajax({
+                        type: 'POST',
+                        data: {
+                            'id': idSale
+                        },
+                        url: 'BLL/listBalance.php',
+                        success(data) {
+                            console.log(data);
+                            var totalP = 0;
+                            $.each(data, function (key, registro) {
+                                if (registro.state == 2) {
+                                    var nuevaFila = "<tr>";
+                                    nuevaFila += "<td>" + convertDate(registro.date); + "</td>";
+                                    nuevaFila += "<td>" + registro.noReceipt + "</td>";
+                                    if (registro.cheque == 1) {
+                                        nuevaFila += "<td><small class='label label-warning'><i class='fa fa-bank'></i> Cheque</small></td>";
+                                    }
+                                    else {
+                                        nuevaFila += "<td><small class='label label-primary'><i class='fa fa-credit-card'></i> Pago</small></td>";
+                                    }
+                                    nuevaFila += "<td>" + registro.noDocument + "</td>";
+                                    nuevaFila += "<td>Q." + registro.amount + "</td>";
+                                    nuevaFila += "</tr>";
+                                    $("#anuladosB").append(nuevaFila);
+                                } else {
+                                    var nuevaFila = "<tr>";
+                                    var tipo = registro.balpay;
+                                    if (registro.cheque == 1 && registro.state == 1) {
+                                        totalP = parseFloat(totalP) + parseFloat(registro.amount);
+                                    }
+
+                                    nuevaFila += "<td>" + convertDate(registro.date); + "</td>";
+                                    if (tipo == 0) {
+                                        nuevaFila += "<td><small>-</small></td>";
+                                    } else if (tipo == 1) {
+                                        nuevaFila += "<td>" + registro.noReceipt + "</td>";
+                                    }
+                                    if (tipo == 0) {
+                                        nuevaFila += "<td><small class='label label-danger'><i class='fa fa-database'></i> Saldo</small></td>";
+                                    } else if (tipo == 1) {
+                                        if (registro.cheque == 1) {
+                                            nuevaFila += "<td><small class='label label-warning'><i class='fa fa-bank'></i> Cheque</small></td>";
+                                        }
+                                        else {
+                                            nuevaFila += "<td><small class='label label-primary'><i class='fa fa-credit-card'></i> Pago</small></td>";
+                                        }
+                                    }
+                                    if (tipo == 0) {
+                                        nuevaFila += "<td><small>-</small></td>";
+                                    } else if (tipo == 1) {
+                                        nuevaFila += "<td>" + registro.noDocument + "</td>";
+                                    }
+                                    nuevaFila += "<td>Q." + registro.amount + "</td>";
+                                    nuevaFila += "<td>Q." + registro.balance + "</td>";
+                                    if (registro.cheque == 1 && registro.state == 1) {
+                                        nuevaFila += "<td><a href='#' class='btn bg-maroon btn-flat margin' onclick='anularPago(" + idSale + "," + registro.idBalance + "," + registro.amount + "," + registro.cheque + ")'><i class='fa fa-times-circle'></i></a><a href='#' class='btn bg-green btn-flat margin' onclick='confirmarPago(" + idSale + "," + registro.idBalance + "," + registro.amount + "," + registro.cheque + ")'><i class='fa fa-check-square'></i></a></td>";
+                                    } else if (tipo == 1) {
+                                        nuevaFila += "<td><a href='#' class='btn bg-maroon btn-flat margin' onclick='anularPago(" + idSale + "," + registro.idBalance + "," + registro.amount + "," + registro.cheque + ")'><i class='fa fa-times-circle'></i></a></td>";
+                                    }
+
+                                    nuevaFila += "</tr>";
+                                    $("#detallesB").append(nuevaFila);
+                                }
+                            });
+                            $("#totalPal").text('Q. ' + totalP.toFixed(2));
+                            $("#totalP").val(totalP.toFixed(2));
+                            balance(idSale);
+                        },
+                        error: function (data) {
+                            swal({
+                                type: 'error',
+                                title: 'Error',
+                                text: 'No se puede agregar al carrito',
+                            })
+                        }
+                    });
+                } else {
+                    swal({
+                        type: 'error',
+                        title: 'Error!',
+                        text: 'No se pudo anular el pago.'
+                    })
+                }
+            }
+        });
+    });
+}
+
 function eliminar(id) {
     jQuery('[data-id="' + id + '"]').attr('hidden', false);
     jQuery('[data-id-detalle="' + id + '"]').parents('#detalle').remove();
