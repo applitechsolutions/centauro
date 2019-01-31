@@ -33,6 +33,12 @@
 <script src="js/jquery.nicescroll.js">
 </script>
 
+<script>
+function convertDate(dateString) {
+    var p = dateString.split(/\D/g)
+    return [p[2], p[1], p[0]].join("/")
+}
+</script>
 <!-- App js -->
 <script src="js/pikeadmin.js">
 </script>
