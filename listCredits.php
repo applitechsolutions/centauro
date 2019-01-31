@@ -6,6 +6,12 @@ include_once 'templates/sideBar.php';
 include_once 'functions/bd_conexion.php';
 ?>
 
+<style>
+.daterangepicker {
+    z-index: 1151 !important;
+}
+</style>
+
 <div class="content-page">
     <!-- Start content -->
     <div class="content">
@@ -195,16 +201,12 @@ while ($credit = $resultado->fetch_assoc()) {
                                                 </h6>
                                             </td>
                                             <td>
-                                                <div class="btn-group mr-3" role="group" aria-label="Basic example">
+                                                <div class="btn-group mr-2" role="group" aria-label="Basic example">
                                                     <a class="btn btn-success detalle_balance" hfre="#" data-tipo="listBalance" data-id="<?php echo $credit['idCredit']; ?>"><i class="fas fa-balance-scale"></i>
                                                         Balance</a>
                                                     <a class="btn btn-primary"
                                                         href="editCredit.php?id=<?php echo $credit['idCredit']; ?>"><i
                                                             class="fas fa-edit"></i> Editar</a>
-                                                    <a href="#" data-id="<?php echo $credit['idCredit']; ?>"
-                                                        data-tipo="credit" class="btn btn-danger"><i
-                                                            class="fa fa-trash"></i>
-                                                        Eliminar</a>
                                                 </div>
                                             </td>
                                         </tr>
