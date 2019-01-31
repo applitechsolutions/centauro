@@ -106,7 +106,7 @@ include_once 'functions/bd_conexion.php';
                                     </div>
                                     <div class="form-group">
                                         <label for="_idCommerce">Negocio<span class="text-danger">*</span></label>
-                                        <button type="button" class="btn btn-link bg-teal-active btn-xs" data-target="#ModalCommerce" data-toggle="modal"><i class="fa fa-plus"></i></button>
+                                        <button type="button" class="btn btn-link bg-teal-active btn-xs" data-target="#ModalCommerce" data-toggle="modal"><i class="fas fa-plus-square"></i></button>
                                         <select class="form-control select2" id="_idCommerce" name="_idCommerce">
                                             <option value="" selected>Seleccione un negocio</option>
 <?php
