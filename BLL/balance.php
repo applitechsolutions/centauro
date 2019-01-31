@@ -9,6 +9,7 @@ if ($_POST['tipo'] == 'pago') {
     $bal = 1;
     $new_totalB = $totalB - $amount;
     $fc = date('Y-m-d', strtotime($date));
+    $cancelada = 0;
 
     try {
         if ($idCredit == '' || $amount == '' || $date == '' || $new_totalB < 0) {
@@ -16,26 +17,41 @@ if ($_POST['tipo'] == 'pago') {
                 'respuesta' => 'vacio',
             );
         } else {
+            mysqli_autocommit($conn, false);
+            $query_success = true;
+
             $stmt = $conn->prepare("INSERT INTO balance(_idCredit, date, balpay, amount, balance) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("isidd", $idCredit, $fc, $bal, $amount, $new_totalB);
-            $stmt->execute();
-            $id_registro = $stmt->insert_id;
-            if ($id_registro > 0) {
+            if (!mysqli_stmt_execute($stmt)) {
+                $query_success = false;
+            }
+            mysqli_stmt_close($stmt);
+
+            if ($new_totalB == 0) {
+                $cancelada = 1;
+                $stmt = $conn->prepare("UPDATE credit SET cancel = 1 WHERE idCredit = ?");
+                $stmt->bind_param("i", $idCredit);
+                if (!mysqli_stmt_execute($stmt)) {
+                    $query_success = false;
+                }
+                mysqli_stmt_close($stmt);
+            }
+
+            if ($query_success) {
+                mysqli_commit($conn);
                 $respuesta = array(
                     'respuesta' => 'exito',
-                    'idBalance' => $id_registro,
                     'proceso' => 'nuevo',
                     'mensaje' => 'Pago ingresado con correctamente!',
                     'idCredit' => $idCredit,
-                    'new_totalB' => $new_totalB,
+                    'cancelada' => $cancelada,
                 );
             } else {
+                mysqli_rollback($conn);
                 $respuesta = array(
                     'respuesta' => 'error',
-                    'idBalance' => $id_registro,
                 );
             }
-            $stmt->close();
             $conn->close();
         }
 
