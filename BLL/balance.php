@@ -1,5 +1,5 @@
 <?php
-include_once '../funciones/bd_conexion.php';
+include_once '../functions/bd_conexion.php';
 
 if ($_POST['tipo'] == 'pago') {
     $idCredit = $_POST['idCredit'];
