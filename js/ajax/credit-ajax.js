@@ -176,6 +176,86 @@ $(document).ready(function () {
                 }
             })
     });
+
+    $('.detalle_balance').on('click', function (e) {
+        e.preventDefault();
+        $("#detallesB").find('tbody').html("");
+        $("#anuladosB").find('tbody').html("");
+        var id = $(this).attr('data-id');
+        var tipo = $(this).attr('data-tipo');
+
+        swal({
+            title: 'Cargando balance de saldos...'
+        });
+        swal.showLoading();
+        $.ajax({
+            type: 'POST',
+            data: {
+                'idCredito': id
+            },
+            url: 'BLL/' + tipo + '.php',
+            success(data) {
+                console.log(data);
+                var totalBal = 0;
+                var bandera = 0;
+                $.each(data, function (key, registro) {
+                    if (registro.state == 1) {
+                        var nuevaFila = "<tr>";
+                        nuevaFila += "<td>" + convertDate(registro.date); + "</td>";
+                        if (registro.balpay == 1) {
+                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
+                        }
+                        else {
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>Saldo</div></td>";
+                        }
+                        nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";                        
+                        nuevaFila += "</tr>";
+                        $("#anuladosB").append(nuevaFila);
+                    } else {
+                        var nuevaFila = "<tr>";
+                        if (bandera == 0) {
+                            totalBal = parseFloat(registro.balance);
+                            bandera = 1;
+                        }
+                        let date = new Date(registro.date);
+
+                        let options = {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        };
+
+                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
+                        if (registro.balpay == 1) {
+                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
+                        }
+                        else {
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>Saldo</div></td>";
+                        }
+                        nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";
+                        nuevaFila += "<td><h6>Q." + registro.balance + "</h6></td>";
+                        nuevaFila += "<td><a role='button' href='#' class='btn btn-danger' onclick='anularPago(" + id + "," + registro.idBalance + ")'><i class='fa fa-times'></i></a></td>";
+
+                        nuevaFila += "</tr>";
+                        $("#detallesB").append(nuevaFila);
+                    }
+                });
+                $(".totalBal").text(totalBal.toFixed(2));
+                $("#totalB").val(totalBal.toFixed(2));
+                $("#idCredito").val(id);
+                swal.close();
+            $('#balance').modal('show');
+            },
+            error: function (data) {
+                swal({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'No se puede cargar el balance de saldos',
+                })
+            }
+        });
+    });
+
 });
 
 function eliminar(id) {

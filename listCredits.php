@@ -21,6 +21,7 @@ include_once 'functions/bd_conexion.php';
                 </div>
             </div>
             <!-- end row -->
+        <!-- MODAL BALANCE -->
             <div class="modal fade bd-example-modal-lg" id="balance" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -43,42 +44,25 @@ include_once 'functions/bd_conexion.php';
                                 <div class="col-xl-7 pull-right">
                                     <h6>Ingreso de pagos: </h6><br>
                                     <div class="row">
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <label for="doc">No. documento</label>
-                                                <input type="text" class="form-control" id="doc" name="doc"
-                                                    placeholder="Ingrese un documento" autofocus>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="fecha">Fecha<span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="fecha"
                                                     name="singledatepicker">
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-7">
-                                            <div class="form-group">
-                                                <label for="doc">Detalles</label>
-                                                <textarea class="form-control" name="detalles" id="detalles" cols="30"
-                                                    rows="3" placeholder="Ingrese una descripción"></textarea>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <div class="col-md-5">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="monto">Monto<span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" id="monto" name="monto"
+                                                <input type="number" class="form-control" id="amount" name="amount"
                                                     min="0.00" step="0.01" placeholder="Ingrese un monto">
                                             </div>
                                             <input type="hidden" name="tipo" value="pago">
-                                            <input type="hidden" id="idArriendo" name="idArriendo" value="0">
+                                            <input type="hidden" id="idCredito" name="idCredito" value="0">
                                             <input type="hidden" id="totalB" name="totalB" value="0">
-                                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
+                                            <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i>
                                                 Guardar</button><br>
-                                            <span class="text-danger"> *Debe llenar los campos obligatorios </span>
+                                            <span class="text-danger pull-right"> *Debe llenar los campos obligatorios </span>
                                         </div>
                                     </div>
                                 </div>
@@ -94,8 +78,6 @@ include_once 'functions/bd_conexion.php';
                                     <thead>
                                         <tr>
                                             <th>Fecha</th>
-                                            <th>Documento No°</th>
-                                            <th>Usuario</th>
                                             <th>Tipo</th>
                                             <th>Monto</th>
                                             <th>Saldo</th>
@@ -118,8 +100,6 @@ include_once 'functions/bd_conexion.php';
                                     <thead>
                                         <tr>
                                             <th>Fecha</th>
-                                            <th>Documento No°</th>
-                                            <th>Usuario</th>
                                             <th>Tipo</th>
                                             <th>Monto</th>
                                         </tr>
@@ -134,6 +114,7 @@ include_once 'functions/bd_conexion.php';
                     </div>
                 </div>
             </div>
+        <!-- MODAL BALANCE -->
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-3">
@@ -215,8 +196,7 @@ while ($credit = $resultado->fetch_assoc()) {
                                             </td>
                                             <td>
                                                 <div class="btn-group mr-3" role="group" aria-label="Basic example">
-                                                    <a class="btn btn-success" href="#" data-toggle="modal"
-                                                        data-target="#balance"><i class="fas fa-balance-scale"></i>
+                                                    <a class="btn btn-success detalle_balance" hfre="#" data-tipo="listBalance" data-id="<?php echo $credit['idCredit']; ?>"><i class="fas fa-balance-scale"></i>
                                                         Balance</a>
                                                     <a class="btn btn-primary"
                                                         href="editCredit.php?id=<?php echo $credit['idCredit']; ?>"><i
