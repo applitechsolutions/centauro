@@ -43,6 +43,13 @@ $(document).ready(function () {
                         text: 'No se pudo guardar en la base de datos',
                     })
                 }
+            },
+            error: function (data) {
+                swal({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'No se puede cargar el balance de saldos',
+                })
             }
         })
 
