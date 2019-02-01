@@ -59,6 +59,7 @@ include_once 'functions/bd_conexion.php';
                                             Cobrador <span class="text-danger">*</span>
                                         </label>
                                         <select class="form-control select2" id="idCollector" name="idCollector">
+                                            <option value="" selected>Seleccione un cobrador</option>
                                             <?php
 try {
     $sql = "SELECT idCollector, firstName, lastName FROM collector WHERE state = 0 ORDER BY firstName ASC";
@@ -80,6 +81,7 @@ try {
                                             Cliente <span class="text-danger">*</span>
                                         </label>
                                         <select class="form-control select2" id="idCustomer" name="idCustomer">
+                                            <option value="" selected>Seleccione un cliente</option>
                                             <?php
 try {
     $sql = "SELECT idCustomer, firstName, lastName,
