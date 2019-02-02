@@ -19,7 +19,8 @@
                     <a href="#"><i class="fas fa-fw fa-credit-card"></i><span> Créditos </span> <span
                             class="menu-arrow"></span></a>
                     <ul class="list-unstyled">
-                        <li><a href="listCredits.php"><i class="fa fa-fw fa-list"></i> Ver todos</a></li>
+                        <li><a href="listCredits.php"><i class="fa fa-fw fa-list"></i> Ver Activos</a></li>
+                        <li><a href="listCreditsC.php"><i class="fa fa-fw fa-list"></i> Ver Cancelados</a></li>
                         <li><a href="newCredit.php"><i class="fa fa-fw fa-handshake-o"></i> Nuevo Crédito</a></li>
                         <li><a href="newhistory.php"><i class="fa fa-fw fa-history"></i> Ingresar Existente</a></li>
                     </ul>

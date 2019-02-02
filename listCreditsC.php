@@ -28,50 +28,14 @@ include_once 'functions/bd_conexion.php';
             </div>
             <!-- end row -->
         <!-- MODAL BALANCE -->
-            <div class="modal fade bd-example-modal-lg" id="balance" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal fade bd-example-modal-lg" id="balanceC" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title"><i class="fa fa-balance-scale"></i> Balance de Saldos</h5>
+                            <h5 class="modal-title"><i class="fa fa-balance-scale"></i> Balance de Pagos</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                        </div>
-                        <div class="modal-body">
-                            <form role="form" id="form-pay" name="form-pay" method="post" action="BLL/balance.php">
-                                <div class="col-xl-5 pull-left">
-                                    <div class="card-box noradius noborder bg-success">
-                                        <i class="fa fa-money float-right text-white"></i>
-                                        <h6 class="text-white text-uppercase m-b-20">Saldo actual:</h6>
-                                        <h3 class="m-b-20 text-white counter totalBal">0.00</h3>
-                                        <span class="text-white">En Quetzales</span>
-                                    </div>
-                                </div>
-                                <div class="col-xl-7 pull-right">
-                                    <h6>Ingreso de pagos: </h6><br>
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <div class="form-group">
-                                                <label for="fecha">Fecha<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="fecha"
-                                                    name="singledatepicker">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label for="monto">Monto<span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" id="amountPay" name="amountPay"
-                                                    min="0.00" step="0.01" placeholder="Ingrese un monto">
-                                            </div>
-                                            <input type="hidden" name="tipo" value="pago">
-                                            <input type="hidden" id="idCredito" name="idCredito" value="0">
-                                            <input type="hidden" id="totalB" name="totalB" value="0">
-                                            <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save"></i>
-                                                Guardar</button><br>
-                                            <span class="text-danger pull-right"> *Debe llenar los campos obligatorios </span>
-                                        </div>
-                                    </div>
-                                </div>
                         </div>
                         <div class="card mb-3">
                             <div class="card-header">
@@ -80,14 +44,13 @@ include_once 'functions/bd_conexion.php';
                             </div>
                             <!-- /.box-header -->
                             <div class="card-body table-responsive">
-                                <table id="detallesB" class="table table-bordered table-hover display">
+                                <table id="detallesBC" class="table table-bordered table-hover display">
                                     <thead>
                                         <tr>
                                             <th>Fecha</th>
                                             <th>Tipo</th>
                                             <th>Monto</th>
                                             <th>Saldo</th>
-                                            <th>Acciones</th>
                                     </thead>
                                     <tbody>
                                     </tbody>
@@ -102,7 +65,7 @@ include_once 'functions/bd_conexion.php';
                             </div>
                             <!-- /.box-header -->
                             <div class="card-body table-responsive">
-                                <table id="anuladosB" class="table table-bordered table-hover display">
+                                <table id="anuladosBC" class="table table-bordered table-hover display">
                                     <thead>
                                         <tr>
                                             <th>Fecha</th>
@@ -116,7 +79,6 @@ include_once 'functions/bd_conexion.php';
                                 <!-- /.box-body -->
                             </div>
                         </div>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -125,7 +87,7 @@ include_once 'functions/bd_conexion.php';
                 <div class="col-xl-12">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <h3><i class="fa fa-credit-card"></i> Listado general de créditos activos</h3>
+                            <h3><i class="fa fa-credit-card"></i> Listado general de créditos cancelados</h3>
                             -> Aquí puede consultar la infomación de los créditos.
                         </div>
                         <div class="card-body">
@@ -153,7 +115,7 @@ try {
     (select address from customer where idCustomer = C._idCustomer) as address,
     (select name from commerce where idCommerce = (select _idCommerce from customer where idCustomer = C._idCustomer)) as commerce,
     (select mobile from customer where idCustomer = C._idCustomer) as mobile, C.dateStart, C.total
-    FROM credit C WHERE cancel = 0;");
+    FROM credit C WHERE cancel = 1;");
 
     $resultado = $conn->query($sql);
 } catch (Exception $e) {
@@ -202,11 +164,8 @@ while ($credit = $resultado->fetch_assoc()) {
                                             </td>
                                             <td>
                                                 <div class="btn-group mr-2" role="group" aria-label="Basic example">
-                                                    <a class="btn btn-success detalle_balance" hfre="#" data-tipo="listBalance" data-id="<?php echo $credit['idCredit']; ?>"><i class="fas fa-balance-scale"></i>
+                                                    <a class="btn btn-success detalle_balanceC" hfre="#" data-tipo="listBalance" data-id="<?php echo $credit['idCredit']; ?>"><i class="fas fa-balance-scale"></i>
                                                         Balance</a>
-                                                    <a class="btn btn-primary"
-                                                        href="editCredit.php?id=<?php echo $credit['idCredit']; ?>"><i
-                                                            class="fas fa-edit"></i> Editar</a>
                                                 </div>
                                             </td>
                                         </tr>

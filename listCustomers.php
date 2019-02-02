@@ -21,6 +21,73 @@ include_once 'functions/bd_conexion.php';
                 </div>
             </div>
             <!-- end row -->
+        <!-- MODAL BALANCE -->
+            <div class="modal fade bd-example-modal-lg" id="record" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="fa fa-balance-scale"></i> Record Crediticio</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-xl-5 pull-left">
+                                <div class="card-box noradius noborder bg-success">
+                                    <i class="fas fa-percentage float-right text-white"></i>
+                                    <h6 class="text-white text-uppercase m-b-20">Record actual:</h6>
+                                    <h3 class="m-b-20 text-white counter recordPer">0</h3>
+                                    <span class="text-white">En porcentaje</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <h3> Créditos Activos <i class="fa fa-history pull-left"></i></h3>
+                                Listado de créditos activos con un mínimo de pagos.
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="card-body table-responsive">
+                                <table id="detallesB" class="table table-bordered table-hover display">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Tipo</th>
+                                            <th>Monto</th>
+                                            <th>Saldo</th>
+                                            <th>Acciones</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3> Cancelados <i class="fa fa-ban pull-left"></i></h3>
+                                Listado del record de créditos cancelados.
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="card-body table-responsive">
+                                <table id="anuladosB" class="table table-bordered table-hover display">
+                                    <thead>
+                                        <tr>
+                                            <th>Fecha</th>
+                                            <th>Tipo</th>
+                                            <th>Monto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!-- MODAL BALANCE -->
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-3">
@@ -91,13 +158,16 @@ include_once 'functions/bd_conexion.php';
                                                 <?php echo $customer['comercio']; ?>
                                             </td>
                                             <td>
-                                                <a href="#" data-id="<?php echo $customer['idCustomer']; ?>" data-tipo="customer"
-                                                    class="btn btn-outline-danger pull-right borrar_cliente" style="
-													margin-left: 5px;"><i
-                                                        class="fa fa-trash"></i>
-                                                    Eliminar</a>
-                                                <a class="btn btn-outline-primary pull-right" href="editCustomer.php?id=<?php echo $customer['idCustomer']; ?>"><i
-                                                        class="fas fa-edit"></i> Editar</a>
+                                                <div class="btn-group mr-3" role="group" aria-label="Basic example">
+                                                    <a href="#" data-id="<?php echo $customer['idCustomer']; ?>" data-tipo="customer"
+                                                        class="btn btn-danger pull-right borrar_cliente" style="
+                                                        margin-left: 5px;"><i
+                                                            class="fa fa-trash"></i>
+                                                        Eliminar</a>
+                                                    <a class="btn btn-primary pull-right" href="editCustomer.php?id=<?php echo $customer['idCustomer']; ?>"><i
+                                                            class="fas fa-edit"></i> Editar</a>
+                                                    <a class="btn btn-secondary record" href="#" data-tipo="listBalance" data-id="<?php echo $customer['idCustomer']; ?>"><i class="far fa-handshake"></i> Record</a>
+                                                </div>
                                             </td>
                                         </tr>
                         <!-- FIN PHP LISTADO -->
