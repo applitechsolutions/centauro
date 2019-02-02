@@ -58,7 +58,8 @@ include_once 'functions/bd_conexion.php';
                                         <label for="idCollector">
                                             Cobrador <span class="text-danger">*</span>
                                         </label>
-                                        <select class="form-control select2" id="idCollector" name="idCollector">
+                                        <select class="form-control select2" id="idCollector" name="idCollector"
+                                            onchange="listCustomer2();">
                                             <option value="" selected>Seleccione un cobrador</option>
                                             <?php
 try {
@@ -74,6 +75,7 @@ try {
     echo "Error: " . $e->getMessage();
 }
 ?>
+
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -81,23 +83,7 @@ try {
                                             Cliente <span class="text-danger">*</span>
                                         </label>
                                         <select class="form-control select2" id="idCustomer" name="idCustomer">
-                                            <option value="" selected>Seleccione un cliente</option>
-                                            <?php
-try {
-    $sql = "SELECT idCustomer, firstName, lastName,
-    (select name from commerce where idCommerce = _idCommerce) as name
-     FROM customer WHERE state = 0 ORDER BY firstName ASC";
-    $resultado = $conn->query($sql);
-    while ($customer = $resultado->fetch_assoc()) {?>
-                                            <option value="<?php echo $customer['idCustomer']; ?>">
-                                                <?php echo $customer['firstName'] . " " . $customer['lastName'] . ' (' . $customer['name'] . ')'; ?>
-                                            </option>
-                                            <?php
-}
-} catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
-}
-?>
+
                                         </select>
                                     </div>
                                     <div class="row">

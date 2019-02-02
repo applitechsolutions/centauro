@@ -76,7 +76,7 @@ $date = date_create($credit['dateStart']);
                                         <label for="idCollector">
                                             Cobrador <span class="text-danger">*</span>
                                         </label>
-                                        <select class="form-control select2" id="idCollector" name="idCollector">
+                                        <select class="form-control select2" id="idCollector" name="idCollector" onchange="listCustomer2();">
                                             <option value="">Seleccione un cobrador</option>
                                             <!-- INICIO PHP -->
                                             <?php

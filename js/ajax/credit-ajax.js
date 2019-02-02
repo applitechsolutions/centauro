@@ -319,6 +319,29 @@ $(document).ready(function () {
 
 });
 
+function listCustomer2() {
+    var idCollector = $('#idCollector').val();
+
+    $("#idCustomer").html("");
+    $("#idCustomer").append('<option value="">Seleccione un cliente</option>');
+    $.ajax({
+        type: "GET",
+        url: 'BLL/listCustomer2.php',
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            $.each(data, function (key, registro) {
+                if (registro.idCollector == idCollector) {                    
+                $("#idCustomer").append('<option value=' + registro.idCustomer + '>' + registro.customer+ ' (' + registro.commerce + ')' + '</option>');
+                }
+            });
+        },
+        error: function (data) {
+            alert('error');
+        }
+    });
+}
+
 function anularPago(idCredit, idBalance) {
 
     swal({
