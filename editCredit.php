@@ -32,15 +32,15 @@ if (!filter_var($id, FILTER_VALIDATE_INT)) {
             </div>
             <!-- end row -->
 
-        <!-- PHP HALLAR CREDITO -->
+            <!-- PHP HALLAR CREDITO -->
             <?php
-                $sql = "SELECT * FROM `credit` WHERE `idCredit` = $id";
-                $resultado = $conn->query($sql);
-                $credit = $resultado->fetch_assoc();
+$sql = "SELECT * FROM `credit` WHERE `idCredit` = $id";
+$resultado = $conn->query($sql);
+$credit = $resultado->fetch_assoc();
 
-                $date = date_create($credit['dateStart']);
-            ?>
-        <!-- PHP HALLAR CREDITO -->
+$date = date_create($credit['dateStart']);
+?>
+            <!-- PHP HALLAR CREDITO -->
 
             <div class="row">
                 <div class="col-xl-12">
@@ -60,13 +60,15 @@ if (!filter_var($id, FILTER_VALIDATE_INT)) {
                                                 <label for="code">No. de tarjeta<span
                                                         class="text-danger">*</span></label>
                                                 <input type="text" class="form-control" id="code" name="code"
-                                                    placeholder="Ingrese el número de la tarjeta" value="<?php echo $credit['code']; ?>" autofocus>
+                                                    placeholder="Ingrese el número de la tarjeta"
+                                                    value="<?php echo $credit['code']; ?>" autofocus>
                                             </div>
                                         </div>
                                         <div class="form-group col-xl-6">
                                             <div class="form-group">
                                                 <label for="dateStart">Fecha<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="singledatepicker" value="<?php echo date_format($date, 'd/m/Y'); ?>"/>
+                                                <input type="text" class="form-control" name="singledatepicker"
+                                                    value="<?php echo date_format($date, 'd/m/Y'); ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -76,34 +78,34 @@ if (!filter_var($id, FILTER_VALIDATE_INT)) {
                                         </label>
                                         <select class="form-control select2" id="idCollector" name="idCollector">
                                             <option value="">Seleccione un cobrador</option>
-                    <!-- INICIO PHP -->
-                        <?php
-                            try {
-                                $coll_actual = $credit['_idCollector'];
-                                $sql = "SELECT * FROM collector WHERE state = 0";
-                                $resultado = $conn->query($sql);
-                                while ($coll_credit = $resultado->fetch_assoc()) {
-                                if ($coll_credit['idCollector'] == $coll_actual) {?>
-                    <!-- INICIO PHP -->
+                                            <!-- INICIO PHP -->
+                                            <?php
+try {
+    $coll_actual = $credit['_idCollector'];
+    $sql = "SELECT * FROM collector WHERE state = 0";
+    $resultado = $conn->query($sql);
+    while ($coll_credit = $resultado->fetch_assoc()) {
+        if ($coll_credit['idCollector'] == $coll_actual) {?>
+                                            <!-- INICIO PHP -->
                                             <option value="<?php echo $coll_credit['idCollector']; ?>" selected>
-                            <?php echo $coll_credit['firstName'] . " " . $coll_credit['lastName']; ?>
+                                                <?php echo $coll_credit['firstName'] . " " . $coll_credit['lastName']; ?>
                                             </option>
-                        <!-- PHP MEDIO -->
-                            <?php 
-                                }else{?>
-                        <!-- PHP MEDIO -->
+                                            <!-- PHP MEDIO -->
+                                            <?php
+} else {?>
+                                            <!-- PHP MEDIO -->
                                             <option value="<?php echo $coll_credit['idCollector']; ?>">
-                            <?php echo $coll_credit['firstName'] . " " . $coll_credit['lastName']; ?>
+                                                <?php echo $coll_credit['firstName'] . " " . $coll_credit['lastName']; ?>
                                             </option>
-                    <!-- PHP FINAL -->
-                            <?php
-                                }
-                                }
-                            }catch (Exception $e) {
-                                echo "Error: " . $e->getMessage();
-                            }
-                        ?>
-                    <!-- PHP FINAL -->
+                                            <!-- PHP FINAL -->
+                                            <?php
+}
+    }
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+                                            <!-- PHP FINAL -->
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -112,36 +114,36 @@ if (!filter_var($id, FILTER_VALIDATE_INT)) {
                                         </label>
                                         <select class="form-control select2" id="idCustomer" name="idCustomer">
                                             <option value="">Seleccione un cliente</option>
-                    <!-- INICIO PHP -->
-                        <?php
-                            try {
-                                $cust_actual = $credit['_idCustomerr'];
-                                $sql = "SELECT idCustomer, firstName, lastName,
+                                            <!-- INICIO PHP -->
+                                            <?php
+try {
+    $cust_actual = $credit['_idCustomer'];
+    $sql = "SELECT idCustomer, firstName, lastName,
                                 (select name from commerce where idCommerce = _idCommerce) as name
                                  FROM customer WHERE state = 0";
-                                $resultado = $conn->query($sql);
-                                while ($cust_credit = $resultado->fetch_assoc()) {
-                                if ($cust_credit['idCustomer'] == $cust_actual) {?>
-                    <!-- INICIO PHP -->
+    $resultado = $conn->query($sql);
+    while ($cust_credit = $resultado->fetch_assoc()) {
+        if ($cust_credit['idCustomer'] == $cust_actual) {?>
+                                            <!-- INICIO PHP -->
                                             <option value="<?php echo $cust_credit['idCustomer']; ?>" selected>
-                            <?php echo $cust_credit['firstName'] . " " . $cust_credit['lastName'] . ' (' . $cust_credit['name'] . ')'; ?>
+                                                <?php echo $cust_credit['firstName'] . " " . $cust_credit['lastName'] . ' (' . $cust_credit['name'] . ')'; ?>
                                             </option>
-                        <!-- PHP MEDIO -->
-                            <?php 
-                                }else{?>
-                        <!-- PHP MEDIO -->
-                                            <option value="<?php echo $cust_credit['idCustomer']; ?>" selected>
-                            <?php echo $cust_credit['firstName'] . " " . $cust_credit['lastName'] . ' (' . $cust_credit['name'] . ')'; ?>
+                                            <!-- PHP MEDIO -->
+                                            <?php
+} else {?>
+                                            <!-- PHP MEDIO -->
+                                            <option value="<?php echo $cust_credit['idCustomer']; ?>">
+                                                <?php echo $cust_credit['firstName'] . " " . $cust_credit['lastName'] . ' (' . $cust_credit['name'] . ')'; ?>
                                             </option>
-                    <!-- PHP FINAL -->
-                            <?php
-                                }
-                                }
-                            }catch (Exception $e) {
-                                echo "Error: " . $e->getMessage();
-                            }
-                        ?>
-                    <!-- PHP FINAL -->
+                                            <!-- PHP FINAL -->
+                                            <?php
+}
+    }
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+                                            <!-- PHP FINAL -->
                                         </select>
                                     </div>
                                     <div class="row">
@@ -149,7 +151,8 @@ if (!filter_var($id, FILTER_VALIDATE_INT)) {
                                             <div class="form-group">
                                                 <label for="total">Total Q.<span class="text-danger">*</span></label>
                                                 <input type="number" class="form-control" id="total" name="total"
-                                                    min="300.00" step="0.01" placeholder="Ingrese el total del crédito" value="<?php echo $credit['total']; ?>">
+                                                    min="300.00" step="0.01" placeholder="Ingrese el total del crédito"
+                                                    value="<?php echo $credit['total']; ?>">
                                             </div>
                                         </div>
                                     </div>

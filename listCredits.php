@@ -98,7 +98,7 @@ include_once 'functions/bd_conexion.php';
                         <div class="card">
                             <div class="card-header">
                                 <h3> Anulaciones <i class="fa fa-ban pull-left"></i></h3>
-                                Listado de saldos y pagos anulados.
+                                Listado de pagos anulados.
                             </div>
                             <!-- /.box-header -->
                             <div class="card-body table-responsive">

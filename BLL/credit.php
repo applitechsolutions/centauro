@@ -71,7 +71,7 @@ if ($_POST['credito'] == 'nuevo') {
 
 if ($_POST['credito'] == 'editar') {
 
-    $idCredito = $_POST['idCredit'];
+    $idCredit = $_POST['idCredit'];
     $idCustomer = $_POST['idCustomer'];
     $idCollector = $_POST['idCollector'];
     $code = $_POST['code'];
@@ -89,45 +89,60 @@ if ($_POST['credito'] == 'editar') {
             mysqli_autocommit($conn, false);
             $query_success = true;
 
-            $stmt = $conn->prepare("INSERT INTO credit (_idCustomer, _idCollector, code, dateStart, total) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("iissd", $idCustomer, $idCollector, $code, $dateStart, $total);
+            $stmt = $conn->prepare("UPDATE credit SET _idCustomer = ?, _idCollector = ?, code = ?, dateStart = ?, total = ? WHERE idCredit = ?");
+            $stmt->bind_param("iissdi", $idCustomer, $idCollector, $code, $dateStart, $total, $idCredit);
             if (!mysqli_stmt_execute($stmt)) {
                 $query_success = false;
             }
-            $id_registro = $stmt->insert_id;
             mysqli_stmt_close($stmt);
 
-            if ($id_registro > 0) {
-                $bal = 0;
-                //Insert BALANCE
-                $ganancia = $total * 0.15;
-                $saldo = $total + $ganancia;
-                $stmt = $conn->prepare("INSERT INTO balance(_idCredit, date, balpay, amount, balance) VALUES (?, ?, ?, ?, ?)");
-                $stmt->bind_param("isidd", $id_registro, $dateStart, $bal, $saldo, $saldo);
-                if (!mysqli_stmt_execute($stmt)) {
-                    $query_success = false;
-                }
-                mysqli_stmt_close($stmt);
+            $ganancia = $total * 0.15;
+            $saldo = $total + $ganancia;
 
-                if ($query_success) {
-                    mysqli_commit($conn);
-                    $respuesta = array(
-                        'respuesta' => 'exito',
-                        'idCredit' => $id_registro,
-                        'mensaje' => 'Crédito creado correctamente!',
-                        'proceso' => 'nuevo',
-                    );
+            //Selecciona los pagos realizados
+            try {
+                $sql = "SELECT idBalance, amount, state FROM balance WHERE _idCredit = $idCredit AND state = 0 ORDER BY idBalance ASC;";
+                $resultado = $conn->query($sql);
+            } catch (Exception $e) {
+                $query_success = false;
+            }
+            $bandera = 0;
+            while ($balance = $resultado->fetch_assoc()) {
+                //Update PAY'S
+                if ($bandera == 0) {
+                    $nuevo_balance = $saldo;
+                    $stmt = $conn->prepare("UPDATE balance SET amount = ?, balance = ? WHERE idBalance = ?");
+                    $stmt->bind_param("ddi", $nuevo_balance, $nuevo_balance, $balance['idBalance']);
+                    if (!mysqli_stmt_execute($stmt)) {
+                        $query_success = false;
+                    }
+                    mysqli_stmt_close($stmt);
+                    $bandera = 1;
                 } else {
-                    mysqli_rollback($conn);
-                    $respuesta = array(
-                        'respuesta' => 'error',
-                        'idCredit' => $id_registro,
-                    );
+                    $nuevo_balance = $nuevo_balance - $balance['amount'];
+
+                    $stmt = $conn->prepare("UPDATE balance SET balance = ? WHERE idBalance = ?");
+                    $stmt->bind_param("di", $nuevo_balance, $balance['idBalance']);
+                    if (!mysqli_stmt_execute($stmt)) {
+                        $query_success = false;
+                    }
+                    mysqli_stmt_close($stmt);
                 }
+            }
+
+            if ($query_success) {
+                mysqli_commit($conn);
+                $respuesta = array(
+                    'respuesta' => 'exito',
+                    'idCredit' => $idCredit,
+                    'mensaje' => 'Crédito editado correctamente!',
+                    'proceso' => 'editado',
+                );
             } else {
+                mysqli_rollback($conn);
                 $respuesta = array(
                     'respuesta' => 'error',
-                    'idCredit' => $id_registro,
+                    'idCredit' => $idCredit,
                 );
             }
             $conn->close();
