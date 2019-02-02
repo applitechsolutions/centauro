@@ -164,6 +164,11 @@ $(document).ready(function () {
             });
         });
     });
+
+    $('.record').on('click', function (e) {
+        e.preventDefault();
+        $('#record').modal('show');
+    })
 });
 
 function getCommerce() {
