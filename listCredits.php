@@ -98,7 +98,7 @@ include_once 'functions/bd_conexion.php';
                         <div class="card">
                             <div class="card-header">
                                 <h3> Anulaciones <i class="fa fa-ban pull-left"></i></h3>
-                                Listado de saldos y pagos anulados.
+                                Listado de pagos anulados.
                             </div>
                             <!-- /.box-header -->
                             <div class="card-body table-responsive">
@@ -153,7 +153,7 @@ try {
     (select address from customer where idCustomer = C._idCustomer) as address,
     (select name from commerce where idCommerce = (select _idCommerce from customer where idCustomer = C._idCustomer)) as commerce,
     (select mobile from customer where idCustomer = C._idCustomer) as mobile, C.dateStart, C.total
-    FROM credit C WHERE state = 0 AND cancel = 0;");
+    FROM credit C WHERE cancel = 0;");
 
     $resultado = $conn->query($sql);
 } catch (Exception $e) {
