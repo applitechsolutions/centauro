@@ -167,8 +167,80 @@ $(document).ready(function () {
 
     $('.record').on('click', function (e) {
         e.preventDefault();
-        $('#record').modal('show');
-    })
+        $("#detallesR").find('tbody').html("");
+        $("#pagadosR").find('tbody').html("");
+        var id = $(this).attr('data-id');
+        var tipo = $(this).attr('data-tipo');
+
+        swal({
+            title: 'Cargando balance de saldos...'
+        });
+        swal.showLoading();
+        $.ajax({
+            type: 'POST',
+            data: {
+                'idCredito': id
+            },
+            url: 'BLL/' + tipo + '.php',
+            success(data) {
+                console.log(data);
+                var bandera = 0;
+                $.each(data, function (key, registro) {
+                    if (registro.cancel == 1) {
+                        let date = new Date(registro.dateStart);
+
+                        let options = {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        };
+                        var nuevaFila = "<tr>";
+                        nuevaFila += "<td>" + registro.code + "</td>";
+                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
+                        nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
+                        if (registro.record == 1) {
+                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>" + registro.record + "</div></td>";
+                        }
+                        else {
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>" + registro.record + "</div></td>";
+                        }                      
+                        nuevaFila += "</tr>";
+                        $("#pagadosR").append(nuevaFila);
+                    } else {
+                        let date = new Date(registro.dateStart);
+
+                        let options = {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        };
+                        var nuevaFila = "<tr>";
+                        nuevaFila += "<td>" + registro.code + "</td>";
+                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
+                        nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
+                        if (registro.record == 1) {
+                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>" + registro.record + "</div></td>";
+                        }
+                        else {
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>" + registro.record + "</div></td>";
+                        }                      
+                        nuevaFila += "</tr>";
+                        $("#detallesR").append(nuevaFila);
+                    }
+                });
+                swal.close();
+            $('#balanceC').modal('show');
+            },
+            error: function (data) {
+                swal({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'No se puede cargar el balance de saldos',
+                })
+            }
+        });
+    });
+
 });
 
 function getCommerce() {
