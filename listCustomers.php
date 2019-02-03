@@ -187,10 +187,9 @@ while ($customer = $resultado->fetch_assoc()) {
                                                     <a class="btn btn-primary pull-right"
                                                         href="editCustomer.php?id=<?php echo $customer['idCustomer']; ?>"><i
                                                             class="fas fa-edit"></i> Editar</a>
-                                                        <a class="btn btn-secondary record" href="#"
-                                                            data-tipo="listRecords"
-                                                            data-id="<?php echo $customer['idCustomer']; ?>"><i
-                                                                class="far fa-handshake"></i> Record</a>
+                                                    <a class="btn btn-secondary record" href="#" data-tipo="listRecords"
+                                                        data-id="<?php echo $customer['idCustomer']; ?>"><i
+                                                            class="far fa-handshake"></i> Record</a>
                                                 </div>
                                             </td>
                                         </tr>
