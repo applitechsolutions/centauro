@@ -21,35 +21,46 @@ include_once 'functions/bd_conexion.php';
                 </div>
             </div>
             <!-- end row -->
-        <!-- MODAL BALANCE -->
+            <!-- MODAL BALANCE -->
             <div class="modal fade bd-example-modal-lg" id="record" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title"><i class="fa fa-balance-scale"></i> Record Crediticio</h5>
+                            <h5 class="modal-title"><i class="fas fa-chart-line"></i> Record Crediticio</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="col-xl-5 pull-left">
-                                <div class="card-box noradius noborder bg-success">
-                                    <i class="fas fa-percentage float-right text-white"></i>
-                                    <h6 class="text-white text-uppercase m-b-20">Record actual:</h6>
-                                    <h3 class="m-b-20 text-white counter recordPer">0</h3>
-                                    <span class="text-white">En porcentaje</span>
+                            <div class="row">
+                                <div class="col-xl-7">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Card Header Content
+                                        </div>
+                                        <div class="card-body">
+                                            <h4 class="card-title">Special title treatment</h4>
+                                            <p class="card-text">With supporting text below as a natural lead-in to
+                                                additional content.</p>
+                                        </div>
+                                        <div class="card-footer text-muted">
+                                            Card footer content
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-xl-5 pull-right">
-                                <div class="card" style="width: 20rem;">
-                                    <div class="">
+                                <div class="col-xl-5">
+                                    <div class="card-box noradius noborder bg-success">
+                                        <i class="fas fa-percentage float-right text-white"></i>
+                                        <h6 class="text-white text-uppercase m-b-20">Record actual:</h6>
+                                        <h3 class="m-b-20 text-white counter recordPer">0</h3>
+                                        <span class="text-white">En porcentaje</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-3">
                             <div class="card-header">
-                                <h3> Créditos Activos <i class="fa fa-history pull-left"></i></h3>
+                                <h3><i class="fas fa-balance-scale pull-left"></i> Créditos Activos </h3>
                                 Listado de créditos activos con un mínimo de pagos.
                             </div>
                             <!-- /.box-header -->
@@ -57,10 +68,11 @@ include_once 'functions/bd_conexion.php';
                                 <table id="detallesR" class="table table-bordered table-hover display">
                                     <thead>
                                         <tr>
-                                            <th>Código</th>
+                                            <th>No. de tarjeta</th>
                                             <th>Fecha</th>
                                             <th>Total</th>
                                             <th>Record</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
                                     </tbody>
@@ -70,15 +82,15 @@ include_once 'functions/bd_conexion.php';
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h3> Cancelados <i class="fa fa-ban pull-left"></i></h3>
+                                <h3><i class="fas fa-hands-helping pull-left"></i> Cancelados</h3>
                                 Listado del record de créditos cancelados.
                             </div>
                             <!-- /.box-header -->
                             <div class="card-body table-responsive">
-                                <table id="anuladosR" class="table table-bordered table-hover display">
+                                <table id="pagadosR" class="table table-bordered table-hover display">
                                     <thead>
                                         <tr>
-                                            <th>Código</th>
+                                            <th>No. de tarjeta</th>
                                             <th>Fecha</th>
                                             <th>Total</th>
                                             <th>Record</th>
@@ -93,7 +105,7 @@ include_once 'functions/bd_conexion.php';
                     </div>
                 </div>
             </div>
-        <!-- MODAL BALANCE -->
+            <!-- MODAL BALANCE -->
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card mb-3">
@@ -119,22 +131,22 @@ include_once 'functions/bd_conexion.php';
                                         </tr>
                                     </thead>
                                     <tbody>
-                        <!-- PHP LiSTADO -->
-                            <?php
-                                try {
-                                    $sql = ("SELECT C.*, (select concat(codeRoute,' ', routeName) FROM route WHERE idRoute = C._idRoute) as routeName, (select name FROM commerce WHERE idCommerce = C._idCommerce) as comercio,
+                                        <!-- PHP LiSTADO -->
+                                        <?php
+try {
+    $sql = ("SELECT C.*, (select concat(codeRoute,' ', routeName) FROM route WHERE idRoute = C._idRoute) as routeName, (select name FROM commerce WHERE idCommerce = C._idCommerce) as comercio,
                                         (SELECT concat(firstName,' ',lastName) from collector where idCollector = (select _idCollector from route where idRoute = C._idRoute)) as nombre
                                         FROM customer C WHERE state = 0;");
 
-                                    $resultado = $conn->query($sql);
-                                } catch (Exception $e) {
-                                    $error = $e->getMessage();
-                                    echo $error;
-                                }
+    $resultado = $conn->query($sql);
+} catch (Exception $e) {
+    $error = $e->getMessage();
+    echo $error;
+}
 
-                                while ($customer = $resultado->fetch_assoc()) {
-                            ?>
-                        <!-- PHP LiSTADO -->
+while ($customer = $resultado->fetch_assoc()) {
+    ?>
+                                        <!-- PHP LiSTADO -->
                                         <tr>
                                             <td>
                                                 <?php echo $customer['DPI']; ?>
@@ -165,22 +177,28 @@ include_once 'functions/bd_conexion.php';
                                             </td>
                                             <td>
                                                 <div class="btn-group mr-3" role="group" aria-label="Basic example">
-                                                    <a href="#" data-id="<?php echo $customer['idCustomer']; ?>" data-tipo="customer"
-                                                        class="btn btn-danger pull-right borrar_cliente" style="
+                                                    <a href="#" data-id="<?php echo $customer['idCustomer']; ?>"
+                                                        data-tipo="customer"
+                                                        class="btn btn-danger pull-right borrar_cliente"
+                                                        style="
                                                         margin-left: 5px;"><i
                                                             class="fa fa-trash"></i>
                                                         Eliminar</a>
-                                                    <a class="btn btn-primary pull-right" href="editCustomer.php?id=<?php echo $customer['idCustomer']; ?>"><i
+                                                    <a class="btn btn-primary pull-right"
+                                                        href="editCustomer.php?id=<?php echo $customer['idCustomer']; ?>"><i
                                                             class="fas fa-edit"></i> Editar</a>
-                                                    <a class="btn btn-secondary record" href="#" data-tipo="listRecord" data-id="<?php echo $customer['idCustomer']; ?>"><i class="far fa-handshake"></i> Record</a>
+                                                        <a class="btn btn-secondary record" href="#"
+                                                            data-tipo="listRecords"
+                                                            data-id="<?php echo $customer['idCustomer']; ?>"><i
+                                                                class="far fa-handshake"></i> Record</a>
                                                 </div>
                                             </td>
                                         </tr>
-                        <!-- FIN PHP LISTADO -->
-                            <?php 
-                                }
-                            ?>
-                        <!-- FIN PHP LISTADO -->
+                                        <!-- FIN PHP LISTADO -->
+                                        <?php
+}
+?>
+                                        <!-- FIN PHP LISTADO -->
                                     </tbody>
                                 </table>
                             </div>
