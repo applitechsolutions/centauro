@@ -40,6 +40,12 @@ include_once 'functions/bd_conexion.php';
                                     <span class="text-white">En porcentaje</span>
                                 </div>
                             </div>
+                            <div class="col-xl-5 pull-right">
+                                <div class="card" style="width: 20rem;">
+                                    <div class="">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="card mb-3">
                             <div class="card-header">
