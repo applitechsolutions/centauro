@@ -179,7 +179,7 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             data: {
-                'idCredito': id
+                'idCustomer': id
             },
             url: 'BLL/' + tipo + '.php',
             success(data) {
@@ -199,10 +199,10 @@ $(document).ready(function () {
                         nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
                         nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
                         if (registro.record == 1) {
-                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>" + registro.record + "</div></td>";
+                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>Riesgo</div></td>";
                         }
                         else {
-                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>" + registro.record + "</div></td>";
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>Confiable</div></td>";
                         }                      
                         nuevaFila += "</tr>";
                         $("#pagadosR").append(nuevaFila);
@@ -219,17 +219,17 @@ $(document).ready(function () {
                         nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
                         nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
                         if (registro.record == 1) {
-                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>" + registro.record + "</div></td>";
+                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>Seguro</div></td>";
                         }
                         else {
-                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>" + registro.record + "</div></td>";
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>Riesgo</div></td>";
                         }                      
                         nuevaFila += "</tr>";
                         $("#detallesR").append(nuevaFila);
                     }
                 });
                 swal.close();
-            $('#balanceC').modal('show');
+            $('#record').modal('show');
             },
             error: function (data) {
                 swal({

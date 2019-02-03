@@ -57,11 +57,10 @@ include_once 'functions/bd_conexion.php';
                                 <table id="detallesR" class="table table-bordered table-hover display">
                                     <thead>
                                         <tr>
+                                            <th>Código</th>
                                             <th>Fecha</th>
-                                            <th>Tipo</th>
-                                            <th>Monto</th>
-                                            <th>Saldo</th>
-                                            <th>Acciones</th>
+                                            <th>Total</th>
+                                            <th>Record</th>
                                     </thead>
                                     <tbody>
                                     </tbody>
@@ -173,7 +172,7 @@ include_once 'functions/bd_conexion.php';
                                                         Eliminar</a>
                                                     <a class="btn btn-primary pull-right" href="editCustomer.php?id=<?php echo $customer['idCustomer']; ?>"><i
                                                             class="fas fa-edit"></i> Editar</a>
-                                                    <a class="btn btn-secondary record" href="#" data-tipo="listRecords" data-id="<?php echo $customer['idCustomer']; ?>"><i class="far fa-handshake"></i> Record</a>
+                                                    <a class="btn btn-secondary record" href="#" data-tipo="listRecord" data-id="<?php echo $customer['idCustomer']; ?>"><i class="far fa-handshake"></i> Record</a>
                                                 </div>
                                             </td>
                                         </tr>
