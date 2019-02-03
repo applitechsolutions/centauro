@@ -54,7 +54,7 @@ include_once 'functions/bd_conexion.php';
                             </div>
                             <!-- /.box-header -->
                             <div class="card-body table-responsive">
-                                <table id="detallesB" class="table table-bordered table-hover display">
+                                <table id="detallesR" class="table table-bordered table-hover display">
                                     <thead>
                                         <tr>
                                             <th>Fecha</th>
@@ -76,12 +76,13 @@ include_once 'functions/bd_conexion.php';
                             </div>
                             <!-- /.box-header -->
                             <div class="card-body table-responsive">
-                                <table id="anuladosB" class="table table-bordered table-hover display">
+                                <table id="anuladosR" class="table table-bordered table-hover display">
                                     <thead>
                                         <tr>
+                                            <th>Código</th>
                                             <th>Fecha</th>
-                                            <th>Tipo</th>
-                                            <th>Monto</th>
+                                            <th>Total</th>
+                                            <th>Record</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -172,7 +173,7 @@ include_once 'functions/bd_conexion.php';
                                                         Eliminar</a>
                                                     <a class="btn btn-primary pull-right" href="editCustomer.php?id=<?php echo $customer['idCustomer']; ?>"><i
                                                             class="fas fa-edit"></i> Editar</a>
-                                                    <a class="btn btn-secondary record" href="#" data-tipo="listBalance" data-id="<?php echo $customer['idCustomer']; ?>"><i class="far fa-handshake"></i> Record</a>
+                                                    <a class="btn btn-secondary record" href="#" data-tipo="listRecords" data-id="<?php echo $customer['idCustomer']; ?>"><i class="far fa-handshake"></i> Record</a>
                                                 </div>
                                             </td>
                                         </tr>
