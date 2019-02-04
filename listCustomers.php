@@ -39,9 +39,8 @@ include_once 'functions/bd_conexion.php';
                                         </div>
                                         <div class="card-body">
                                             <h4 class="card-title"></h4>
-                                            <p class="card-text"></p>
-                                        </div>
-                                        <div class="card-footer text-muted">
+                                            <h6 class="card-text"></h6>
+                                            <p class="card-cobrador"></p>
                                         </div>
                                     </div>
                                 </div>

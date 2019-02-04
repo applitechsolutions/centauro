@@ -236,7 +236,7 @@ $(document).ready(function () {
                 $('.card-comercio').text(comercio);
                 $('.card-title').text(cliente);
                 $('.card-text').text(ruta);
-                $('.card-footer').text('Cobrador: '+cobrador);
+                $('.card-cobrador').text('Cobrador: '+cobrador);
             $('#record').modal('show');
             },
             error: function (data) {
