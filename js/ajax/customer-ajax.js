@@ -171,6 +171,10 @@ $(document).ready(function () {
         $("#pagadosR").find('tbody').html("");
         var id = $(this).attr('data-id');
         var tipo = $(this).attr('data-tipo');
+        var cliente = $(this).attr('cliente');
+        var comercio = $(this).attr('comercio');
+        var cobrador = $(this).attr('cobrador');
+        var ruta = $(this).attr('ruta');
 
         swal({
             title: 'Cargando balance de saldos...'
@@ -229,6 +233,10 @@ $(document).ready(function () {
                     }
                 });
                 swal.close();
+                $('.card-comercio').text(comercio);
+                $('.card-title').text(cliente);
+                $('.card-text').text(ruta);
+                $('.card-footer').text('Cobrador: '+cobrador);
             $('#record').modal('show');
             },
             error: function (data) {

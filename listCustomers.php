@@ -35,16 +35,13 @@ include_once 'functions/bd_conexion.php';
                             <div class="row">
                                 <div class="col-xl-7">
                                     <div class="card">
-                                        <div class="card-header">
-                                            Card Header Content
+                                        <div class="card-header card-comercio">
                                         </div>
                                         <div class="card-body">
-                                            <h4 class="card-title">Special title treatment</h4>
-                                            <p class="card-text">With supporting text below as a natural lead-in to
-                                                additional content.</p>
+                                            <h4 class="card-title"></h4>
+                                            <p class="card-text"></p>
                                         </div>
                                         <div class="card-footer text-muted">
-                                            Card footer content
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +57,7 @@ include_once 'functions/bd_conexion.php';
                         </div>
                         <div class="card mb-3">
                             <div class="card-header">
-                                <h3><i class="fas fa-balance-scale pull-left"></i> Créditos Activos </h3>
+                                <h3>Créditos Activos <i class="fas fa-balance-scale"></i></h3>
                                 Listado de créditos activos con un mínimo de pagos.
                             </div>
                             <!-- /.box-header -->
@@ -82,7 +79,7 @@ include_once 'functions/bd_conexion.php';
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h3><i class="fas fa-hands-helping pull-left"></i> Cancelados</h3>
+                                <h3>Cancelados <i class="fas fa-hands-helping"></i></h3>
                                 Listado del record de créditos cancelados.
                             </div>
                             <!-- /.box-header -->
@@ -188,7 +185,11 @@ while ($customer = $resultado->fetch_assoc()) {
                                                         href="editCustomer.php?id=<?php echo $customer['idCustomer']; ?>"><i
                                                             class="fas fa-edit"></i> Editar</a>
                                                     <a class="btn btn-secondary record" href="#" data-tipo="listRecord"
-                                                        data-id="<?php echo $customer['idCustomer']; ?>"><i
+                                                        data-id="<?php echo $customer['idCustomer']; ?>"
+                                                        cliente="<?php echo $customer['DPI'] . ' ' . $customer['firstName'] . ' ' . $customer['lastName']; ?>"
+                                                        comercio="<?php echo $customer['comercio']; ?>"
+                                                        cobrador="<?php echo $customer['nombre']; ?>"
+                                                        ruta="<?php echo $customer['routeName']; ?>"><i
                                                             class="far fa-handshake"></i> Record</a>
                                                 </div>
                                             </td>
