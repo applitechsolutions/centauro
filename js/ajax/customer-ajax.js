@@ -222,12 +222,13 @@ $(document).ready(function () {
                         nuevaFila += "<td>" + registro.code + "</td>";
                         nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
                         nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
-                        if (registro.record == 1) {
-                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>Seguro</div></td>";
+                        if (registro.pays > 30) {
+                            var pagos0 = parseInt(registro.totalP) - parseInt(registro.pays);
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>Riesgo, pagos en 0:" + pagos0 + " de " + registro.totalP + "</div></td>";
+                        } else {
+                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pagando," + registro.pays + " pagos de " + registro.totalP + "</div></td>";
                         }
-                        else {
-                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>Riesgo</div></td>";
-                        }                      
+                 
                         nuevaFila += "</tr>";
                         $("#detallesR").append(nuevaFila);
                     }
