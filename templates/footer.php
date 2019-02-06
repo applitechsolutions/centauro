@@ -50,6 +50,7 @@ function convertDate(dateString) {
 </script>
 <script src="plugins\datatables\dataTables.bootstrap4.min.js">
 </script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.19/sorting/datetime-moment.js"></script>
 
 <!-- Counter-Up-->
 <script src="plugins/waypoints/lib/jquery.waypoints.min.js">

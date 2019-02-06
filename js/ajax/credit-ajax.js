@@ -173,7 +173,10 @@ $(document).ready(function () {
 
     $('#form-historial').on('submit', function (e) {
         e.preventDefault();
-        tabla();
+        $.fn.dataTable.moment('DD/MM/YYYY');
+        $('#example2').DataTable({
+            'paging': false
+        });
 
         swal({
             title: 'Guardando crédito...'
@@ -214,7 +217,7 @@ $(document).ready(function () {
                         )
                         if (resultado.proceso == 'nuevo') {
                             setTimeout(function () {
-                                location.reload();
+                                //location.reload();
                             }, 1500);
                         } else if (resultado.proceso == 'editado') {
                             setTimeout(function () {
@@ -389,7 +392,6 @@ $(document).ready(function () {
             }
         });
     });
-
 });
 
 function listCustomer2() {
@@ -523,34 +525,5 @@ function eliminar(id) {
 }
 
 function tabla() {
-    $('#example2').DataTable({
-        'paging': true,
-        'lengthChange': true,
-        "aLengthMenu": [
-            [10, 25, 50, -1],
-            [10, 25, 50, "Todos"]
-        ],
-        'searching': true,
-        'ordering': true,
-        'info': true,
-        'autoWidth': true,
-        'language': {
-            paginate: {
-                next: 'Siguiente',
-                previous: 'Anterior',
-                first: 'Primero',
-                last: 'Último'
-            },
-            info: 'Mostrando _START_-_END_ de _TOTAL_ registros',
-            empyTable: 'No hay registros',
-            infoEmpty: '0 registros',
-            lengthChange: 'Mostrar ',
-            infoFiltered: "(Filtrado de _MAX_ total de registros)",
-            lengthMenu: "Mostrar _MENU_ registros",
-            loadingRecords: "Cargando...",
-            processing: "Procesando...",
-            search: "Buscar:",
-            zeroRecords: "Sin resultados encontrados"
-        }
-    });
+
 }
