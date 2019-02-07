@@ -235,7 +235,6 @@ if ($_POST['credito'] == 'nuevo-historial') {
                             mysqli_stmt_close($stmt);
                         }
                     }
-                    $cancelada = 1;
                 }
 
                 if ($query_success) {
@@ -324,12 +323,30 @@ if ($_POST['credito'] == 'nuevo-ingreso') {
 
                 //Si el saldo es = a 0 es porque termino de pagar el credio y se convierte en cancelado
                 if ($balance == 0) {
-                    $stmt = $conn->prepare("UPDATE credit SET cancel = 1 WHERE idCredit = ?");
-                    $stmt->bind_param("i", $pago->code);
-                    if (!mysqli_stmt_execute($stmt)) {
+                    try {
+                        $sql = "SELECT (select count(*) from balance where _idCredit = C.idCredit and balpay = 1 and state = 0) as totalP
+                        FROM credit C WHERE idCredit = $pago->code";
+                        $resultado = $conn->query($sql);
+                    } catch (Exception $e) {
                         $query_success = false;
                     }
-                    mysqli_stmt_close($stmt);
+                    while ($total = $resultado->fetch_assoc()) {
+                        if ($total['totalP'] > 30) {
+                            $stmt = $conn->prepare("UPDATE credit SET cancel = 1, record = 1 WHERE idCredit = ?");
+                            $stmt->bind_param("i", $pago->code);
+                            if (!mysqli_stmt_execute($stmt)) {
+                                $query_success = false;
+                            }
+                            mysqli_stmt_close($stmt);
+                        } else if ($total['totalP'] <= 30) {
+                            $stmt = $conn->prepare("UPDATE credit SET cancel = 1 WHERE idCredit = ?");
+                            $stmt->bind_param("i", $pago->code);
+                            if (!mysqli_stmt_execute($stmt)) {
+                                $query_success = false;
+                            }
+                            mysqli_stmt_close($stmt);
+                        }
+                    }
                 }
             }
 
