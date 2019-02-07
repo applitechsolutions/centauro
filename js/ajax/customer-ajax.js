@@ -188,8 +188,11 @@ $(document).ready(function () {
             url: 'BLL/' + tipo + '.php',
             success(data) {
                 console.log(data);
-                var bandera = 0;
+                var totalRecord = 0;
+                var totalBuenos = 0;
+                var porcentaje = 0;
                 $.each(data, function (key, registro) {
+                    totalRecord = parseInt(totalRecord) + 1;
                     if (registro.cancel == 1) {
                         let date = new Date(registro.dateStart);
 
@@ -203,10 +206,11 @@ $(document).ready(function () {
                         nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
                         nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
                         if (registro.record == 1) {
-                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>Riesgo</div></td>";
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>Riesgo</div></td>";
                         }
                         else {
-                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>Confiable</div></td>";
+                            totalBuenos = parseInt(totalBuenos) + 1;
+                            nuevaFila += "<td><div class='alert alert-success' role='alert'>Confiable</div></td>";
                         }                      
                         nuevaFila += "</tr>";
                         $("#pagadosR").append(nuevaFila);
@@ -222,18 +226,21 @@ $(document).ready(function () {
                         nuevaFila += "<td>" + registro.code + "</td>";
                         nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
                         nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
-                        if (registro.pays > 30) {
+                        if (registro.totalP > 30) {
                             var pagos0 = parseInt(registro.totalP) - parseInt(registro.pays);
                             nuevaFila += "<td><div class='alert alert-danger' role='alert'>Riesgo, pagos en 0:" + pagos0 + " de " + registro.totalP + "</div></td>";
                         } else {
-                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pagando," + registro.pays + " pagos de " + registro.totalP + "</div></td>";
+                            totalBuenos = parseInt(totalBuenos) + 1;
+                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pagando " + registro.pays + " pagos de " + registro.totalP + "</div></td>";
                         }
                  
                         nuevaFila += "</tr>";
                         $("#detallesR").append(nuevaFila);
                     }
                 });
+                porcentaje = (parseFloat(totalBuenos) * 100) / parseFloat(totalRecord);
                 swal.close();
+                $('.recordPer').text(porcentaje.toFixed());
                 $('.card-comercio').text(comercio);
                 $('.card-title').text(cliente);
                 $('.card-text').text(ruta);

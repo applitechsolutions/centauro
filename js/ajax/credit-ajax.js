@@ -2,6 +2,10 @@ $(document).ready(function () {
 
     var id_pago = 0;
 
+    $('#fechapago').on('daterangepicker:close', function() {
+        $('#monto').focus();
+    });
+
     $('#form-credito').on('submit', function (e) {
         e.preventDefault();
 
@@ -109,7 +113,7 @@ $(document).ready(function () {
             })
     });
 
-    $('.agregar_pago').on('click', function (e) {
+    $('.agregar_pago').on('click', function (e) {``
         e.preventDefault();
 
         var fechapago = $('#fechapago').val();
