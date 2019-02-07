@@ -211,12 +211,31 @@ if ($_POST['credito'] == 'nuevo-historial') {
                 }
 
                 if ($balance == 0) {
-                    $stmt = $conn->prepare("UPDATE credit SET cancel = 1 WHERE idCredit = ?");
-                    $stmt->bind_param("i", $id_registro);
-                    if (!mysqli_stmt_execute($stmt)) {
+                    try {
+                        $sql = "SELECT (select count(*) from balance where _idCredit = C.idCredit and balpay = 1 and state = 0) as totalP
+                        FROM credit C WHERE idCredit = $id_registro";
+                        $resultado = $conn->query($sql);
+                    } catch (Exception $e) {
                         $query_success = false;
                     }
-                    mysqli_stmt_close($stmt);
+                    while ($total = $resultado->fetch_assoc()) {
+                        if ($total['totalP'] > 30) {
+                            $stmt = $conn->prepare("UPDATE credit SET cancel = 1, record = 1 WHERE idCredit = ?");
+                            $stmt->bind_param("i", $id_registro);
+                            if (!mysqli_stmt_execute($stmt)) {
+                                $query_success = false;
+                            }
+                            mysqli_stmt_close($stmt);
+                        } else if ($total['totalP'] <= 30) {
+                            $stmt = $conn->prepare("UPDATE credit SET cancel = 1 WHERE idCredit = ?");
+                            $stmt->bind_param("i", $id_registro);
+                            if (!mysqli_stmt_execute($stmt)) {
+                                $query_success = false;
+                            }
+                            mysqli_stmt_close($stmt);
+                        }
+                    }
+                    $cancelada = 1;
                 }
 
                 if ($query_success) {
