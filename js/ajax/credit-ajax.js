@@ -523,7 +523,3 @@ function eliminar(id) {
     jQuery('[data-id="' + id + '"]').attr('hidden', false);
     jQuery('[data-id-detalle="' + id + '"]').parents('#detalle').remove();
 }
-
-function tabla() {
-
-}

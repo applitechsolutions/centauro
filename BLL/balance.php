@@ -29,8 +29,7 @@ if ($_POST['tipo'] == 'pago') {
 
             if ($new_totalB == 0) {
                 try {
-                    $sql = "SELECT
-                    (select count(*) from balance where _idCredit = C.idCredit and balpay = 1 and state = 0) as totalP,
+                    $sql = "SELECT (select count(*) from balance where _idCredit = C.idCredit and balpay = 1 and state = 0) as totalP
                     FROM credit C WHERE idCredit = $idCredit";
                     $resultado = $conn->query($sql);
                 } catch (Exception $e) {
