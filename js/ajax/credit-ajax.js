@@ -2,9 +2,9 @@ $(document).ready(function () {
 
     var id_pago = 0;
 
-    $('#fechapago').on('daterangepicker:close', function() {
+    $('#fechapago').blur(function() {
         $('#monto').focus();
-    });
+      });
 
     $('#form-credito').on('submit', function (e) {
         e.preventDefault();
