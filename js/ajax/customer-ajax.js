@@ -228,10 +228,10 @@ $(document).ready(function () {
                         nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
                         if (registro.totalP > 30) {
                             var pagos0 = parseInt(registro.totalP) - parseInt(registro.pays);
-                            nuevaFila += "<td><div class='alert alert-danger' role='alert'><strong>¡RIESGO! Cliente atrasado </strong>" + pagos0 + " en cero de " + registro.totalP + "</div></td>";
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'><strong>¡RIESGO! Cliente atrasado </strong>" + pagos0 + " pagos en cero de " + registro.totalP + "</div></td>";
                         } else {
                             totalBuenos = parseInt(totalBuenos) + 1;
-                            nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pagando " + registro.pays + " pagos de " + registro.totalP + "</div></td>";
+                            nuevaFila += "<td><div class='alert alert-primary' role='alert'><strong>¡PAGANDO! Cliente activo </strong>" + registro.pays + " pagos realizados de " + registro.totalP + "</div></td>";
                         }
                  
                         nuevaFila += "</tr>";
