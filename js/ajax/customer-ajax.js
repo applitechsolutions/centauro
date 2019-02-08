@@ -239,6 +239,9 @@ $(document).ready(function () {
                     }
                 });
                 porcentaje = (parseFloat(totalBuenos) * 100) / parseFloat(totalRecord);
+                if (porcentaje < 50) {
+                    $('.percent').addClass('bg-warning').removeClass('bg-success');
+                }
                 swal.close();
                 $('.recordPer').text(porcentaje.toFixed());
                 $('.card-comercio').text(comercio);
