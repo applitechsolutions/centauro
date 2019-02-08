@@ -221,7 +221,7 @@ $(document).ready(function () {
                         )
                         if (resultado.proceso == 'nuevo') {
                             setTimeout(function () {
-                                //location.reload();
+                                location.reload();
                             }, 1500);
                         } else if (resultado.proceso == 'editado') {
                             setTimeout(function () {
