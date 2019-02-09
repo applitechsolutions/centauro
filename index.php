@@ -37,7 +37,7 @@
 					<div class="card-box noradius noborder bg-success">
 						<i class="fas fa-piggy-bank float-right text-white"></i>
 						<h6 class="text-white text-uppercase m-b-20">Capital</h6>
-						<h1 class="m-b-20 text-white counter"><?php echo $capital['capital']; ?></h1>
+						<h1 class="m-b-20 text-white counter"><?php echo number_format($capital['capital'], 2, '.', ','); ?></h1>
 						<span class="text-white">Total Invertido </span>
 					</div>
 				</div>
@@ -53,8 +53,8 @@
 				<div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
 					<div class="card-box noradius noborder bg-warning">
 						<i class="fas fa-coins float-right text-white"></i>
-						<h6 class="text-white text-uppercase m-b-20">Dinero por recaudar</h6>
-						<h1 class="m-b-20 text-white counter"><?php echo $faltante['faltante']; ?></h1>
+						<h6 class="text-white text-uppercase m-b-20">Por Recaudar</h6>
+						<h1 class="m-b-20 text-white counter"><?php echo number_format($faltante['faltante'], 2, '.', ',') ?></h1>
 						<span class="text-white">Dinero faltante</span>
 					</div>
 				</div>
@@ -68,8 +68,8 @@
 				<div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
 					<div class="card-box noradius noborder bg-primary">
 						<i class="fas fa-hand-holding-usd float-right text-white"></i>
-						<h6 class="text-white text-uppercase m-b-20">Dinero recaudado</h6>
-						<h1 class="m-b-20 text-white counter"><?php echo $cobrado; ?></h1>
+						<h6 class="text-white text-uppercase m-b-20">Recaudado</h6>
+						<h1 class="m-b-20 text-white counter"><?php echo number_format($cobrado, 2, '.', ',');  ?></h1>
 						<span class="text-white">Dinero recuperado</span>
 					</div>
 				</div>
