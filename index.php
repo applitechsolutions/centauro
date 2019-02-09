@@ -91,6 +91,46 @@
 				</div>
 			</div>
 			<!-- end row -->
+			<div class="col-xs-12 col-md-6 col-lg-6 col-xl-3">
+				<label for="idCollector">
+					Cobrador
+				</label>
+				<select class="form-control select2" id="dashCollector" name="idCollector">
+					<option value="" selected>Seleccione cobrador</option>
+<?php
+	try {
+		$sql = "SELECT idCollector, firstName, lastName FROM collector WHERE state = 0 ORDER BY firstName ASC";
+		$resultado = $conn->query($sql);
+		while ($collector = $resultado->fetch_assoc()) {
+?>
+					<option value="<?php echo $collector['idCollector']; ?>">
+						<?php echo $collector['firstName'] . " " . $collector['lastName']; ?>
+					</option>
+<?php
+		}
+	} catch (Exception $e) {
+		echo "Error: " . $e->getMessage();
+	}
+?>
+				</select>
+			</div>
+			<br>
+			<div class="row">
+						
+				<div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">						
+					<div class="card mb-3">
+						<div class="card-header">
+							<i class="fa fa-table"></i> Combo Bar Line Chart
+						</div>
+							
+						<div class="card-body">
+							<canvas id="comboBarLineChart"></canvas>
+						</div>							
+						<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+					</div><!-- end card-->					
+				</div>
+			</div>
+			<!-- end row -->
 		</div>
 		<!-- END container-fluid -->
 
@@ -102,3 +142,8 @@
 <?php 
 	include_once 'templates/footer.php';
 ?>
+
+<script>
+	// comboBarLineChart
+	
+</script>
