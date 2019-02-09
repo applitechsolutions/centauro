@@ -4,7 +4,9 @@ $(document).ready(function () {
 
     $('#form-diario').on('submit', function (e) {
         e.preventDefault();
-        tabla();
+        $('#example2').DataTable({
+            'paging': false
+        });
 
         swal({
             title: 'Guardando pagos...'
@@ -226,39 +228,6 @@ function eliminar(id, monto) {
     balance();
     jQuery('[data-id="' + id + '"]').attr('hidden', false);
     jQuery('[data-id-detalle="' + id + '"]').parents('#detalle').remove();
-}
-
-function tabla() {
-    $('#example2').DataTable({
-        'paging': true,
-        'lengthChange': true,
-        "aLengthMenu": [
-            [10, 25, 50, -1],
-            [10, 25, 50, "Todos"]
-        ],
-        'searching': true,
-        'ordering': true,
-        'info': true,
-        'autoWidth': true,
-        'language': {
-            paginate: {
-                next: 'Siguiente',
-                previous: 'Anterior',
-                first: 'Primero',
-                last: 'Último'
-            },
-            info: 'Mostrando _START_-_END_ de _TOTAL_ registros',
-            empyTable: 'No hay registros',
-            infoEmpty: '0 registros',
-            lengthChange: 'Mostrar ',
-            infoFiltered: "(Filtrado de _MAX_ total de registros)",
-            lengthMenu: "Mostrar _MENU_ registros",
-            loadingRecords: "Cargando...",
-            processing: "Procesando...",
-            search: "Buscar:",
-            zeroRecords: "Sin resultados encontrados"
-        }
-    });
 }
 
 function balance() {

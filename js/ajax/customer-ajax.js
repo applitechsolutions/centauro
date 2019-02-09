@@ -241,6 +241,8 @@ $(document).ready(function () {
                 porcentaje = (parseFloat(totalBuenos) * 100) / parseFloat(totalRecord);
                 if (porcentaje < 50) {
                     $('.percent').addClass('bg-warning').removeClass('bg-success');
+                } else {
+                    $('.percent').addClass('bg-success').removeClass('bg-warning');
                 }
                 swal.close();
                 $('.recordPer').text(porcentaje.toFixed());

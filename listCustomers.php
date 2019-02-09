@@ -48,7 +48,7 @@ include_once 'functions/bd_conexion.php';
                                     <div class="card-box noradius noborder bg-success percent">
                                         <i class="fas fa-percentage float-right text-white"></i>
                                         <h6 class="text-white text-uppercase m-b-20">Record actual:</h6>
-                                        <h3 class="m-b-20 text-white counter recordPer">0</h3>
+                                        <h4 class="m-b-20 text-white counter recordPer">0</h4>
                                         <span class="text-white">En porcentaje</span>
                                     </div>
                                 </div>
