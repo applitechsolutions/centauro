@@ -172,6 +172,8 @@ $(document).ready(function () {
 
 function listCustomer() {
     var idCollector = $('#collector').val();
+    var fecha = $('#dateIncome').val();
+    console.log(fecha);
 
     $("#code").html("");
     $("#code").append('<option value="">Seleccione una tarjeta</option>');
@@ -195,7 +197,8 @@ function listCustomer() {
     $.ajax({
         type: 'POST',
         data: {
-            'id': idCollector
+            'id': idCollector,
+            'fecha': fecha
         },
         url: 'BLL/totalCredits.php',
         success: function (data) {

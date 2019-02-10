@@ -2,7 +2,7 @@
 	include_once '../functions/bd_conexion.php';
     header("Content-Type: application/json; charset=UTF-8");
 
-    $idCollector = $_POST['idCollector'];
+    $idCollector = $_GET['idCollector'];
 
     $conn->query("SET lc_time_names = 'es_ES'");
     $result = $conn->query("SELECT MONTHNAME(date) as month, SUM(incomes) as incomes FROM income WHERE YEAR(date) = YEAR(CURDATE()) AND _idCollector = $idCollector GROUP BY MONTH(date) ORDER BY MONTH(date) ASC");

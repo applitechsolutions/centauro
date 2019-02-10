@@ -42,7 +42,7 @@ include_once 'functions/bd_conexion.php';
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="date">Fecha<span class="text-danger">*</span></label>
-                                            <input type="text" id="date" class="form-control"
+                                            <input type="text" id="dateIncome" class="form-control"
                                                 name="singledatepicker2" />
                                         </div>
                                     </div>
