@@ -57,6 +57,11 @@
                         <li><a href="newUser.php"><i class="fa fa-fw fa-plus-square"></i> Nuevo Usuario</a></li>
                     </ul>
                 </li>
+                <li class="submenu">
+                    <a href="reports.php"><i class="fas fa-file-alt"></i><span> Reportes </span><span
+                            class="menu"></span>
+                    </a>
+                </li>
             </ul>
 
             <div class="clearfix"></div>
