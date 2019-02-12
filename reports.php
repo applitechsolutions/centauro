@@ -40,7 +40,8 @@ include_once 'functions/bd_conexion.php';
                                     <div class="card-header">
                                         <ul class="nav nav-tabs card-header-tabs">
                                             <li class="nav-item">
-                                                <a class="nav-link" href="#tab_1" data-toggle="tab"><i class="fas fa-address-card"></i> Clientes por vendedor</a>
+                                                <a class="nav-link" href="#tab_1" data-toggle="tab"><i
+                                                        class="fas fa-address-card"></i> Clientes por vendedor</a>
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#tab_2" data-toggle="tab">Active2</a>
@@ -49,8 +50,8 @@ include_once 'functions/bd_conexion.php';
                                     </div>
                                     <div class="tab-content" id="myTabContent">
                                         <div class="tab-pane fade" id="tab_1" role="tabpanel">
-                                            <form autocomplete="off" role="form" id="form-rpt1" name="form-rpt1" method="POST"
-                                                action="BLL/rptCustByCol.php">
+                                            <form autocomplete="off" role="form" id="form-rpt1" name="form-rpt1"
+                                                method="POST" action="BLL/rptCustByCol.php">
                                                 <br>
                                                 <br>
                                                 <div class="form-group">
@@ -60,21 +61,21 @@ include_once 'functions/bd_conexion.php';
                                                     <select class="form-control select2" style="width: 15% !important;"
                                                         id="idCollector" name="idCollector">
                                                         <option value="">Seleccione cobrador</option>
-                                            <?php
-                                                try {
-                                                    $sql = "SELECT idCollector, firstName, lastName FROM collector WHERE state = 0 ORDER BY firstName ASC";
-                                                    $resultado = $conn->query($sql);
-                                                    while ($collector = $resultado->fetch_assoc()) {
-                                            ?>
+                                                        <?php
+try {
+    $sql = "SELECT idCollector, firstName, lastName FROM collector WHERE state = 0 ORDER BY firstName ASC";
+    $resultado = $conn->query($sql);
+    while ($collector = $resultado->fetch_assoc()) {
+        ?>
                                                         <option value="<?php echo $collector['idCollector']; ?>">
                                                             <?php echo $collector['firstName'] . " " . $collector['lastName']; ?>
                                                         </option>
-                                            <?php
-                                                    }
-                                                } catch (Exception $e) {
-                                                    echo "Error: " . $e->getMessage();
-                                                }
-                                            ?>
+                                                        <?php
+}
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
                                                     </select>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
