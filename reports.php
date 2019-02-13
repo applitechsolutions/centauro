@@ -25,6 +25,25 @@ include_once 'functions/bd_conexion.php';
                 </div>
             </div>
             <!-- end row -->
+        <!-- Modal REPORTE -->
+            <div class="modal fade custom-modal" id="ModalReporte" tabindex="-1" role="dialog" aria-labelledby="customModal" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">Reporte</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="divreporte" class="w3-rest">
+                            <iframe src="" style="width: 100%; height: 700px; min-width: 300px;"></iframe>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <!-- Modal REPORTE -->
 
             <div class="row">
                 <div class="col-xl-12">
@@ -41,24 +60,28 @@ include_once 'functions/bd_conexion.php';
                                         <ul class="nav nav-tabs card-header-tabs">
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#tab_1" data-toggle="tab"><i
-                                                        class="fas fa-address-card"></i> Clientes por vendedor</a>
+                                                        class="fas fa-address-card"></i> Clientes por cobrador</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" href="#tab_2" data-toggle="tab">Active2</a>
+                                                <a class="nav-link" href="#tab_2" data-toggle="tab"><i
+                                                        class="fas fa-user-check"></i> Créditos terminados por cobrador</a>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="tab-content" id="myTabContent">
                                         <div class="tab-pane fade" id="tab_1" role="tabpanel">
+                                        <br>
+                                            <h4 class="box-title">Listado de clientes con saldo pendiente
+                                                </h4>
                                             <form autocomplete="off" role="form" id="form-rpt1" name="form-rpt1"
                                                 method="POST" action="BLL/rptCustByCol.php">
                                                 <br>
-                                                <br>
-                                                <div class="form-group">
+                                                <div class="row">
+                                                <div class="form-group col-xl-2">
                                                     <label for="idCollector">
                                                         Cobrador <span class="text-danger">*</span>
                                                     </label>
-                                                    <select class="form-control select2" style="width: 15% !important;"
+                                                    <select class="form-control select2 pull-right" style="width: 100% !important;"
                                                         id="idCollector" name="idCollector">
                                                         <option value="">Seleccione cobrador</option>
                                                         <?php
@@ -78,9 +101,65 @@ try {
 ?>
                                                     </select>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
-                                                    Guardar</button>
+                                                <div class="form-group col-xl-6">
+                                                <br>
+                                                <button type="submit" class="btn btn-primary pull-left"><i class="fab fa-rev"></i>
+                                                    Generar Listado</button>
+                                                </div>
+                                                </div>
                                                 <div id="listadoReporte1" class="modal-body">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab_2" role="tabpanel">
+                                        <br>
+                                            <h4 class="box-title">Listado de créditos terminados en un rango de fechas
+                                                </h4>
+                                            <form autocomplete="off" role="form" id="form-rpt2" name="form-rpt2"
+                                                method="POST" action="BLL/rptCredits.php">
+                                                <br>
+                                                <div class="row">
+                                                <div class="form-group col-xl-2">
+                                                    <label for="idCollector">
+                                                        Cobrador <span class="text-danger">*</span>
+                                                    </label>
+                                                    <select class="form-control select2 pull-right" style="width: 100% !important;"
+                                                        id="idCollectorRPT2" name="idCollectorRPT2">
+                                                        <option value="">Seleccione cobrador</option>
+                                                        <?php
+try {
+    $sql = "SELECT idCollector, firstName, lastName FROM collector WHERE state = 0 ORDER BY firstName ASC";
+    $resultado = $conn->query($sql);
+    while ($collector = $resultado->fetch_assoc()) {
+        ?>
+                                                        <option value="<?php echo $collector['idCollector']; ?>">
+                                                            <?php echo $collector['firstName'] . " " . $collector['lastName']; ?>
+                                                        </option>
+                                                        <?php
+}
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="date">Fecha Inicial<span class="text-danger">*</span></label>
+                                                    <input type="text" id="date" class="form-control"
+                                                        name="singledatepicker" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="date">Fecha Final<span class="text-danger">*</span></label>
+                                                    <input type="text" id="date2" class="form-control"
+                                                        name="singledatepicker2" />
+                                                </div>
+                                                <div class="form-group col-xl-6">
+                                                <br>
+                                                <button type="submit" class="btn btn-primary pull-left"><i class="fab fa-rev"></i>
+                                                    Generar Listado</button>
+                                                </div>
+                                                </div>
+                                                <div id="listadoReporte2" class="modal-body">
                                                 </div>
                                             </form>
                                         </div>

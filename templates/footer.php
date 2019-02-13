@@ -122,6 +122,11 @@ $(function() {
         }
     });
 });
+
+function changeReport(report) {
+    $('#divreporte').html('<iframe src="ReportsPDF/' + report +
+        '" style="width: 100%; min-width: 300px; height: 810px"></iframe>');
+}
 </script>
 <!-- END Java Script for this page -->
 
