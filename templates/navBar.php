@@ -30,9 +30,9 @@
                             </div>
 
                             <!-- item-->
-                            <a href="pro-profile.html" class="dropdown-item notify-item">
+                            <!-- <a href="pro-profile.html" class="dropdown-item notify-item">
                                 <i class="fa fa-user"></i> <span>Perfil</span>
-                            </a>
+                            </a> -->
 
                             <!-- item-->
                             <a href="login.php?cerrar_sesion=true" class="dropdown-item notify-item">

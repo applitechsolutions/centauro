@@ -90,18 +90,17 @@ $(document).ready(function () {
     $('.agregar_diario').on('click', function (e) {
         e.preventDefault();
 
-        var fechapago = $('#date').val();
+        var fechapago = $('#dateIncome').text();
         var codigo = $('#code').val();
         var tarjeta = $('#code option:selected').text();
         var monto = $('#amount').val();
         var ingresos = parseFloat($('.ingresos').text());
         var pagos = parseInt($('.pagos').text());
-        console.log(ingresos);
+        console.log(fechapago);
         ingresos = ingresos + parseFloat(monto);
-        pagos = pagos + 1;
-        
+        pagos = pagos + 1;        
 
-        if ($('#date').val() != '' && $('#tarjeta') && $('#amount').val() != '') {
+        if ($('#dateIncome').val() != '' && $('#tarjeta') && $('#amount').val() != '') {
             var nuevaFila = "<tr id='detalle'>";
             nuevaFila += "<td><input class='fechaP_class' type='hidden' value='" + fechapago + "'>" + fechapago + "</td>";
             nuevaFila += "<td><input class='tarjetaP_class' type='hidden' value='" + codigo + "'>" + tarjeta + "</td>";
@@ -130,7 +129,7 @@ $(document).ready(function () {
     $('#amount').on('keypress', function (e) {
         var k = e.keyCode || e.which;
         if (k == 13) {
-            var fechapago = $('#date').val();
+            var fechapago = $('#dateIncome').val();
             var codigo = $('#code').val();
             var tarjeta = $('#code option:selected').text();
             var monto = $('#amount').val();
@@ -138,10 +137,9 @@ $(document).ready(function () {
             var pagos = parseInt($('.pagos').text());
             console.log(ingresos);
             ingresos = ingresos + parseFloat(monto);
-            pagos = pagos + 1;
-            
+            pagos = pagos + 1;           
     
-            if ($('#date').val() != '' && $('#tarjeta') && $('#amount').val() != '') {
+            if ($('#dateIncome').val() != '' && $('#tarjeta') && $('#amount').val() != '') {
                 var nuevaFila = "<tr id='detalle'>";
                 nuevaFila += "<td><input class='fechaP_class' type='hidden' value='" + fechapago + "'>" + fechapago + "</td>";
                 nuevaFila += "<td><input class='tarjetaP_class' type='hidden' value='" + codigo + "'>" + tarjeta + "</td>";

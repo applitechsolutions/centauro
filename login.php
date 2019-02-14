@@ -66,7 +66,9 @@ include_once 'functions/bd_conexion.php';
                         </div>
                     </div>
                     <div class="footer">
-                        Copyright &copy; APPLITECH SOFTWARE SOLUTIONS 2018
+                        <strong>Copyright &copy; 2019 - <?php echo date("Y"); ?> APPLITECH SOFTWARE SOLUTIONS. </strong>
+                        Todos Los
+                        Derechos Reservados.
                     </div>
                 </div>
             </div>

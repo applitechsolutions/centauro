@@ -87,7 +87,7 @@ try {
                                         <div class="form-group">
                                             <label for="amoint">Monto Q.<span class="text-danger">*</span></label>
                                             <input type="number" class="form-control" id="amount" name="amount"
-                                                min="1.00" step="0.01" placeholder="Monto del pago">
+                                                min="1.00" step="0.01" placeholder="0.00">
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@ try {
                     <div class="card mb-3">
                         <div class="card-header">
                             <h3><i class="fa fa-balance-scale"></i> Totales</h3>
-                            Aquí puede consultar el total de ingresos y cantidad de pagos.
+                            Aquí puede cuadrar el total de ingresos, créditos, base, gastos y cantidad de pagos.
                         </div>
 
                         <div class="card-body">
@@ -157,13 +157,15 @@ try {
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="base">Base<span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" id="base" name="base" min="1.00" step="0.01" placeholder="Ingrese la base" onchange="balance();">
+                                        <input type="number" class="form-control" id="base" name="base" min="1.00"
+                                            step="0.01" placeholder="Ingrese la base" onchange="balance();">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="exes">Gastos<span class="text-danger">*</span></label>
-                                        <input type="number" class="form-control" id="exes" name="exes" min="1.00" step="0.01" placeholder="Ingrese los gastos" onchange="balance();">
+                                        <input type="number" class="form-control" id="exes" name="exes" min="1.00"
+                                            step="0.01" placeholder="Ingrese los gastos" onchange="balance();">
                                     </div>
                                 </div>
                             </div>
