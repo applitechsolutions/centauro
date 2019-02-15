@@ -45,7 +45,7 @@ $capital = $resultado->fetch_assoc();
 
                 <!-- PHP -->
                 <?php
-$sql = "SELECT SUM((SELECT balance FROM balance WHERE _idCredit = idCredit ORDER BY idBalance DESC LIMIT 1)) as faltante FROM credit WHERE cancel = 0";
+$sql = "SELECT SUM((SELECT balance FROM balance WHERE _idCredit = idCredit ORDER BY idBalance DESC LIMIT 1)) as faltante, SUM((SELECT balance FROM balance WHERE _idCredit = idCredit ORDER BY idBalance ASC LIMIT 1)) as recaudado FROM credit WHERE cancel = 0";
 $resultado = $conn->query($sql);
 $faltante = $resultado->fetch_assoc();
 ?>
@@ -63,7 +63,7 @@ $faltante = $resultado->fetch_assoc();
 
                 <!-- PHP -->
                 <?php
-$cobrado = $capital['capital'] - $faltante['faltante'];
+$cobrado = $faltante['recaudado'] - $faltante['faltante'];
 ?>
                 <!-- PHP -->
 
