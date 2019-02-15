@@ -1,10 +1,10 @@
 <?php
 
-$conn = new mysqli('localhost', 'root', '', 'centauro');
+/*$conn = new mysqli('localhost', 'root', '', 'centauro');
 
 if ($conn->connect_error) {
     echo $error -> $conn->connect_error;
-}/*/
+}*/
 
     $connectstr_dbhost = '';
     $connectstr_dbname = '';
