@@ -4,7 +4,11 @@ $(document).ready(function () {
 
     $('#fechapago').blur(function() {
         $('#monto').focus();
-      });
+    });
+
+    $('#fechaBalance').blur(function () {
+       $('#amountPay').focus(); 
+    });
 
     $('#form-credito').on('submit', function (e) {
         e.preventDefault();
@@ -269,7 +273,15 @@ $(document).ready(function () {
                 $.each(data, function (key, registro) {
                     if (registro.state == 1) {
                         var nuevaFila = "<tr>";
-                        nuevaFila += "<td>" + convertDate(registro.date); + "</td>";
+                        let date = new Date(registro.date.replace(/-/g, '\/'));
+
+                        let options = {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        };
+
+                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
                         if (registro.balpay == 1) {
                             nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
                         }
@@ -285,7 +297,7 @@ $(document).ready(function () {
                             totalBal = parseFloat(registro.balance);
                             bandera = 1;
                         }
-                        let date = new Date(registro.date);
+                        let date = new Date(registro.date.replace(/-/g, '\/'));
 
                         let options = {
                           year: 'numeric',
@@ -302,7 +314,13 @@ $(document).ready(function () {
                         }
                         nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";
                         nuevaFila += "<td><h6>Q." + registro.balance + "</h6></td>";
-                        nuevaFila += "<td><a role='button' href='#' class='btn btn-danger' onclick='anularPago(" + id + "," + registro.idBalance + ")'><i class='fa fa-times'></i></a></td>";
+
+                        if (registro.balpay == 1) {
+                            nuevaFila += "<td><a role='button' href='#' class='btn btn-danger' onclick='anularPago(" + id + "," + registro.idBalance + ")'><i class='fa fa-times'></i></a></td>";
+                        } else {
+                            nuevaFila += "<td></td>";
+                        }
+                        
 
                         nuevaFila += "</tr>";
                         $("#detallesB").append(nuevaFila);
@@ -347,7 +365,15 @@ $(document).ready(function () {
                 $.each(data, function (key, registro) {
                     if (registro.state == 1) {
                         var nuevaFila = "<tr>";
-                        nuevaFila += "<td>" + convertDate(registro.date); + "</td>";
+                        let date = new Date(registro.date.replace(/-/g, '\/'));
+
+                        let options = {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        };
+
+                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
                         if (registro.balpay == 1) {
                             nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
                         }
@@ -363,7 +389,7 @@ $(document).ready(function () {
                             totalBal = parseFloat(registro.balance);
                             bandera = 1;
                         }
-                        let date = new Date(registro.date);
+                        let date = new Date(registro.date.replace(/-/g, '\/'));
 
                         let options = {
                           year: 'numeric',

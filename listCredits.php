@@ -53,7 +53,7 @@ include_once 'functions/bd_conexion.php';
                                         <div class="col-md-5">
                                             <div class="form-group">
                                                 <label for="fecha">Fecha<span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" id="fecha"
+                                                <input type="text" class="form-control" id="fechaBalance"
                                                     name="singledatepicker">
                                             </div>
                                         </div>
