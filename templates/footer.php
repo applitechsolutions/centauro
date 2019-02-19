@@ -60,6 +60,7 @@ function convertDate(dateString) {
 <script src="plugins/datetimepicker/js/moment.min.js"></script>
 <script src="plugins/datetimepicker/js/daterangepicker.js"></script>
 <script src="plugins/select2/js/select2.min.js"></script>
+<script type="text/javascript" src="dataTables.fnReloadAjax.js"></script>
 
 <!-- AJAX DE LOS MODULOS -->
 <script src="js/ajax/collector-ajax.js"></script>

@@ -125,6 +125,90 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('#form-rpt3').on('submit', function (e) {
+        e.preventDefault();
+        var datos = $(this).serializeArray();
+
+        swal({
+            title: 'Generando el reporte...'
+        });
+        swal.showLoading();
+
+        $.ajax({
+            type: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: datos,
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                var total = 0;
+                $.each(data, function (key, registro) { 
+                    total = parseFloat(total) + parseFloat(registro.amount);
+                });
+                $('.totalIncomes').text(total.toFixed(2));
+                $('#example1').DataTable({
+                "bDestroy": true,
+                   data: data,
+                   columns: [{
+                        data: 'code'
+                        },
+                        {
+                            data: 'dateStart'
+                        },
+                        {
+                            data: 'customer'
+                        },
+                        {
+                            data: 'commerce'
+                        },
+                        {
+                            data: 'total'
+                        },
+                        {
+                            data: 'amount'
+                        }
+                    ],
+                    'paging': true,
+                    'lengthChange': true,
+                    "aLengthMenu": [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, "Todos"]
+                    ],
+                    'searching': true,
+                    'ordering': true,
+                    'info': true,
+                    'autoWidth': true,
+                    'language': {
+                        paginate: {
+                            next: 'Siguiente',
+                            previous: 'Anterior',
+                            first: 'Primero',
+                            last: 'Último'
+                        },
+                        info: 'Mostrando _START_-_END_ de _TOTAL_ registros',
+                        empyTable: 'No hay registros',
+                        infoEmpty: '0 registros',
+                        lengthChange: 'Mostrar ',
+                        infoFiltered: "(Filtrado de _MAX_ total de registros)",
+                        lengthMenu: "Mostrar _MENU_ registros",
+                        loadingRecords: "Cargando...",
+                        processing: "Procesando...",
+                        search: "Buscar:",
+                        zeroRecords: "Sin resultados encontrados"
+                    }
+                });
+                swal.close();
+            }, 
+            error: function (data) {
+                swal({
+                    type: 'error',
+                    title: 'Error',
+                    text: 'Algo ha salido mal, intentalo más tarde',
+                })
+            }
+        });
+    });
 });
 
 function limpiarReportes() {
