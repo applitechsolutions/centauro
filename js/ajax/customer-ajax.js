@@ -207,11 +207,11 @@ $(document).ready(function () {
                         nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
                         if (registro.record == 1) {
                             var diferencia = parseInt(registro.diff) - 30;
-                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>¡RIESGO!</div></td>";
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'><strong>¡RIESGO! Cliente Malo</strong> se retrasó " + diferencia + " días en cancelar</div></td>";
                         }
                         else {
                             totalBuenos = parseInt(totalBuenos) + 1;
-                            nuevaFila += "<td><div class='alert alert-success' role='alert'>Confiable</div></td>";
+                            nuevaFila += "<td><div class='alert alert-success' role='alert'><strong>¡SEGURO! Cliente Bueno</strong pago en " + registro.diff + "></div></td>";
                         }                      
                         nuevaFila += "</tr>";
                         $("#pagadosR").append(nuevaFila);
@@ -227,12 +227,39 @@ $(document).ready(function () {
                         nuevaFila += "<td>" + registro.code + "</td>";
                         nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
                         nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
-                        if (registro.diff > 30 || registro.diff == 0) {
-                            var pagos0 = parseInt(registro.totalP) - parseInt(registro.pays);
-                            nuevaFila += "<td><div class='alert alert-danger' role='alert'><strong>¡RIESGO! Cliente atrasado </strong>" + pagos0 + " pagos en cero de " + registro.totalP + "</div></td>";
-                        } else {
+                        if (registro.diff > 30) {
+                            var d = new Date();
+                            var fecha1 = moment(registro.datepay);
+                            var fecha2 = moment(d);
+
+                            var differencia = fecha2.diff(fecha1, 'days');
+                            let date = new Date(registro.datepay.replace(/-/g, '\/'));
+
+                            let options = {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                            };
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'><strong>¡RIESGO! Cliente atrasado </strong>" + differencia + " días atrasado desde el último pago (" + date.toLocaleDateString('es-MX', options) + ")</div></td>"; 
+                        } else if (registro.diff > 0 && registro.diff <= 30) {
+                            var difference = 30 - parseInt(registro.diff);
                             totalBuenos = parseInt(totalBuenos) + 1;
-                            nuevaFila += "<td><div class='alert alert-primary' role='alert'><strong>¡PAGANDO! Cliente activo </strong>" + registro.pays + " pagos realizados de " + registro.totalP + "</div></td>";
+                            nuevaFila += "<td><div class='alert alert-primary' role='alert'><strong>¡PAGANDO! Cliente activo </strong> aún tiene " + difference + " para cancelar el crédito</div></td>";
+                        } else if (registro.diff == 0) {
+                            var d = new Date();
+                            var fecha1 = moment(registro.datepay);
+                            var fecha2 = moment(d);
+
+                            var differencia = fecha2.diff(fecha1, 'days');
+
+                            if (differencia <= 30) {
+                                var difference = 30 - parseInt(differencia);
+                                totalBuenos = parseInt(totalBuenos) + 1;
+                                nuevaFila += "<td><div class='alert alert-primary' role='alert'><strong>¡PAGANDO! Cliente activo </strong> aún tiene " + difference + " para cancelar el crédito</div></td>";
+                            } else {
+                                var difference = parseInt(differencia) - 30;
+                                nuevaFila += "<td><div class='alert alert-danger' role='alert'><strong>¡RIESGO! Cliente atrasado </strong>" + difference + " días atrasado desde que venció el plazo</div></td>";
+                            }
                         }
                  
                         nuevaFila += "</tr>";
