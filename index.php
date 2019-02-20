@@ -48,6 +48,7 @@ $capital = $resultado->fetch_assoc();
 $sql = "SELECT SUM((SELECT balance FROM balance WHERE _idCredit = idCredit ORDER BY idBalance DESC LIMIT 1)) as faltante, SUM((SELECT balance FROM balance WHERE _idCredit = idCredit ORDER BY idBalance ASC LIMIT 1)) as recaudado FROM credit WHERE cancel = 0";
 $resultado = $conn->query($sql);
 $faltante = $resultado->fetch_assoc();
+$falt = $faltante['faltante'];
 ?>
                 <!-- PHP -->
 
@@ -56,7 +57,7 @@ $faltante = $resultado->fetch_assoc();
                         <i class="fas fa-coins float-right text-white"></i>
                         <h6 class="text-white text-uppercase m-b-20">Por Recaudar</h6>
                         <h3 class="m-b-20 text-white counter">
-                            <?php echo number_format($faltante['faltante'], 2, '.', ',') ?></h3>
+                            <?php echo number_format($falt, 2, '.', ',') ?></h3>
                         <span class="text-white">Dinero faltante</span>
                     </div>
                 </div>
@@ -71,7 +72,8 @@ $cobrado = $faltante['recaudado'] - $faltante['faltante'];
                     <div class="card-box noradius noborder bg-primary">
                         <i class="fas fa-hand-holding-usd float-right text-white"></i>
                         <h6 class="text-white text-uppercase m-b-20">Recaudado</h6>
-                        <h3 class="m-b-20 text-white counter"><?php echo number_format($cobrado, 2, '.', ','); ?></h3>
+                        <h3 class="m-b-20 text-white counter">
+                            <?php echo number_format($cobrado, 2, '.', ','); ?></h3>
                         <span class="text-white">Dinero recuperado</span>
                     </div>
                 </div>
