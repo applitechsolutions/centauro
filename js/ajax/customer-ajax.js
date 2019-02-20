@@ -206,7 +206,8 @@ $(document).ready(function () {
                         nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
                         nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
                         if (registro.record == 1) {
-                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>Riesgo</div></td>";
+                            var diferencia = parseInt(registro.diff) - 30;
+                            nuevaFila += "<td><div class='alert alert-danger' role='alert'>¡RIESGO!</div></td>";
                         }
                         else {
                             totalBuenos = parseInt(totalBuenos) + 1;
@@ -226,7 +227,7 @@ $(document).ready(function () {
                         nuevaFila += "<td>" + registro.code + "</td>";
                         nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
                         nuevaFila += "<td><h6>Q." + registro.total + "</h6></td>"; 
-                        if (registro.totalP > 30) {
+                        if (registro.diff > 30 || registro.diff == 0) {
                             var pagos0 = parseInt(registro.totalP) - parseInt(registro.pays);
                             nuevaFila += "<td><div class='alert alert-danger' role='alert'><strong>¡RIESGO! Cliente atrasado </strong>" + pagos0 + " pagos en cero de " + registro.totalP + "</div></td>";
                         } else {
