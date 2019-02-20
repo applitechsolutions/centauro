@@ -56,7 +56,7 @@ $faltante = $resultado->fetch_assoc();
                         <i class="fas fa-coins float-right text-white"></i>
                         <h6 class="text-white text-uppercase m-b-20">Por Recaudar</h6>
                         <h3 class="m-b-20 text-white counter">
-                            <?php echo number_format($faltante['faltante'], 2, '.', ',') ?></h3>
+                            <?php echo number_format($faltante['faltante'], 2) ?></h3>
                         <span class="text-white">Dinero faltante</span>
                     </div>
                 </div>
