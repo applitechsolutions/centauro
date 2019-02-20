@@ -56,7 +56,7 @@ $falt = $faltante['faltante'];
                     <div class="card-box noradius noborder bg-warning">
                         <i class="fas fa-coins float-right text-white"></i>
                         <h6 class="text-white text-uppercase m-b-20">Por Recaudar</h6>
-                        <h3 class="m-b-20 text-white counter">
+                        <h3 class="m-b-20 text-white">
                             <?php echo number_format($falt, 2, '.', ',') ?></h3>
                         <span class="text-white">Dinero faltante</span>
                     </div>
