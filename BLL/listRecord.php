@@ -5,7 +5,8 @@ header("Content-Type: application/json; charset=UTF-8");
 $idCustomer = $_POST['idCustomer'];
 
 $result = $conn->query("SELECT C.code, C.dateStart, C.total, C.cancel, C.record,
-    datediff((select date from balance where _idCredit = C.idCredit AND state = 0 ORDER BY idBalance DESC LIMIT 1), C.dateStart) as diff
+    datediff((select date from balance where _idCredit = C.idCredit AND state = 0 ORDER BY idBalance DESC LIMIT 1), C.dateStart) as diff,
+    (select date from balance where _idCredit = C.idCredit AND state = 0 ORDER BY idBalance DESC LIMIT 1) as datepay
     FROM credit C WHERE _idCustomer = $idCustomer ORDER BY C.dateStart ASC");
 $outp = array();
 $outp = $result->fetch_all(MYSQLI_ASSOC);
