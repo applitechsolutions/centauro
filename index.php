@@ -37,8 +37,7 @@ $capital = $resultado->fetch_assoc();
                     <div class="card-box noradius noborder bg-success">
                         <i class="fas fa-piggy-bank float-right text-white"></i>
                         <h6 class="text-white text-uppercase m-b-20">Capital</h6>
-                        <h3 class="m-b-20 text-white counter">
-                            <?php echo number_format($capital['capital'], 2, '.', ','); ?></h3>
+                        <h3 class="m-b-20 text-white counter"><?php echo number_format($capital['capital'], 2, '.', ','); ?></h3>
                         <span class="text-white">Total Invertido </span>
                     </div>
                 </div>
@@ -55,8 +54,7 @@ $faltante = $resultado->fetch_assoc();
                     <div class="card-box noradius noborder bg-warning">
                         <i class="fas fa-coins float-right text-white"></i>
                         <h6 class="text-white text-uppercase m-b-20">Por Recaudar</h6>
-                        <h3 class="m-b-20 text-white counter">
-                            <?php echo number_format($faltante['faltante'], 2) ?></h3>
+                        <h3 class="m-b-20 text-white counter"><?php echo number_format($faltante['faltante'], 2, '.', ','); ?></h3>
                         <span class="text-white">Dinero faltante</span>
                     </div>
                 </div>
@@ -64,7 +62,6 @@ $faltante = $resultado->fetch_assoc();
                 <!-- PHP -->
                 <?php
 $cobrado = $faltante['recaudado'] - $faltante['faltante'];
-$cob = number_format($cobrado, 2, '.', ',')
 ?>
                 <!-- PHP -->
 
@@ -72,8 +69,7 @@ $cob = number_format($cobrado, 2, '.', ',')
                     <div class="card-box noradius noborder bg-primary">
                         <i class="fas fa-hand-holding-usd float-right text-white"></i>
                         <h6 class="text-white text-uppercase m-b-20">Recaudado</h6>
-                        <h3 class="m-b-20 text-white counter">
-                            <?php echo $cob ?></h3>
+                        <h3 class="m-b-20 text-white counter"><?php echo number_format($cobrado, 2, '.', ','); ?></h3>
                         <span class="text-white">Dinero recuperado</span>
                     </div>
                 </div>
