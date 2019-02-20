@@ -212,7 +212,7 @@ if ($_POST['credito'] == 'nuevo-historial') {
 
                 if ($balance == 0) {
                     try {
-                        $sql = "SELECT (select count(*) from balance where _idCredit = C.idCredit and balpay = 1 and state = 0) as totalP
+                        $sql = "SELECT datediff((select date from balance where _idCredit = C.idCredit AND state = 0 ORDER BY idBalance DESC LIMIT 1), C.dateStart) as totalP
                         FROM credit C WHERE idCredit = $id_registro";
                         $resultado = $conn->query($sql);
                     } catch (Exception $e) {
@@ -324,7 +324,7 @@ if ($_POST['credito'] == 'nuevo-ingreso') {
                 //Si el saldo es = a 0 es porque termino de pagar el credio y se convierte en cancelado
                 if ($balance == 0) {
                     try {
-                        $sql = "SELECT (select count(*) from balance where _idCredit = C.idCredit and balpay = 1 and state = 0) as totalP
+                        $sql = "SELECT datediff((select date from balance where _idCredit = C.idCredit AND state = 0 ORDER BY idBalance DESC LIMIT 1), C.dateStart) as totalP
                         FROM credit C WHERE idCredit = $pago->code";
                         $resultado = $conn->query($sql);
                     } catch (Exception $e) {
