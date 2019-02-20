@@ -29,7 +29,7 @@ if ($_POST['tipo'] == 'pago') {
 
             if ($new_totalB == 0) {
                 try {
-                    $sql = "SELECT (select count(*) from balance where _idCredit = C.idCredit and balpay = 1 and state = 0) as totalP
+                    $sql = "SELECT datediff((select date from balance where _idCredit = C.idCredit AND state = 0 ORDER BY idBalance DESC LIMIT 1), C.dateStart) as totalP
                     FROM credit C WHERE idCredit = $idCredit";
                     $resultado = $conn->query($sql);
                 } catch (Exception $e) {
