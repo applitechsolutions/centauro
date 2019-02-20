@@ -64,6 +64,7 @@ $faltante = $resultado->fetch_assoc();
                 <!-- PHP -->
                 <?php
 $cobrado = $faltante['recaudado'] - $faltante['faltante'];
+$cob = number_format($cobrado, 2, '.', ',')
 ?>
                 <!-- PHP -->
 
@@ -72,7 +73,7 @@ $cobrado = $faltante['recaudado'] - $faltante['faltante'];
                         <i class="fas fa-hand-holding-usd float-right text-white"></i>
                         <h6 class="text-white text-uppercase m-b-20">Recaudado</h6>
                         <h3 class="m-b-20 text-white counter">
-                            <?php echo number_format($cobrado, 2, '.', ','); ?></h3>
+                            <?php echo $cob ?></h3>
                         <span class="text-white">Dinero recuperado</span>
                     </div>
                 </div>
