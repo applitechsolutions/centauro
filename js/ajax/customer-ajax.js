@@ -194,7 +194,7 @@ $(document).ready(function () {
                 $.each(data, function (key, registro) {
                     totalRecord = parseInt(totalRecord) + 1;
                     if (registro.cancel == 1) {
-                        let date = new Date(registro.dateStart);
+                        let date = new Date(registro.dateStart.replace(/-/g, '\/'));
 
                         let options = {
                           year: 'numeric',
@@ -215,7 +215,7 @@ $(document).ready(function () {
                         nuevaFila += "</tr>";
                         $("#pagadosR").append(nuevaFila);
                     } else {
-                        let date = new Date(registro.dateStart);
+                        let date = new Date(registro.dateStart.replace(/-/g, '\/'));
 
                         let options = {
                           year: 'numeric',
