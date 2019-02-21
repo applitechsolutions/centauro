@@ -255,7 +255,7 @@ $(document).ready(function () {
                             if (differencia <= 30) {
                                 var difference = 30 - parseInt(differencia);
                                 totalBuenos = parseInt(totalBuenos) + 1;
-                                nuevaFila += "<td><div class='alert alert-primary' role='alert'><strong>¡PAGANDO! Cliente activo </strong> aún tiene " + difference + " para cancelar el crédito</div></td>";
+                                nuevaFila += "<td><div class='alert alert-primary' role='alert'><strong>¡PAGANDO! Cliente activo </strong> aún tiene " + difference + " días para cancelar el crédito</div></td>";
                             } else {
                                 var difference = parseInt(differencia) - 30;
                                 nuevaFila += "<td><div class='alert alert-danger' role='alert'><strong>¡RIESGO! Cliente atrasado </strong>" + difference + " días atrasado desde que venció el plazo</div></td>";
