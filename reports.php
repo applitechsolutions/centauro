@@ -110,6 +110,14 @@ try {
                                                 <button type="submit" class="btn btn-primary pull-left"><i class="fab fa-rev"></i>
                                                     Generar Listado</button>
                                                 </div>
+                                                <div class="form-group col-xl-3">
+                                                    <div class="card-box noradius noborder bg-info">
+                                                        <i class="fas fa-money-bill-alt float-right text-white"></i>
+                                                        <h6 class="text-white text-uppercase m-b-20">Total Por Recaudar:</h6>
+                                                        <h3 class="m-b-20 text-white counter totalCustomer">0.00</h3>
+                                                        <span class="text-white">En Quetzales</span>
+                                                    </div>
+                                                </div>
                                                 </div>
                                                 <div id="listadoReporte1" class="modal-body">
                                                 </div>
@@ -217,7 +225,6 @@ try {
                                                         <span class="text-white">En Quetzales</span>
                                                     </div>
                                                 </div>
-                                                
                                                 <div id="listadoReporte3" class="modal-body">
                                                     <div class="card-body table-responsive">
                                                         <table id="example1" class="table table-bordered table-hover display">

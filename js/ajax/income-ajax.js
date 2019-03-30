@@ -5,6 +5,7 @@ $(document).ready(function () {
     $('#form-diario').on('submit', function (e) {
         e.preventDefault();
         $('#example2').DataTable({
+            "bDestroy": true,
             'paging': false
         });
 

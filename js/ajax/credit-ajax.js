@@ -183,6 +183,7 @@ $(document).ready(function () {
         e.preventDefault();
         $.fn.dataTable.moment('DD/MM/YYYY');
         $('#example2').DataTable({
+            "bDestroy": true,
             'paging': false
         });
 

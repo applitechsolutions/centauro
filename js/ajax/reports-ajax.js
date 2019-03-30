@@ -38,7 +38,9 @@ $(document).ready(function () {
             dataType: "json",
             success: function (data) {
                 console.log(data);
+                var total = 0;
                 $.each(data, function (key, registro) { 
+                    total = parseFloat(total) + parseFloat(registro.total);
                     var contenido = "<tr>";
                     contenido += "<td>" + registro.code + "</td>";
                     contenido += "<td>" + convertDate(registro.dateStart) + "</td>";
@@ -51,6 +53,7 @@ $(document).ready(function () {
                 });
                 Example2();
                 swal.close();
+                $('.totalCustomer').text(total.toFixed(2));
             }, 
             error: function (data) {
                 swal({
