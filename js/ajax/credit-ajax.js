@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     var id_pago = 0;
 
@@ -6,11 +6,11 @@ $(document).ready(function () {
         $('#monto').focus();
     });
 
-    $('#fechaBalance').blur(function () {
-       $('#amountPay').focus(); 
+    $('#fechaBalance').blur(function() {
+        $('#amountPay').focus();
     });
 
-    $('#form-credito').on('submit', function (e) {
+    $('#form-credito').on('submit', function(e) {
         e.preventDefault();
 
         var datos = $(this).serializeArray();
@@ -20,7 +20,7 @@ $(document).ready(function () {
             data: datos,
             url: $(this).attr('action'),
             dataType: 'json',
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 var resultado = data;
                 if (resultado.respuesta == 'exito') {
@@ -30,11 +30,11 @@ $(document).ready(function () {
                         'success'
                     )
                     if (resultado.proceso == 'nuevo') {
-                        setTimeout(function () {
+                        setTimeout(function() {
                             location.reload();
                         }, 1500);
                     } else if (resultado.proceso == 'editado') {
-                        setTimeout(function () {
+                        setTimeout(function() {
                             window.location.href = 'listCredits.php';
                         }, 1500);
                     }
@@ -52,7 +52,7 @@ $(document).ready(function () {
                     })
                 }
             },
-            error: function (data) {
+            error: function(data) {
                 swal({
                     type: 'error',
                     title: 'Error',
@@ -63,61 +63,119 @@ $(document).ready(function () {
 
     });
 
-    $('#form-pay').on('submit', function (e) {
+    $('.borrar_credito').on('click', function(e) {
+
+        e.preventDefault();
+
+        var id = $(this).attr('data-id');
+        var tipo = $(this).attr('data-tipo');
+        var table = $('#example1').DataTable();
+        var $row = $(this);
+
+        swal({
+            title: '¿Estás Seguro?',
+            text: "Un registro eliminado no puede recuperarse",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, Eliminar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            $.ajax({
+                type: 'POST',
+                data: {
+                    'id': id,
+                    'credito': 'eliminar'
+                },
+                url: 'BLL/' + tipo + '.php',
+                success(data) {
+                    console.log(data);
+                    var resultado = JSON.parse(data);
+                    if (resultado.respuesta == 'exito') {
+                        swal(
+                            'Eliminado!',
+                            'El crédito ha sido borrado con exito.',
+                            'success'
+                        );
+                        table.row($row.parents('tr')).remove().draw();
+                    } else {
+                        swal({
+                            type: 'error',
+                            title: 'Error!',
+                            text: 'No se pudo eliminar el crédito.'
+                        });
+                    }
+                },
+                error: function(data) {
+                    swal({
+                        position: 'top-end',
+                        type: 'error',
+                        title: 'Algo salió mal, intenta de nuevo',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        });
+    });
+
+    $('#form-pay').on('submit', function(e) {
         e.preventDefault();
 
         var saldoR = $("#totalB").val();
         var pago = $("#amountPay").val();
 
-  
-            var datos = $(this).serializeArray();
-            console.log(datos);
-            swal({
-                title: 'Ingresando pago...'
-            });
-            swal.showLoading();
-            $.ajax({
-                type: $(this).attr('method'),
-                data: datos,
-                url: $(this).attr('action'),
-                datatype: 'json',
-                success: function (data) {
-                    console.log(data);
-                    var resultado = JSON.parse(data);
-                    if (resultado.respuesta == 'exito') {
-                        document.getElementById("form-pay").reset();
-                        $('#balance').modal('toggle');
-                        swal.close();
-                        swal({
-                            position: 'top-end',
-                            type: 'success',
-                            title: '¡' + resultado.mensaje,
-                            showConfirmButton: false,
-                            timer: 1000
-                        })
-                        if (resultado.cancelada == 1) {
-                            setTimeout(function () {
-                                window.location.href = 'listCredits.php';
-                            }, 1500);
-                        }
-                    } else if (resultado.respuesta == 'vacio') {
-                        swal({
-                            type: 'warning',
-                            title: 'Oops...',
-                            text: 'No se han podido procesar los datos',
-                        })
-                    } else if (resultado.respuesta == 'error') {
-                        swal({
-                            type: 'error',
-                            title: 'Error',
-                            text: 'No se pudo guardar en la base de datos',
-                        })
+
+        var datos = $(this).serializeArray();
+        console.log(datos);
+        swal({
+            title: 'Ingresando pago...'
+        });
+        swal.showLoading();
+        $.ajax({
+            type: $(this).attr('method'),
+            data: datos,
+            url: $(this).attr('action'),
+            datatype: 'json',
+            success: function(data) {
+                console.log(data);
+                var resultado = JSON.parse(data);
+                if (resultado.respuesta == 'exito') {
+                    document.getElementById("form-pay").reset();
+                    $('#balance').modal('toggle');
+                    swal.close();
+                    swal({
+                        position: 'top-end',
+                        type: 'success',
+                        title: '¡' + resultado.mensaje,
+                        showConfirmButton: false,
+                        timer: 1000
+                    })
+                    if (resultado.cancelada == 1) {
+                        setTimeout(function() {
+                            window.location.href = 'listCredits.php';
+                        }, 1500);
                     }
+                } else if (resultado.respuesta == 'vacio') {
+                    swal({
+                        type: 'warning',
+                        title: 'Oops...',
+                        text: 'No se han podido procesar los datos',
+                    })
+                } else if (resultado.respuesta == 'error') {
+                    swal({
+                        type: 'error',
+                        title: 'Error',
+                        text: 'No se pudo guardar en la base de datos',
+                    })
                 }
-            })
+            }
+        })
     });
 
-    $('.agregar_pago').on('click', function (e) {``
+    $('.agregar_pago').on('click', function(e) {
+        ``
         e.preventDefault();
 
         var fechapago = $('#fechapago').val();
@@ -150,9 +208,9 @@ $(document).ready(function () {
 
     });
 
-    $('#monto').on('keypress', function (e) {
+    $('#monto').on('keypress', function(e) {
         var k = e.keyCode || e.which;
-            if (k == 13) {
+        if (k == 13) {
             var fechapago = $('#fechapago').val();
             var monto = $('#monto').val();
             console.log(id_pago);
@@ -176,10 +234,10 @@ $(document).ready(function () {
                 })
             }
             return false;
-        } 
+        }
     });
 
-    $('#form-historial').on('submit', function (e) {
+    $('#form-historial').on('submit', function(e) {
         e.preventDefault();
         $.fn.dataTable.moment('DD/MM/YYYY');
         $('#example2').DataTable({
@@ -204,53 +262,53 @@ $(document).ready(function () {
             json += ',{"date":"' + fechapago[i].value + '"'
             json += ',"amount":"' + monto[i].value + '"}'
         }
-            obj = JSON.parse('{ "pago" : [' + json.substr(1) + ']}');
-            datos.push({ name: 'json', value: JSON.stringify(obj) });
+        obj = JSON.parse('{ "pago" : [' + json.substr(1) + ']}');
+        datos.push({ name: 'json', value: JSON.stringify(obj) });
 
-            console.log(datos);
+        console.log(datos);
 
-            $.ajax({
-                type: $(this).attr('method'),
-                data: datos,
-                url: $(this).attr('action'),
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data);
-                    var resultado = data;
-                    swal.close();
-                    if (resultado.respuesta == 'exito') {
-                        swal(
-                            'Exito!',
-                            '¡' + resultado.mensaje,
-                            'success'
-                        )
-                        if (resultado.proceso == 'nuevo') {
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1500);
-                        } else if (resultado.proceso == 'editado') {
-                            setTimeout(function () {
-                                //window.location.href = 'listTenants.php';
-                            }, 1500);
-                        }
-                    } else if (resultado.respuesta == 'vacio') {
-                        swal({
-                            type: 'warning',
-                            title: 'Oops...',
-                            text: 'Debe llenar todos los campos',
-                        })
-                    } else if (resultado.respuesta == 'error') {
-                        swal({
-                            type: 'error',
-                            title: 'Error',
-                            text: 'No se pudo guardar en la base de datos',
-                        })
+        $.ajax({
+            type: $(this).attr('method'),
+            data: datos,
+            url: $(this).attr('action'),
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                var resultado = data;
+                swal.close();
+                if (resultado.respuesta == 'exito') {
+                    swal(
+                        'Exito!',
+                        '¡' + resultado.mensaje,
+                        'success'
+                    )
+                    if (resultado.proceso == 'nuevo') {
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1500);
+                    } else if (resultado.proceso == 'editado') {
+                        setTimeout(function() {
+                            //window.location.href = 'listTenants.php';
+                        }, 1500);
                     }
+                } else if (resultado.respuesta == 'vacio') {
+                    swal({
+                        type: 'warning',
+                        title: 'Oops...',
+                        text: 'Debe llenar todos los campos',
+                    })
+                } else if (resultado.respuesta == 'error') {
+                    swal({
+                        type: 'error',
+                        title: 'Error',
+                        text: 'No se pudo guardar en la base de datos',
+                    })
                 }
-            })
+            }
+        })
     });
 
-    $('.detalle_balance').on('click', function (e) {
+    $('.detalle_balance').on('click', function(e) {
         e.preventDefault();
         $("#detallesB").find('tbody').html("");
         $("#anuladosB").find('tbody').html("");
@@ -271,25 +329,24 @@ $(document).ready(function () {
                 console.log(data);
                 var totalBal = 0;
                 var bandera = 0;
-                $.each(data, function (key, registro) {
+                $.each(data, function(key, registro) {
                     if (registro.state == 1) {
                         var nuevaFila = "<tr>";
                         let date = new Date(registro.date.replace(/-/g, '\/'));
 
                         let options = {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
                         };
 
-                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
+                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); + "</td>";
                         if (registro.balpay == 1) {
                             nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
-                        }
-                        else {
+                        } else {
                             nuevaFila += "<td><div class='alert alert-danger' role='alert'>Saldo</div></td>";
                         }
-                        nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";                        
+                        nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";
                         nuevaFila += "</tr>";
                         $("#anuladosB").append(nuevaFila);
                     } else {
@@ -301,16 +358,15 @@ $(document).ready(function () {
                         let date = new Date(registro.date.replace(/-/g, '\/'));
 
                         let options = {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
                         };
 
-                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
+                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); + "</td>";
                         if (registro.balpay == 1) {
                             nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
-                        }
-                        else {
+                        } else {
                             nuevaFila += "<td><div class='alert alert-danger' role='alert'>Saldo</div></td>";
                         }
                         nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";
@@ -321,7 +377,7 @@ $(document).ready(function () {
                         } else {
                             nuevaFila += "<td></td>";
                         }
-                        
+
 
                         nuevaFila += "</tr>";
                         $("#detallesB").append(nuevaFila);
@@ -331,9 +387,9 @@ $(document).ready(function () {
                 $("#totalB").val(totalBal.toFixed(2));
                 $("#idCredito").val(id);
                 swal.close();
-            $('#balance').modal('show');
+                $('#balance').modal('show');
             },
-            error: function (data) {
+            error: function(data) {
                 swal({
                     type: 'error',
                     title: 'Error',
@@ -343,7 +399,7 @@ $(document).ready(function () {
         });
     });
 
-    $('.detalle_balanceC').on('click', function (e) {
+    $('.detalle_balanceC').on('click', function(e) {
         e.preventDefault();
         $("#detallesBC").find('tbody').html("");
         $("#anuladosBC").find('tbody').html("");
@@ -363,25 +419,24 @@ $(document).ready(function () {
             success(data) {
                 console.log(data);
                 var bandera = 0;
-                $.each(data, function (key, registro) {
+                $.each(data, function(key, registro) {
                     if (registro.state == 1) {
                         var nuevaFila = "<tr>";
                         let date = new Date(registro.date.replace(/-/g, '\/'));
 
                         let options = {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
                         };
 
-                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
+                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); + "</td>";
                         if (registro.balpay == 1) {
                             nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
-                        }
-                        else {
+                        } else {
                             nuevaFila += "<td><div class='alert alert-danger' role='alert'>Saldo</div></td>";
                         }
-                        nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";                        
+                        nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";
                         nuevaFila += "</tr>";
                         $("#anuladosBC").append(nuevaFila);
                     } else {
@@ -393,16 +448,15 @@ $(document).ready(function () {
                         let date = new Date(registro.date.replace(/-/g, '\/'));
 
                         let options = {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
                         };
 
-                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
+                        nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); + "</td>";
                         if (registro.balpay == 1) {
                             nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
-                        }
-                        else {
+                        } else {
                             nuevaFila += "<td><div class='alert alert-danger' role='alert'>Saldo</div></td>";
                         }
                         nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";
@@ -412,9 +466,9 @@ $(document).ready(function () {
                     }
                 });
                 swal.close();
-            $('#balanceC').modal('show');
+                $('#balanceC').modal('show');
             },
-            error: function (data) {
+            error: function(data) {
                 swal({
                     type: 'error',
                     title: 'Error',
@@ -434,15 +488,15 @@ function listCustomer2() {
         type: "GET",
         url: 'BLL/listCustomer2.php',
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             console.log(data);
-            $.each(data, function (key, registro) {
-                if (registro.idCollector == idCollector) {                    
-                $("#idCustomer").append('<option value=' + registro.idCustomer + '>' + registro.customer+ ' (' + registro.commerce + ')' + '</option>');
+            $.each(data, function(key, registro) {
+                if (registro.idCollector == idCollector) {
+                    $("#idCustomer").append('<option value=' + registro.idCustomer + '>' + registro.customer + ' (' + registro.commerce + ')' + '</option>');
                 }
             });
         },
-        error: function (data) {
+        error: function(data) {
             alert('error');
         }
     });
@@ -484,17 +538,16 @@ function anularPago(idCredit, idBalance) {
                             console.log(data);
                             var totalBal = 0;
                             var bandera = 0;
-                            $.each(data, function (key, registro) {
+                            $.each(data, function(key, registro) {
                                 if (registro.state == 1) {
                                     var nuevaFila = "<tr>";
                                     nuevaFila += "<td>" + convertDate(registro.date); + "</td>";
                                     if (registro.balpay == 1) {
                                         nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
-                                    }
-                                    else {
+                                    } else {
                                         nuevaFila += "<td><div class='alert alert-danger' role='alert'>Saldo</div></td>";
                                     }
-                                    nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";                        
+                                    nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";
                                     nuevaFila += "</tr>";
                                     $("#anuladosB").append(nuevaFila);
                                 } else {
@@ -504,24 +557,23 @@ function anularPago(idCredit, idBalance) {
                                         bandera = 1;
                                     }
                                     let date = new Date(registro.date);
-            
+
                                     let options = {
-                                      year: 'numeric',
-                                      month: 'long',
-                                      day: 'numeric'
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
                                     };
-            
-                                    nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); +"</td>";
+
+                                    nuevaFila += "<td>" + date.toLocaleDateString('es-MX', options); + "</td>";
                                     if (registro.balpay == 1) {
                                         nuevaFila += "<td><div class='alert alert-primary' role='alert'>Pago</div></td>";
-                                    }
-                                    else {
+                                    } else {
                                         nuevaFila += "<td><div class='alert alert-danger' role='alert'>Saldo</div></td>";
                                     }
                                     nuevaFila += "<td><h6>Q." + registro.amount + "</h6></td>";
                                     nuevaFila += "<td><h6>Q." + registro.balance + "</h6></td>";
                                     nuevaFila += "<td><a role='button' href='#' class='btn btn-danger' onclick='anularPago(" + idCredit + "," + registro.idBalance + ")'><i class='fa fa-times'></i></a></td>";
-            
+
                                     nuevaFila += "</tr>";
                                     $("#detallesB").append(nuevaFila);
                                 }
@@ -530,7 +582,7 @@ function anularPago(idCredit, idBalance) {
                             $("#totalB").val(totalBal.toFixed(2));
                             $("#idCredito").val(idCredit);
                         },
-                        error: function (data) {
+                        error: function(data) {
                             swal({
                                 type: 'error',
                                 title: 'Error',

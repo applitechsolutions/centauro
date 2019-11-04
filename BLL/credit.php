@@ -153,6 +153,56 @@ if ($_POST['credito'] == 'editar') {
     die(json_encode($respuesta));
 }
 
+if ($_POST['credito'] === 'eliminar') {
+    $idCredit = $_POST['id'];
+
+    try {
+        if ($idCredit === '') {
+            $respuesta = array(
+                'respuesta' => 'vacio',
+            );
+        } else {
+            mysqli_autocommit($conn, false);
+            $query_success = true;
+
+            $stmt = $conn->prepare("DELETE FROM balance WHERE _idCredit = ?");
+            $stmt->bind_param("i", $idCredit);
+            if (!mysqli_stmt_execute($stmt)) {
+                $query_success = false;
+            }
+            mysqli_stmt_close($stmt);
+
+            $stmt = $conn->prepare("DELETE FROM credit WHERE idCredit = ?");
+            $stmt->bind_param("i", $idCredit);
+
+            if (!mysqli_stmt_execute($stmt)) {
+                $query_success = false;
+            }
+            mysqli_stmt_close($stmt);
+
+            if ($query_success) {
+                mysqli_commit($conn);
+                $respuesta = array(
+                    'respuesta' => 'exito',
+                    'idCredit' => $idCredit,
+                    'mensaje' => 'Crédito borrado correctamente!',
+                    'proceso' => 'editado',
+                );
+            } else {
+                mysqli_rollback($conn);
+                $respuesta = array(
+                    'respuesta' => 'error',
+                    'idCredit' => $idCredit,
+                );
+            }
+            $conn->close();
+        }
+    } catch (Exception $e) {
+        echo 'Error: ' . $e . getMessage();
+    }
+    die(json_encode($respuesta));
+}
+
 if ($_POST['credito'] == 'nuevo-historial') {
 
     $idCustomer = $_POST['idCustomer'];
