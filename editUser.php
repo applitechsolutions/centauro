@@ -30,7 +30,7 @@ if (!filter_var($id, FILTER_VALIDATE_INT)) {
             </div>
             <!-- end row -->
             <?php
-$sql = "SELECT firstName, lastName, permissions, userName FROM `user` WHERE `idUser` = $id ";
+$sql = "SELECT firstName, lastName, permissions, userName, _idCollector FROM `user` WHERE `idUser` = $id ";
 $resultado = $conn->query($sql);
 $user = $resultado->fetch_assoc();
 ?>
@@ -50,12 +50,14 @@ $user = $resultado->fetch_assoc();
                                     <div class="form-group">
                                         <label for="firstName">Nombre<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="firstName" name="firstName"
-                                            placeholder="Escriba el nombre del usuario" value="<?php echo $user['firstName']; ?>">
+                                            placeholder="Escriba el nombre del usuario"
+                                            value="<?php echo $user['firstName']; ?>">
                                     </div>
                                     <div class="form-group">
                                         <label for="lastName">Apellido<span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="lastName" name="lastName"
-                                            placeholder="Escriba el apellido del usuario" value="<?php echo $user['lastName']; ?>">
+                                            placeholder="Escriba el apellido del usuario"
+                                            value="<?php echo $user['lastName']; ?>">
                                     </div>
                                     <div class="row">
                                         <label class="col-sm-2 col-form-label">Acceso</label>
@@ -63,71 +65,101 @@ $user = $resultado->fetch_assoc();
                                             <?php if ($user['permissions'] == '0') {?>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="admin"
-                                                        value="0" checked>
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="admin" value="0" checked>
                                                     Administrador
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="operativo"
-                                                        value="1">
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="operativo" value="1">
                                                     Operativo
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="consulta"
-                                                        value="2">
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="consulta" value="2">
                                                     Consulta
                                                 </label>
                                             </div>
                                             <?php } elseif ($user['permissions'] == '1') {?>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="admin"
-                                                        value="0">
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="admin" value="0">
                                                     Administrador
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="operativo"
-                                                        value="1" checked>
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="operativo" value="1" checked>
                                                     Operativo
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="consulta"
-                                                        value="2">
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="consulta" value="2">
                                                     Consulta
                                                 </label>
                                             </div>
                                             <?php } elseif ($user['permissions'] == '2') {?>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="admin"
-                                                        value="0">
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="admin" value="0">
                                                     Administrador
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="operativo"
-                                                        value="1">
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="operativo" value="1">
                                                     Operativo
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="consulta"
-                                                        value="2" checked>
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="consulta" value="2" checked>
                                                     Consulta
                                                 </label>
                                             </div>
                                             <?php }?>
                                         </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label for="idCollector">
+                                            Cobrador <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-control select2" id="idCollector" name="idCollector">
+                                            <?php
+try {
+    $cobrador_actual = $user['_idCollector'];
+    $sql = "SELECT * FROM collector";
+    $resultado = $conn->query($sql);
+    while ($collector_user = $resultado->fetch_assoc()) {
+        if ($collector_user['idCollector'] == $cobrador_actual) {?>
+                                            <option value="<?php echo $collector_user['idCollector']; ?>" selected>
+                                                <?php echo $collector_user['firstName'] . ' ' . $collector_user['lastName']; ?>
+                                            </option>
+                                            <?php
+} else {?>
+                                            <option value="<?php echo $collector_user['idCollector']; ?>">
+                                                <?php echo $collector_user['firstName'] . ' ' . $collector_user['lastName']; ?>
+                                            </option>
+                                            <?php
+}
+    }
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+                                        </select>
                                     </div>
                                     <br>
                                     <div class="form-group-row">

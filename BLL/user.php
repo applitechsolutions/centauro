@@ -11,6 +11,8 @@ if ($_POST['usuario'] == 'nuevo') {
     $permissions = $_POST['gridRadios'];
     $pass_hashed = password_hash($passWord, PASSWORD_BCRYPT);
 
+    $idCollector = $_POST['idCollector'];
+
     try {
         if ($firstName == '' or $lastName == '' or $userName == '' or $passWord == '' or $confirm_passWord == '') {
             $respuesta = array(
@@ -21,8 +23,8 @@ if ($_POST['usuario'] == 'nuevo') {
                 'respuesta' => 'no_igual',
             );
         } else {
-            $stmt = $conn->prepare("INSERT INTO user (firstName, lastName, userName, passWord, permissions) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssi", $firstName, $lastName, $userName, $pass_hashed, $permissions);
+            $stmt = $conn->prepare("INSERT INTO user (firstName, lastName, userName, passWord, permissions, _idCollector) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssii", $firstName, $lastName, $userName, $pass_hashed, $permissions, $idCollector);
             $stmt->execute();
             $id_registro = $stmt->insert_id;
             if ($id_registro > 0) {
@@ -54,14 +56,16 @@ if ($_POST['usuario'] == 'editar') {
     $lastName = $_POST['lastName'];
     $permissions = $_POST['gridRadios'];
 
+    $idCollector = $_POST['idCollector'];
+
     try {
         if ($firstName == '' or $lastName == '') {
             $respuesta = array(
                 'respuesta' => 'vacio',
             );
         } else {
-            $stmt = $conn->prepare("UPDATE user SET firstName = ?, lastName = ?, permissions = ? WHERE idUser = ?");
-            $stmt->bind_param("ssii", $firstName, $lastName, $permissions, $idUser);
+            $stmt = $conn->prepare("UPDATE user SET firstName = ?, lastName = ?, permissions = ?, _idCollector = ? WHERE idUser = ?");
+            $stmt->bind_param("ssiii", $firstName, $lastName, $permissions, $idCollector, $idUser);
             $stmt->execute();
             if ($stmt->affected_rows) {
                 $respuesta = array(
