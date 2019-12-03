@@ -41,13 +41,14 @@ include_once 'functions/bd_conexion.php';
                                             <th>Nombre</th>
                                             <th>Usuario</th>
                                             <th>Acceso</th>
+                                            <th>Cobrador</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
 try {
-    $sql = "SELECT idUser, firstName, lastName, permissions, userName  FROM user WHERE idUser !=" . $_SESSION['idusuario'] . " AND state = 0;";
+    $sql = "SELECT idUser, firstName, lastName, permissions, userName, (select CONCAT(firstName, ' ', lastName) from collector where idCollector = _idCollector) as collector FROM user WHERE idUser !=" . $_SESSION['idusuario'] . " AND state = 0;";
     $resultado = $conn->query($sql);
 } catch (Exception $e) {
     $error = $e->getMessage();
@@ -77,12 +78,15 @@ while ($user = $resultado->fetch_assoc()) {
                                             <?php
 }?>
                                             <td>
+                                                <?php echo $user['collector']; ?>
+                                            </td>
+                                            <td>
                                                 <a href="#" data-id="<?php echo $user['idUser']; ?>" data-tipo="user"
                                                     class="btn btn-outline-danger pull-right borrar_usuario" style="
-													margin-left: 5px;"><i
-                                                        class="fa fa-trash"></i>
+													margin-left: 5px;"><i class="fa fa-trash"></i>
                                                     Eliminar</a>
-                                                <a class="btn btn-outline-primary pull-right" href="editUser.php?id=<?php echo $user['idUser']; ?>"><i
+                                                <a class="btn btn-outline-primary pull-right"
+                                                    href="editUser.php?id=<?php echo $user['idUser']; ?>"><i
                                                         class="fas fa-edit"></i> Editar</a>
                                             </td>
                                         </tr>

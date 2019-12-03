@@ -40,7 +40,8 @@ include_once 'functions/bd_conexion.php';
                                 <form autocomplete="off" role="form" id="form-usuario" name="form-usuario" method="POST"
                                     action="BLL/user.php">
                                     <div class="form-group">
-                                        <label for="userName">Nombre de Usuario<span class="text-danger">*</span></label>
+                                        <label for="userName">Nombre de Usuario<span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="userName" name="userName"
                                             placeholder="Escriba el nombre de usuario para iniciar sesión" autofocus>
                                     </div>
@@ -58,15 +59,18 @@ include_once 'functions/bd_conexion.php';
                                         <div class="form-group col-xl-6">
                                             <label for="passWord">Contraseña<span class="text-danger">*</span></label>
                                             <input type="password" id="passWord" name="passWord" class="form-control"
-                                                aria-describedby="passwordHelpInline" placeholder="Contraseña del usuario">
+                                                aria-describedby="passwordHelpInline"
+                                                placeholder="Contraseña del usuario">
                                             <small id="contraseña" class="text-muted">
                                                 Debe tener 8-20 caracteres de largo.
                                             </small>
                                         </div>
                                         <div class="form-group col-xl-6">
-                                            <label for="confirm_passWord">Confirmar Contraseña<span class="text-danger">*</span></label>
-                                            <input type="password" id="confirm_passWord" name="confirm_passWord" class="form-control"
-                                                aria-describedby="passwordHelpInline" placeholder="Confirme la contraseña">
+                                            <label for="confirm_passWord">Confirmar Contraseña<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="password" id="confirm_passWord" name="confirm_passWord"
+                                                class="form-control" aria-describedby="passwordHelpInline"
+                                                placeholder="Confirme la contraseña">
                                         </div>
                                     </div>
                                     <div class="row">
@@ -74,30 +78,56 @@ include_once 'functions/bd_conexion.php';
                                         <div class="col-sm-10">
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="admin"
-                                                        value="0" checked="">
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="admin" value="0" checked="">
                                                     Administrador
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="operativo"
-                                                        value="1">
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="operativo" value="1">
                                                     Operativo
                                                 </label>
                                             </div>
                                             <div class="form-check disabled">
                                                 <label class="form-check-label">
-                                                    <input class="form-check-input" type="radio" name="gridRadios" id="consulta"
-                                                        value="2">
+                                                    <input class="form-check-input" type="radio" name="gridRadios"
+                                                        id="consulta" value="2">
                                                     Consulta
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                     <br>
+                                    <div class="form-group">
+                                        <label for="idCollector">
+                                            Cobrador <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-control select2" style="width: 100% !important;"
+                                            id="idCollector" name="idCollector">
+                                            <option value="">Seleccione cobrador</option>
+                                            <?php
+try {
+    $sql = "SELECT idCollector, firstName, lastName FROM collector WHERE state = 0 ORDER BY firstName ASC";
+    $resultado = $conn->query($sql);
+    while ($collector = $resultado->fetch_assoc()) {
+        ?>
+                                            <option value="<?php echo $collector['idCollector']; ?>">
+                                                <?php echo $collector['firstName'] . " " . $collector['lastName']; ?>
+                                            </option>
+                                            <?php
+}
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+                                        </select>
+                                    </div>
+                                    <br>
                                     <input type="hidden" name="usuario" value="nuevo">
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
+                                        Guardar</button>
                                     <span class="text-danger"> *Debe llenar los campos obligatorios </span>
                                 </form>
 
