@@ -70,6 +70,7 @@ function convertDate(dateString) {
 <script src="js/ajax/credit-ajax.js"></script>
 <script src="js/ajax/income-ajax.js"></script>
 <script src="js/ajax/reports-ajax.js"></script>
+<script src="js/ajax/operative-ajax.js"></script>
 <script src="js/ajax/dashboard-ajax.js"></script>
 
 <script>
@@ -115,7 +116,7 @@ $(document).ready(function() {
     });
 });
 $(function() {
-    $('input[name="singledatepicker"], input[name="singledatepicker2"]').daterangepicker({
+    $('input[name="singledatepicker"], input[name="singledatepicker2"], input[name="singledatepicker3"]').daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
         locale: {

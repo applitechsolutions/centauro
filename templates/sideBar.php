@@ -6,10 +6,11 @@
         <div id="sidebar-menu">
 
             <ul class="navv">
-
+            <?php
+            if ($_SESSION['rol'] == '0') { ?>
                 <li class="submenu">
-                    <a href="index.php"><i class="fa fa-fw fa-area-chart"></i><span> Dashboard </span>
-                    </a>
+                <a href="index.php"><i class="fa fa-fw fa-area-chart"></i><span> Dashboard </span>
+                </a>
                 </li>
                 <li class="submenu">
                     <a href="newIncome.php"><i class="fa fa-fw fa-money"></i><span> Ingreso diario </span>
@@ -62,6 +63,16 @@
                             class="menu"></span>
                     </a>
                 </li>
+            <?php } elseif ($_SESSION['rol'] == '1') { ?>
+                <li class="submenu">
+                    <a href="#"><i class="fas fa-briefcase"></i><span> Operativos </span><span
+                            class="menu-arrow"></span></a>
+                    <ul class="list-unstyled">
+                        <li><a href="listIncomesOp.php"><i class="fa fa-fw fa-list"></i> Ver pagos de hoy </a></li>
+                        <li><a href="listCreditsOp.php"><i class="fa fa-fw fa-plus-square"></i> Ingresar pago </a></li>
+                    </ul>
+                </li>
+            <?php } ?>
             </ul>
 
             <div class="clearfix"></div>

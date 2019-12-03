@@ -175,12 +175,11 @@ $(document).ready(function() {
     });
 
     $('.agregar_pago').on('click', function(e) {
-        ``
+
         e.preventDefault();
 
         var fechapago = $('#fechapago').val();
         var monto = $('#monto').val();
-        console.log(id_pago);
 
         $('.counter').counterUp({
             delay: 10,
@@ -213,7 +212,6 @@ $(document).ready(function() {
         if (k == 13) {
             var fechapago = $('#fechapago').val();
             var monto = $('#monto').val();
-            console.log(id_pago);
 
             if ($('#fechapago').val() != '' && $('#monto').val() != '') {
                 var nuevaFila = "<tr id='detalle'>";

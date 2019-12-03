@@ -177,6 +177,7 @@ try {
                             <input type="hidden" id="ingresos" name="ingresos" value="">
                             <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Confirmar</button>
                             <span class="text-danger"> *Debe llenar los campos obligatorios </span>
+                            <a class="btn fa-pull-right reload"><i class="fas fa-redo-alt"></i></a>
                             </form>
                         </div>
                     </div><!-- end card-->

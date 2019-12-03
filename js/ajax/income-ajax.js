@@ -1,8 +1,13 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     var id_pago = 0;
 
-    $('#form-diario').on('submit', function (e) {
+    $('.reload').on('click', function(e) {
+        e.preventDefault();
+        balance();
+    });
+
+    $('#form-diario').on('submit', function(e) {
         e.preventDefault();
         $('#example2').DataTable({
             "bDestroy": true,
@@ -39,7 +44,7 @@ $(document).ready(function () {
             data: datos,
             url: $(this).attr('action'),
             dataType: 'json',
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 var resultado = data;
                 swal.close();
@@ -50,11 +55,11 @@ $(document).ready(function () {
                         'success'
                     )
                     if (resultado.proceso == 'nuevo') {
-                        setTimeout(function () {
+                        setTimeout(function() {
                             location.reload();
                         }, 1500);
                     } else if (resultado.proceso == 'editado') {
-                        setTimeout(function () {
+                        setTimeout(function() {
                             //window.location.href = 'listTenants.php';
                         }, 1500);
                     }
@@ -71,8 +76,8 @@ $(document).ready(function () {
                         text: 'No se pudo guardar en la base de datos',
                     })
                 }
-            }, 
-            error: function (data) {
+            },
+            error: function(data) {
                 swal({
                     position: 'top-end',
                     type: 'error',
@@ -88,7 +93,7 @@ $(document).ready(function () {
         $('#amount').focus();
     });
 
-    $('.agregar_diario').on('click', function (e) {
+    $('.agregar_diario').on('click', function(e) {
         e.preventDefault();
 
         var fechapago = $('#dateIncome').text();
@@ -99,14 +104,14 @@ $(document).ready(function () {
         var pagos = parseInt($('.pagos').text());
         console.log(fechapago);
         ingresos = ingresos + parseFloat(monto);
-        pagos = pagos + 1;        
+        pagos = pagos + 1;
 
         if ($('#dateIncome').val() != '' && $('#tarjeta') && $('#amount').val() != '') {
             var nuevaFila = "<tr id='detalle'>";
             nuevaFila += "<td><input class='fechaP_class' type='hidden' value='" + fechapago + "'>" + fechapago + "</td>";
             nuevaFila += "<td><input class='tarjetaP_class' type='hidden' value='" + codigo + "'>" + tarjeta + "</td>";
             nuevaFila += "<td><input class='montoP_class' type='hidden' value='" + monto + "'>" + monto + "</td>";
-            nuevaFila += "<td><a role='button' href='#' onclick='eliminar(" + id_pago + ", "+ monto +");' data-id-detalle='" + id_pago + "'class='btn btn-danger'><i class='fa fa-times'></i></a></td>";
+            nuevaFila += "<td><a role='button' href='#' onclick='eliminar(" + id_pago + ", " + monto + ");' data-id-detalle='" + id_pago + "'class='btn btn-danger'><i class='fa fa-times'></i></a></td>";
             nuevaFila += "</tr>";
             $("#pagos").append(nuevaFila);
             id_pago = id_pago + 1;
@@ -127,7 +132,7 @@ $(document).ready(function () {
 
     });
 
-    $('#amount').on('keypress', function (e) {
+    $('#amount').on('keypress', function(e) {
         var k = e.keyCode || e.which;
         if (k == 13) {
             var fechapago = $('#dateIncome').val();
@@ -138,14 +143,14 @@ $(document).ready(function () {
             var pagos = parseInt($('.pagos').text());
             console.log(ingresos);
             ingresos = ingresos + parseFloat(monto);
-            pagos = pagos + 1;           
-    
+            pagos = pagos + 1;
+
             if ($('#dateIncome').val() != '' && $('#tarjeta') && $('#amount').val() != '') {
                 var nuevaFila = "<tr id='detalle'>";
                 nuevaFila += "<td><input class='fechaP_class' type='hidden' value='" + fechapago + "'>" + fechapago + "</td>";
                 nuevaFila += "<td><input class='tarjetaP_class' type='hidden' value='" + codigo + "'>" + tarjeta + "</td>";
                 nuevaFila += "<td><input class='montoP_class' type='hidden' value='" + monto + "'>" + monto + "</td>";
-                nuevaFila += "<td><a role='button' href='#' onclick='eliminar(" + id_pago + ", "+ monto +");' data-id-detalle='" + id_pago + "'class='btn btn-danger'><i class='fa fa-times'></i></a></td>";
+                nuevaFila += "<td><a role='button' href='#' onclick='eliminar(" + id_pago + ", " + monto + ");' data-id-detalle='" + id_pago + "'class='btn btn-danger'><i class='fa fa-times'></i></a></td>";
                 nuevaFila += "</tr>";
                 $("#pagos").append(nuevaFila);
                 id_pago = id_pago + 1;
@@ -164,7 +169,7 @@ $(document).ready(function () {
                 })
             }
             return false;
-        } 
+        }
     });
 
 });
@@ -180,15 +185,15 @@ function listCustomer() {
         type: "GET",
         url: 'BLL/listCustomer.php',
         dataType: "json",
-        success: function (data) {
+        success: function(data) {
             console.log(data);
-            $.each(data, function (key, registro) {
-                if (registro._idCollector == idCollector) {                    
-                $("#code").append('<option value=' + registro.idCredit + '>' + registro.code + ' '+ registro.customer+ ' (' + registro.commerce + ')' + '</option>');
+            $.each(data, function(key, registro) {
+                if (registro._idCollector == idCollector) {
+                    $("#code").append('<option value=' + registro.idCredit + '>' + registro.code + ' ' + registro.customer + ' (' + registro.commerce + ')' + '</option>');
                 }
             });
         },
-        error: function (data) {
+        error: function(data) {
             alert('error');
         }
     });
@@ -200,21 +205,21 @@ function listCustomer() {
             'fecha': fecha
         },
         url: 'BLL/totalCredits.php',
-        success: function (data) {
+        success: function(data) {
             console.log(data);
-            $.each(data, function (key, registro) {
+            $.each(data, function(key, registro) {
                 if (registro.totalCreditos == null) {
                     $('.creditos').text("0.00");
-                    $('#creditos').val(0);               
+                    $('#creditos').val(0);
                 } else {
                     var totalCred = parseFloat(registro.totalCreditos);
                     $('.creditos').text(totalCred.toFixed(2));
                     $('#creditos').val(totalCred.toFixed(2));
-                    balance();     
+                    balance();
                 }
             });
         },
-        error: function (data) {
+        error: function(data) {
             alert('error');
         }
     });
@@ -249,14 +254,12 @@ function balance() {
 
     console.log(base);
     var balance = parseFloat(ingresos) + parseFloat(base) - parseFloat(creditos) - parseFloat(gastos);
-    
+
 
     $(".efectivo").text(balance.toFixed(2));
     $('.counter').counterUp({
         delay: 15,
         time: 500
     });
-     
+
 }
-
-
