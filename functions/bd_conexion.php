@@ -2,7 +2,7 @@
 
 $conn = mysqli_init();
 mysqli_ssl_set($conn,NULL,NULL, "/home/site/wwwroot/functions/DigiCertGlobalRootCA.crt.pem", NULL, NULL);
-mysqli_real_connect($conn, "applitech-mysql-restore.mysql.database.azure.com", "applitech", "nymgov-fotryc-5Pejqu", "centauro", 3306, MYSQLI_CLIENT_SSL);
+mysqli_real_connect($conn, "applitech-mysql-flexible.mysql.database.azure.com", "applitech", "28XHc5qt", "centauro", 3306, MYSQLI_CLIENT_SSL);
 
 /*$conn = new mysqli('localhost', 'root', '', 'centauro');
 
